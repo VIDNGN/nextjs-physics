@@ -87,6 +87,8 @@ try{
     message:
        'Uncomment this file and remove this line. Can delete this file after seeding the DB.',
     });
+  }
+  
 
 //     try {
 //         await client.sql`BEGIN`;
