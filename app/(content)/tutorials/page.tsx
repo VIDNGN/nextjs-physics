@@ -1,20 +1,31 @@
-import { lusitana } from "@/app/ui/fonts"
+import { lusitana } from "@/app/ui/fonts";
+import Breadcrumbs from "@/app/ui/tutorials/breadcrumbs";
+import TutorialsList from "@/app/ui/tutorials/tutorials-list/tutorials-list";
+import { Suspense } from "react";
+import { Metadata } from 'next';
 
-export default function Page(){
+export const metadata: Metadata = {
+    title: 'Tutorials'
+}
+export default async function Page() {
 
     return (
-        
+
         <main>
-     
-        <h1 className={ `${lusitana.className} mb-4 text-xl md:text 2xl` }> Tutorials </h1>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             
-        </div>
+            <Breadcrumbs breadcrumbs={[
+                { label: 'Home', href: '/' }, { label: 'Tutorials', href: '/tutorials', active: true, },
+            ]}
+
+            />
+
+            <h1 className={`${lusitana.className} mb-4 text-xl md:text 2xl`}> Tutorials </h1>
+
+            <div >
+                <Suspense fallback={null} > <TutorialsList /></Suspense>
+            </div>
         </main>
+    );
 
 
-    )
-
-    
 }

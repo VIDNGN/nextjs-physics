@@ -10,7 +10,7 @@ export type User = {
   };
 
 
-  export type Tutorial = {
+  export type TutorialsTable = {
     id: string;
     slug: string;
     title: string;
@@ -19,4 +19,24 @@ export type User = {
     description: string;
     formSlug: string;
   };
+
+  export type Tutorial ={
+    id: string;
+    slug: string;
+    title: string;
+    image_url: string;
+    date: string;
+    description: string;
+    formSlug: string;
+  }
+  
+  export type Customer = {
+    id: string;
+    name: string;
+    email: string;
+  }
+
+
+
+
   
