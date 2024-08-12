@@ -82,7 +82,11 @@ try{
 //     return insertedTutorials;
 // }
 
-// export async function GET() {
+ export async function GET() {
+  return Response.json({
+    message:
+       'Uncomment this file and remove this line. Can delete this file after seeding the DB.',
+    });
 
 //     try {
 //         await client.sql`BEGIN`;
