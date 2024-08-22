@@ -15,9 +15,10 @@ export type User = {
     slug: string;
     title: string;
     image_url: string;
+    image_url_2: string;
     date: string;
     description: string;
-    formSlug: string;
+    qslug: string;
   };
 
   export type Tutorial ={
@@ -25,9 +26,10 @@ export type User = {
     slug: string;
     title: string;
     image_url: string;
+    image_url_2: string;
     date: string;
     description: string;
-    formSlug: string;
+
   }
   
   export type Customer = {
@@ -36,7 +38,72 @@ export type User = {
     email: string;
   }
 
+export type Question = {
+  id: string;
+  tutorial_id: string;
+  type: string;
+  question: string;
+}
+
+export type QuestionField = {
+  id: string;
+  question: string;
+  type: string;
+}
+
+export type shortAnswer = {
+  id: string;
+  tutorial_id: string;
+  question_id: string;
+  question_slug: string;
+  question: string;
+  correct_answer: string;
+}
+
+export type optionAnswer = {
+  id: string;
+  tutorial_id: string;
+  question_id: string;
+  question_slug: string;
+  question: string;
+  option_text: string;
+  is_correct: boolean;
+}
 
 
+export type Equipment = {
+  id: string;
+  tutorial_id: string;
+  tutorial_slug: string;
+  question_slug: string;
+  equipment: string;
+}
 
-  
+export type studentAnswer = {
+  id: string;
+  tutorial_id: string;
+  question_id: string;
+  tutorial_slug: string;
+  question_slug: string;
+  question: string;
+  answer: string;
+
+}
+
+export type Option ={
+  id: string;
+  tutorial_id: string;
+  option_text: string;
+}
+
+export type OptionField = {
+  id: string;
+  tutorial_id: string;
+  option_text: string;
+}
+
+export type TutorialForm = {
+  question: string;
+  short_answer: string;
+  multiple_choice_answer: string;
+}

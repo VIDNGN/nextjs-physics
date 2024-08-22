@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { Tutorial } from "./definitions";
+import { Tutorial, Question, Equipment, Option  } from "./definitions";
 import { TutorialsTable } from "./definitions";
 
 
@@ -25,7 +25,7 @@ export async function fetchTutorials(){
 export async function fetchTutorialBySlug(slug: string){
     try{
         const data = await sql<Tutorial>`SELECT 
-           tutorials.id, tutorials.slug, tutorials.title, tutorials.description FROM tutorials WHERE tutorials.slug= ${slug};`
+           tutorials.slug, tutorials.title, tutorials.image_url, tutorials.image_url_2, tutorials.description, tutorials.qslug FROM tutorials WHERE tutorials.slug= ${slug};`
     
         const tutorial = data.rows.map((tutorial) => ({
             ...tutorial,
@@ -36,4 +36,47 @@ export async function fetchTutorialBySlug(slug: string){
             console.log("Database error: ", error);
             throw new Error("Failed to fetch tutorial.");
         }
+}
+
+export async function fetchQuestionsBySlug(slug: string) {
+    try {
+        const data = await sql<Question>`SELECT questions.question_id, questions.question_slug, questions.type, questions.question FROM questions WHERE questions.question_slug= ${slug};`
+
+        const questions = data.rows.map( (question) => ({
+            ...question,
+        }) );
+
+        return questions;
+    }  catch(error) {
+        console.log("Database error: ", error);
+        throw new Error("Failed to fetch questions.");
+    }
+}
+
+export async function fetchEquipmentBySlug(slug: string) {
+    try {
+        const data = await sql<Equipment>`SELECT demoequipment.equipment FROM demoequipment WHERE demoequipment.question_slug=${slug};`
+
+        const equipmentAll = data.rows.map( (eqipment) => ( {
+            ...eqipment,
+        }));
+        return equipmentAll;
+    } catch (error){
+        console.log("Database error: ", error);
+        throw new Error("Failed to fetch equipment info.");
+        }
+}
+
+export async function fetchOptionsAnswersBySlug(slug: string){
+    try {
+        const data = await sql<Option>`SELECT optionAnswers.id, optionAnswers.option_text, optionAnswers.is_correct FROM optionanswers WHERE optionAnswers.question_slug = ${slug};`
+
+        const options = data.rows.map( (option) => ( {
+            ...option,
+        }));
+        return options;
+    } catch(error){
+        console.log("Database error: ", error);
+        throw new Error("Failed to fetch options answer.");
+    }
 }
