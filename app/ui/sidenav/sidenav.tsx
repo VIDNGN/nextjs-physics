@@ -7,7 +7,8 @@ export default function SideNav() {
   return (
     <div className="flex h-full flex-col px-2 py-2 md:px-2">
       <Link
-        className="mb-4 flex rounded-md bg-blue-600 p-4 md:h-56"
+        // className="mb-4 flex rounded-md bg-blue-600 p-4 md:h-56"
+        className="mb-4 flex rounded-md bg-[#0F4C75] p-4 md:h-56"
         href="/"
       >
           <PhysTLogo />

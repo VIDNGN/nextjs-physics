@@ -10,18 +10,18 @@ const users = [
 
 const alltutorials = [
     {
-      id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
+      id: '2570998b-2261-4d61-bd41-7a4f358bbf3a',
       slug: 'what-is-electrical-charge',
       title: 'What is electrical force?',
       image_url: '/em/bohr_model.jpg',
       image_url_2: '/em/atomic-theory-atomic-nucleus.jpg',
-      date: '20204-07-23',
+      date: '2024-07-23',
       content: 'Most objects in our visible and tangible world in electrical neutrality conceals their content of positive and negative "matter," which we call positive and negative charges. Only when this neutrality is disturbed does nature reveal to us the effects of imbalance of positive or negative charge. A body is "charged" it means it has an imbalance of negative and positive charges. Charged bodies exert forces on each other.\n\
                 To show this, we will explore an electrical interaction demonstration, so hopefully, you\'ll be ready to roll up your sleeves and dive in!\nYou\'ll see there are two kinds of charge, which we can call positve and negative. The simple \'experiment\' can be explained with: \n Like kinds repel and opposite kinds attract.\nAll matter is a mixture of positve protons and negative electrons which are attracting and repelling with this great force called electrical force. How big is this force compared to gravitation? It is about a few billion times stronger!\n',
-      qSlug: 'electrical-charge-tutorial-questions',
+      qSlug: 'electrical-charge-tutorial-questions'
     },
     {
-      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      id: '71a12c57-fb65-4a9f-992a-14c0da562466',
       slug: 'coulomb-law',
       title: 'Coulomb\'s Law and Superposition',
       image_url: '/em/charles_de_coulomb.jpg',
@@ -31,7 +31,7 @@ const alltutorials = [
       qSlug: 'coulomb-law-questions'
     },
     {
-      id: '21e31364-044a-4b7c-ba03-9c4cd19ac1ca',
+      id: 'c6bd0e3e-fa7e-43cd-bfa9-f4ad8e254bcc',
       slug: 'electric-field',
       title: 'Electric Field and the FLux of E!',
       image_url: '/em/e_flux.jpg',
@@ -41,7 +41,7 @@ const alltutorials = [
       qSlug: 'electric-field-questions'
     },
     {
-      id: '733359cb-7f18-4fc6-93e5-a1438f0acdcc',
+      id: '5225175f-34ef-44a1-bf50-a8cf615e30e6',
       slug: 'gauss-law',
       title: 'Gauss Law',
       image_url: '/em/gauss_law.jpg',
@@ -51,7 +51,7 @@ const alltutorials = [
       qSlug: 'gauss-law-questions'
     },
     {
-      id: '898b6bb5-eca8-42d8-bc8b-78919543cb36',
+      id: '2affec66-1bc2-4bfa-9b10-da4eb93242a5',
       slug: 'calculus-vector-field',
       title: 'Understanding physics. Differential Calculus of Vector Fields',
       image_url: '/em/heat_flow_vector_field.jpg',
@@ -61,7 +61,7 @@ const alltutorials = [
       qSlug: 'calculus-vector-field-questions'
     },
     {
-      id: 'a28bdf71-a716-4914-9c6b-11959a483183',
+      id: 'd12b8c3c-74e2-4492-8811-c19853161a8a',
       slug: 'application-em-tech',
       title: 'Electromagnetism in science and techonology',
       image_url: '/em/em_in_science_tech.jpg',
@@ -78,16 +78,16 @@ const alltutorials = [
 const questions = [
 
   {
-    id: '0d185f52-ade4-4ee1-a103-f0eae3d94c20',
+    id: '43ece608-bbd1-4c1a-b6b9-8cc5af562260',
     tutorial_id: alltutorials[0].id,
     tutorial_slug: 'what-is-electrical-charge',
     qSlug: 'electrical-charge-tutorial-questions',
     type: 'short_answer',
     question: 'Blow up the balloon, and rub it on your hair. Describe the behavior of your hair as you bring the balloon toward it.',
-    correctAnswer: 'Your hair is attracted toward the balloon.'
+    correctAnswer: 'The hair stands up and sticks to the balloon.'
   },
   {
-    id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB',
+    id: '1903de03-163c-4263-afe1-76b59ecf66d0',
     tutorial_id: alltutorials[0].id,
     tutorial_slug: 'what-is-electrical-charge',
     qSlug: 'electrical-charge-tutorial-questions',
@@ -96,16 +96,16 @@ const questions = [
     correctAnswer: 'Your hands or other object can \'discharge\' the balloon or your hair.',
   },
   {
-    id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+    id: 'db1f175d-a4f9-41d9-8e89-0b5fd533d52a',
     tutorial_id: alltutorials[0].id,
     tutorial_slug: 'what-is-electrical-charge',
     qSlug: 'electrical-charge-tutorial-questions',
     type: 'short_answer',
     question: 'Rub the PVC pipe with the Swiffer Duster. Bring the PVC pipe to your hair. Describe your observations',
-    correctAnswer: 'The PVC pipe will also attract your hair.',
+    correctAnswer: 'The PVC pipe will also attract your hair. Your hair will also stand up and stick to the PVC pipe.'
   },
   {
-    id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
+    id: 'd6cdbf8a-ae1f-4d6b-bb7b-3c2333290a75',
     tutorial_id: alltutorials[0].id,
     tutorial_slug: 'what-is-electrical-charge',
     qSlug: 'electrical-charge-tutorial-questions',
@@ -114,7 +114,7 @@ const questions = [
     correctAnswer: 'the closer the pipe to your hair, the stronger the attraction!',
   },
   {
-    id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB',
+    id: '9dea6e0a-b47c-448a-90f6-c2ed618ba6f6',
     tutorial_id: alltutorials[0].id,
     tutorial_slug: 'what-is-electrical-charge',
     qSlug: 'electrical-charge-tutorial-questions',
@@ -123,7 +123,7 @@ const questions = [
     correctAnswer: 'They wil repel each other!',
   },
   {
-    id: 'CC27C14A-0ACF-4F4A-A6C9-D45682C144B9',
+    id: '3d699237-a305-4d98-bb63-86c6e2970086',
     tutorial_id: alltutorials[1].id,
     tutorial_slug: 'coulomb-law',
     qSlug: 'coulomb-law-questions',
@@ -132,24 +132,24 @@ const questions = [
     correctAnswer: 'The arrow are pointing away from each other.',
   },
   {
-    id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+    id: '485844f2-ab06-4584-82b0-34e6afc61018',
     tutorial_id: alltutorials[1].id,
     tutorial_slug: 'coulomb-law',
     qSlug: 'coulomb-law-questions',
     type: 'multiple_choice',
     question: 'Is the force on the +q charge by the +Q charge greater than, less than, or equal to the force on the +Q by the +q charge.',
     options: ['greater', 'less than', 'equal'],
-    correctAnswer: 'equal'
+    correctAnswer: 'Equal'
   },
 
   {
-    id: '3839107c-f5af-4ca1-bb85-c1e3779810ba',
+    id: '64d0ea01-b630-401c-9643-e913a15cb5b9',
     tutorial_id: alltutorials[1].id,
     tutorial_slug: 'coulomb-law',
     qSlug: 'coulomb-law-questions',
     type: 'short_answer',
     question: 'Explain your answer above',
-    correctAnswer: 'Newton\'s Third law, equal and opposite force.',
+    correctAnswer: 'Newton\'s Third Law states for every action, there is equal and opposite reaction!',
   },
 
 ]
@@ -257,6 +257,7 @@ const studentAnswers = [
     qSlug: 'electrical-charge-tutorial-questions',
     question: 'Blow up the balloon, and rub it on your hair. Describe the behavior of your hair as you bring the balloon toward it.',
     answer: 'the hair stands up and sticks to the balloon.',
+    date: '2024-08-08',
   },
 
  {
@@ -266,6 +267,7 @@ const studentAnswers = [
     qSlug: 'electrical-charge-tutorial-questions',
     question: 'It is important that as you perform the experiment above, that you keep your hands and other objects away your hair. Explain why this is necessary',
     answer: 'this is alo a test',
+    date: '2024-08-08',
   }
 ]
 

@@ -80,3 +80,17 @@ export async function fetchOptionsAnswersBySlug(slug: string){
         throw new Error("Failed to fetch options answer.");
     }
 }
+
+export async function fetchCorrectAnswerbyQuestionId(questionId: string){
+    try {
+        const correctAnswers = await sql`SELECT question_id, correct_answer FROM questions WHERE question_id = ANY(${question_id});
+        `;
+        return correctAnswers.rows;
+    } catch (error) {
+        console.error("Error fetching correct answers:", error);
+        return {
+            message: "Error fetching correct answers.",
+        };
+    }
+
+}

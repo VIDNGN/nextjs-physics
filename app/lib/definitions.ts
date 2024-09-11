@@ -11,7 +11,7 @@ export type User = {
 
 
   export type TutorialsTable = {
-    id: string;
+    tutorial_id: string;
     slug: string;
     title: string;
     image_url: string;
@@ -22,7 +22,7 @@ export type User = {
   };
 
   export type Tutorial ={
-    id: string;
+    tutorial_id: string;
     slug: string;
     title: string;
     image_url: string;
@@ -39,14 +39,14 @@ export type User = {
   }
 
 export type Question = {
-  id: string;
+  question_id: string;
   tutorial_id: string;
   type: string;
   question: string;
 }
 
 export type QuestionField = {
-  id: string;
+  question_id: string;
   question: string;
   type: string;
 }
