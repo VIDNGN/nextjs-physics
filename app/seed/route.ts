@@ -379,20 +379,20 @@ export async function GET() {
     //await updateQuestions();
     //await seedTutorialsImages();
 
-    const cwd = process.cwd();
+    // const cwd = process.cwd();
 
-    const folderPath1 = cwd + "\\public\\em\\electric_charge";
-    await updateTutorialsImages(alltutorials[0].id, folderPath1);
-    const folderPath2 = cwd + "\\public\\em\\electric_field";
-    await updateTutorialsImages(alltutorials[2].id, folderPath2);
-    const folderPath3 = cwd + "\\public\\em\\gauss";
-    await updateTutorialsImages(alltutorials[3].id, folderPath3);
-    const folderPath4 = cwd + "\\public\\em\\application_em";
-    await updateTutorialsImages(alltutorials[5].id, folderPath4);
-    const folderPath5 = cwd + "\\public\\em\\vector_calculus";
-    await updateTutorialsImages(alltutorials[4].id, folderPath5);
-    const folderPath6 = cwd + "\\public\\em\\coulomb";
-    await updateTutorialsImages(alltutorials[1].id, folderPath6);
+    // const folderPath1 = cwd + "\\public\\em\\electric_charge";
+    // await updateTutorialsImages(alltutorials[0].id, folderPath1);
+    // const folderPath2 = cwd + "\\public\\em\\electric_field";
+    // await updateTutorialsImages(alltutorials[2].id, folderPath2);
+    // const folderPath3 = cwd + "\\public\\em\\gauss";
+    // await updateTutorialsImages(alltutorials[3].id, folderPath3);
+    // const folderPath4 = cwd + "\\public\\em\\application_em_tech";
+    // await updateTutorialsImages(alltutorials[5].id, folderPath4);
+    // const folderPath5 = cwd + "\\public\\em\\vector_calculus";
+    // await updateTutorialsImages(alltutorials[4].id, folderPath5);
+    // const folderPath6 = cwd + "\\public\\em\\coulomb_law";
+    // await updateTutorialsImages(alltutorials[1].id, folderPath6);
 
     await client.sql`COMMIT`;
 

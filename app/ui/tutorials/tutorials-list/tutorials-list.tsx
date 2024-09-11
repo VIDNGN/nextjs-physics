@@ -1,9 +1,10 @@
-import { fetchTutorials } from "@/app/lib/data";
+import { fetchTutorials, fetchAllImages } from "@/app/lib/data";
 import Link from "next/link";
 import Image from "next/image";
 
 export default async function TutorialsList() {
   const tutorials = await fetchTutorials();
+  const images = await fetchAllImages();
 
   if (!tutorials) {
     return null;
@@ -16,13 +17,20 @@ export default async function TutorialsList() {
           <Link href={`/tutorials/${tutorial.slug}`}>
             <div className="flex flex-col space-y-8 items-center text-[#131309] rounded-md text-lg">
               <div>
-                <Image
-                  className="rounded-lg w-96 h-96"
-                  src={tutorial.image_url}
-                  alt={tutorial.title}
-                  width={1064}
-                  height={1064}
-                />
+                {images.blobs
+                  .filter((image) => image.pathname.startsWith(`homepage_${tutorial.slug}`))
+                  .map((image) => (
+                    <Image
+                      className="rounded-lg w-96 h-96"
+                      priority
+                      key={image.pathname}
+                      // src={tutorial.image_url}
+                      src={image.url}
+                      alt={tutorial.title}
+                      width={1064}
+                      height={1064}
+                    />
+                  ))}
               </div>
               <div>{tutorial.title}</div>
             </div>
@@ -32,3 +40,4 @@ export default async function TutorialsList() {
     </ul>
   );
 }
+

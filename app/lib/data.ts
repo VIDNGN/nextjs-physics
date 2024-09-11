@@ -1,7 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { Tutorial, Question, Equipment, Option  } from "./definitions";
 import { TutorialsTable } from "./definitions";
-
+import { list } from '@vercel/blob';
 
 
 
@@ -9,7 +9,7 @@ export async function fetchTutorials(){
 
     try {
 
-        const data = await sql<Tutorial>`SELECT * FROM tutorials`
+        const data = await sql`SELECT * FROM tutorials ORDER BY date ASC;`
 
         const tutorials = data.rows;
 
@@ -22,10 +22,24 @@ export async function fetchTutorials(){
     }
 }
 
+export async function fetchAllImages() {
+    
+    try {
+        
+        const blobs = await list();
+        return blobs
+
+    } catch (error){
+        console.log(error);
+        throw new Error("Failed to fetch blobs!")
+    }
+
+}
+
 export async function fetchTutorialBySlug(slug: string){
     try{
-        const data = await sql<Tutorial>`SELECT 
-           tutorials.slug, tutorials.title, tutorials.image_url, tutorials.image_url_2, tutorials.description, tutorials.qslug FROM tutorials WHERE tutorials.slug= ${slug};`
+        const data = await sql`SELECT 
+           tutorials.slug, tutorials.title, tutorials.image_url, tutorials.description, tutorials.qslug FROM tutorials WHERE tutorials.slug= ${slug};`
     
         const tutorial = data.rows.map((tutorial) => ({
             ...tutorial,

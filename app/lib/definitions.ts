@@ -26,7 +26,6 @@ export type User = {
     slug: string;
     title: string;
     image_url: string;
-    image_url_2: string;
     date: string;
     description: string;
 

@@ -11,13 +11,12 @@ const users = [
 const alltutorials = [
     {
       id: '2570998b-2261-4d61-bd41-7a4f358bbf3a',
-      slug: 'what-is-electrical-charge',
+      slug: 'electrical-charge',
       title: 'What is electrical force?',
       image_url: '/em/bohr_model.jpg',
       image_url_2: '/em/atomic-theory-atomic-nucleus.jpg',
       date: '2024-07-23',
-      content: 'Most objects in our visible and tangible world in electrical neutrality conceals their content of positive and negative "matter," which we call positive and negative charges. Only when this neutrality is disturbed does nature reveal to us the effects of imbalance of positive or negative charge. A body is "charged" it means it has an imbalance of negative and positive charges. Charged bodies exert forces on each other.\n\
-                To show this, we will explore an electrical interaction demonstration, so hopefully, you\'ll be ready to roll up your sleeves and dive in!\nYou\'ll see there are two kinds of charge, which we can call positve and negative. The simple \'experiment\' can be explained with: \n Like kinds repel and opposite kinds attract.\nAll matter is a mixture of positve protons and negative electrons which are attracting and repelling with this great force called electrical force. How big is this force compared to gravitation? It is about a few billion times stronger!\n',
+      content: 'Most objects in our visible and tangible world in electrical neutrality conceals their content of positive and negative "matter," which we call positive and negative charges. Only when this neutrality is disturbed does nature reveal to us the effects of imbalance of positive or negative charge. A body is "charged" it means it has an imbalance of negative and positive charges. Charged bodies exert forces on each other.\n\To show this, we will explore an electrical interaction demonstration, so hopefully, you\'ll be ready to roll up your sleeves and dive in!\nYou\'ll see there are two kinds of charge, which we can call positve and negative. The simple \'experiment\' can be explained with: \n Like kinds repel and opposite kinds attract.\nAll matter is a mixture of positve protons and negative electrons which are attracting and repelling with this great force called electrical force. How big is this force compared to gravitation? It is about a few billion times stronger!\n',
       qSlug: 'electrical-charge-tutorial-questions'
     },
     {
@@ -26,7 +25,7 @@ const alltutorials = [
       title: 'Coulomb\'s Law and Superposition',
       image_url: '/em/charles_de_coulomb.jpg',
       image_url_2: '/em/coulomb-s-law-force-electricity-electric-charge.jpg',
-      date: '2024-07-23',
+      date: '2024-07-24',
       content: 'He was born on 14 June 1736 and died on 23 August 1806, was a French officer, engineer, and physicist. He is best known as the eponymous discoverer of what is now called Coulombs Law, the description of the electrostatic force of attraction and repulsion. He also did important work on friction. The SI unit of electric charge, the coulomb, was named in his honor in 1880.',
       qSlug: 'coulomb-law-questions'
     },
@@ -36,7 +35,7 @@ const alltutorials = [
       title: 'Electric Field and the FLux of E!',
       image_url: '/em/e_flux.jpg',
       image_url_2: '/em/electric_field.jpg',
-      date: '2024-07-23',
+      date: '2024-07-25',
       content: 'Electric field is typically represented in two ways: by vectors or by electric field lines.',
       qSlug: 'electric-field-questions'
     },
@@ -46,7 +45,7 @@ const alltutorials = [
       title: 'Gauss Law',
       image_url: '/em/gauss_law.jpg',
       image_url_2: '/em/gauss_law_2.jpg',
-      date: '2024-07-23',
+      date: '2024-07-26',
       content: 'Electric flux through a Guassian surface is directly proportional to the net charge enclosed by the surface.',
       qSlug: 'gauss-law-questions'
     },
@@ -56,7 +55,7 @@ const alltutorials = [
       title: 'Understanding physics. Differential Calculus of Vector Fields',
       image_url: '/em/heat_flow_vector_field.jpg',
       image_url_2: '/em/fluid_flow_vector.png',
-      date: '2024-07-23',
+      date: '2024-07-27',
       content: 'There is only one precise way of present the laws, and that is by means of differential equations. They have the advantage of being fundamental and, so far as we know, precise. But the equations are complicated, after all they are only mathemathical equations and if I understand them mathematically inside out, I will understand the physics inside out. Only it does not work that way. People who think that way fail because the actual physical situations in the real world are so complicated that it is necessary to have a much broader understanding of the equations. What it means to understand an equation in more than a strictly mathematical sense - was described by Diract. He said, "I understand what an equation means if I ahve a way of figuring out the characteristics of its solution wihtout actually solving it." So if we have a way of knowing what should happen in given circumstances without actually solving the equations, then we "understand" the equations, as applied to these circumstances. A physical understanding is a completely unmathematical, imprecise, and inexact thing, but absolutely necessary for a physicist.',
       qSlug: 'calculus-vector-field-questions'
     },
@@ -66,7 +65,7 @@ const alltutorials = [
       title: 'Electromagnetism in science and techonology',
       image_url: '/em/em_in_science_tech.jpg',
       image_url_2: '/em/em_mri.jpg',
-      date: '2024-07-23',
+      date: '2024-07-28',
       content: 'It is amazing to think and realize that there are many phenomena of chemical interactions and of life itself are to be understood in terms of electromgenetism.',
       qSlug: 'application-em-tech-questions'
     },
