@@ -46,9 +46,14 @@ export async function createTutorial(prevState: State, formData: FormData) {
   try {
     await Promise.all(
       questionAnswerPairs.map(
-        ([question_num, questionText, answer], id) =>
+        ([question_num, questionText, answer], id) => {
+
+          const questionID = typeof question_num === 'string' ? question_num : '';
+          const processedQuestionText = questionText instanceof File ? "File uploaded" : questionText;
+          const processedAnswer = answer instanceof File ? "File uploaded" : answer;
+
           sql`INSERT INTO formanswers (question_id, question, answer, date) VALUES (${question_num}, ${questionText}, ${answer}, ${date});`
-      )
+  })
     );
 
     const questionIds = questionAnswerPairs.map(([questionNum]) => questionNum );
