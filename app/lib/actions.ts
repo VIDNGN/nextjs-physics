@@ -45,18 +45,20 @@ export async function createTutorial(prevState: State, formData: FormData) {
   const date = new Date().toISOString().split("T")[0];
   try {
     await Promise.all(
-      questionAnswerPairs.map(
-        ([question_num, questionText, answer], id) => {
+      questionAnswerPairs.map(([question_num, questionText, answer], id) => {
+        const questionID = typeof question_num === 'string' ? question_num : '';
+        const processedQuestionText = questionText instanceof File ? "File uploaded" : questionText;
+        const processedAnswer = answer instanceof File ? "File uploaded" : answer;
 
-          const questionID = typeof question_num === 'string' ? question_num : '';
-          const processedQuestionText = questionText instanceof File ? "File uploaded" : questionText;
-          const processedAnswer = answer instanceof File ? "File uploaded" : answer;
+        // const questionID =  question_num as string;
+        // const processedQuestionText = questionText as string;
+        // const processedAnswer = answer as string;
 
-          sql`INSERT INTO formanswers (question_id, question, answer, date) VALUES (${question_num}, ${questionText}, ${answer}, ${date});`
-  })
+        sql`INSERT INTO formanswers (question_id, question, answer, date) VALUES (${questionID}, ${processedQuestionText}, ${processedAnswer}, ${date});`;
+      })
     );
 
-    const questionIds = questionAnswerPairs.map(([questionNum]) => questionNum );
+    const questionIds = questionAnswerPairs.map(([questionNum]) => questionNum);
     //console.log(questionIds);
 
     const correctAnswers = await sql`
@@ -66,12 +68,14 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
-    correctAnswers: correctAnswers.rows
-    
+    correctAnswers: correctAnswers.rows;
+
     //console.log(correctAnswers.rows);
 
-    return { message: "Form submitted successfully!", correctAnswers: correctAnswers.rows };
-   
+    return {
+      message: "Form submitted successfully!",
+      correctAnswers: correctAnswers.rows,
+    };
   } catch (error) {
     console.error("Error during form submission: ", error);
     return {
