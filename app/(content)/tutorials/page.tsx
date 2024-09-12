@@ -24,10 +24,8 @@ export default async function Page() {
       </h1>
 
       <div>
-        <Suspense fallback={null}>
-          {" "}
           <TutorialsList />
-        </Suspense>
+
       </div>
     </main>
   );
