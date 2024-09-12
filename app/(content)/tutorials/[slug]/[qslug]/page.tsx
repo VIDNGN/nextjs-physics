@@ -6,6 +6,7 @@ import {
 } from "@/app/lib/data";
 import Form from "@/app/ui/tutorials/create-form";
 import { lusitana } from "@/app/ui/fonts";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { qslug: string } }) {
   const slug = params.qslug;
