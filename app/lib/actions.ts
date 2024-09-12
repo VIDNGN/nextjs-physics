@@ -59,7 +59,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
     );
 
     const questionIds = questionAnswerPairs.map(([questionNum]) => questionNum);
-    //console.log(questionIds);
+    const questionIDs = questionIds as string[]; 
 
     const correctAnswers = await sql`
                           SELECT question_id, correct_answer 
