@@ -6,7 +6,10 @@ export default async function TutorialsList() {
   const tutorials = await fetchTutorials();
   const images = await fetchAllImages();
 
-  if (!tutorials) {
+  //console.log('tutorials: ', tutorials);
+  //console.log('images: ', images);
+  
+  if (!tutorials || !images ) {
     return null;
   }
 
