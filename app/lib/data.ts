@@ -7,6 +7,8 @@ import { list } from '@vercel/blob';
 
 export async function fetchTutorials(){
 
+  
+
     try {
 
         const data = await sql`SELECT * FROM tutorials ORDER BY date ASC;`
