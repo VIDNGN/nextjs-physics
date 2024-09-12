@@ -2,7 +2,9 @@ import { fetchTutorials, fetchAllImages } from "@/app/lib/data";
 import Link from "next/link";
 import Image from "next/image";
 
-export default async function TutorialsList() {
+//TypeScript JSX expects functions to return a valid JSX element (i.e., ReactElement). TutorialsList component is returning a Promise because it is a async function. It is returning Type 'Promise<Element | null>' 
+//(which is not a valid JSX element). 
+export default async function TutorialsList(): Promise<JSX.Element | null> {
   const tutorials = await fetchTutorials();
   const images = await fetchAllImages();
 

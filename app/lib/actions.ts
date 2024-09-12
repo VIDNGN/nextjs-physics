@@ -27,8 +27,8 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
   const rawFormData = Object.fromEntries(formData.entries());
 
-  console.log(rawFormData);
-  console.log(typeof rawFormData);
+  //console.log(rawFormData);
+  //console.log(typeof rawFormData);
 
   const questionAnswerPairs = [];
 
@@ -52,7 +52,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
     );
 
     const questionIds = questionAnswerPairs.map(([questionNum]) => questionNum );
-    console.log(questionIds);
+    //console.log(questionIds);
 
     const correctAnswers = await sql`
                           SELECT question_id, correct_answer 
@@ -60,10 +60,10 @@ export async function createTutorial(prevState: State, formData: FormData) {
                           WHERE question_id = ANY(${questionIds});`;
 
     //return the correct answers to the client
-    console.log("success message will be returned.");
+    //console.log("success message will be returned.");
     correctAnswers: correctAnswers.rows
     
-    console.log(correctAnswers.rows);
+    //console.log(correctAnswers.rows);
 
     return { message: "Form submitted successfully!", correctAnswers: correctAnswers.rows };
    

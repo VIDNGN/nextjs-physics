@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function Page({ params }: { params: { slug: string } }) {
   noStore();
   const tslug = params.slug;
-  console.log(tslug);
+  //console.log(tslug);
 
   const tutorial = await fetchTutorialBySlug(tslug);
   //const title = tutorial.title;

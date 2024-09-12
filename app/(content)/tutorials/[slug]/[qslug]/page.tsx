@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 export default async function Page({ params }: { params: { qslug: string } }) {
   const slug = params.qslug;
 
-  console.log(slug);
+  //console.log(slug);
 
   const [questions, demo_equipment, optionsAnswers] = await Promise.all([
     fetchQuestionsBySlug(slug),
