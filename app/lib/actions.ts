@@ -67,7 +67,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
     const correctAnswers = await sql`
                           SELECT question_id, correct_answer
                           FROM questions
-                          WHERE question_id = ANY(${sql(questionIds)});`;
+                          WHERE question_id IN (${questionIds.join(',')});`;
 
 
     //return the correct answers to the client
