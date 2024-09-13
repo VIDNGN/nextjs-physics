@@ -46,9 +46,11 @@ export async function createTutorial(prevState: State, formData: FormData) {
   try {
     await Promise.all(
       questionAnswerPairs.map(([question_num, questionText, answer], id) => {
-        const questionID = typeof question_num === 'string' ? question_num : '';
-        const processedQuestionText = questionText instanceof File ? "File uploaded" : questionText;
-        const processedAnswer = answer instanceof File ? "File uploaded" : answer;
+        const questionID = typeof question_num === "string" ? question_num : "";
+        const processedQuestionText =
+          questionText instanceof File ? "File uploaded" : questionText;
+        const processedAnswer =
+          answer instanceof File ? "File uploaded" : answer;
 
         // const questionID =  question_num as string;
         // const processedQuestionText = questionText as string;
@@ -58,12 +60,19 @@ export async function createTutorial(prevState: State, formData: FormData) {
       })
     );
 
-    const questionIds = questionAnswerPairs.map(([questionNum]) => questionNum as string); //or questionNum as number 
-   
-    const correctAnswers = await sql`
-                          SELECT question_id, correct_answer 
-                          FROM questions 
-                          WHERE question_id = ANY(${questionIds});`;
+    const questionIds = questionAnswerPairs.map(
+      ([questionNum]) => questionNum as string
+    ); //or questionNum as number
+
+    // const correctAnswers = await sql`
+    //                       SELECT question_id, correct_answer
+    //                       FROM questions
+    //                       WHERE question_id = ANY(${questionIds});`;
+
+    const correctAnswers = await sql`SELECT question_id, correct_answer 
+                                      FROM questions 
+                                      WHERE question_id IN (${sql.array(questionIds, "uuid")});
+                                      `;
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
