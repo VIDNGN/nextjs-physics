@@ -3,10 +3,13 @@
 import { useActionState } from "react";
 import { useFormState } from "react-dom";
 import { createTutorial, State } from "@/app/lib/actions";
-import { QuestionField, OptionField, CorrectAnswer } from "@/app/lib/definitions";
+import {
+  QuestionField,
+  OptionField,
+  CorrectAnswer,
+} from "@/app/lib/definitions";
 import { Button } from "@/app/ui/button";
 import { fetchCorrectAnswerbyQuestionId } from "@/app/lib/data";
-
 
 export default function Form({
   questions,
@@ -15,7 +18,7 @@ export default function Form({
   questions: QuestionField[];
   options: OptionField[];
 }) {
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
       (e.ctrlKey || e.metaKey) &&
       (e.key === "Enter" || e.key === "NumpadEnter")
@@ -35,7 +38,11 @@ export default function Form({
 
   //useActionState takes two argument, action and initialState, and return values: formState and formAction, which is a function to be called when the form is submitted.
   //initialState can be anything. In this case, it is an object with two empty keys: message and errors. Import from actions.ts.
-  const initialState: State = { errors: {}, message: "", correctAnswers: [] };
+  const initialState: State = {
+    errors: "",
+    message: "Let's give it a shot!",
+    correctAnswers: [],
+  };
 
   const [formState, formAction] = useFormState(createTutorial, initialState);
 
@@ -75,7 +82,7 @@ export default function Form({
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 whitespace-pre-wrap text-justify leading-9 "
                     name={`answer_${question.question_id}`}
                     id={`answer_${question.question_id}`}
-                    rows="3"
+                    rows={3}
                     onKeyDown={handleKeyDown}
                     placeholder="Write your thoughts here..."
                     required
@@ -161,33 +168,8 @@ export default function Form({
               </div>
             </span>
           )}
-
-          {/* Displaying form error messages */}
-          {formState.errors && (
-            <span>
-              {" "}
-              <div id="answer-error" aria-live="polite" aria-atomic="true">
-                {Object.values(formState.errors).map((errorMessages, index) =>
-                  errorMessages.map((errorMessage) => (
-                    <p className="mt-2 text-sm text-red-500" key={index}>
-                      {errorMessage}
-                    </p>
-                  ))
-                )}
-              </div>
-            </span>
-          )}
         </div>
       </div>
-
-      {/* <div id="answer-error" aria-live="polite" aria-atomic="true">
-                {formState.errors?.short_answer &&
-                    formState.errors.amount.map((error: string) => (
-                        <p className="mt-2 text-sm text-red-500" key={error}>
-                            {error}
-                        </p>
-                    ))}
-            </div>  */}
     </form>
   );
 }

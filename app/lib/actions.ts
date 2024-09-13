@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
 import { CorrectAnswer } from "@/app/lib/definitions";
+import { v4 as uuidv4 } from "uuid";
+import { validate as validateUUID } from "uuid";
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -12,22 +14,25 @@ const FormSchema = z.object({
 });
 
 export type State = {
-  errors?: {
-    questionId?: string[];
-    answer?: string[];
-  };
-  //message?: string | null;
-  message?: string;
-  correctAnswers?: CorrectAnswer[]; //the database query result type.
+  errors?: string | null;
+  //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
+  message: string; 
+  correctAnswers: CorrectAnswer[]; //the database query result type.
 };
 
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });
 
 export async function createTutorial(prevState: State, formData: FormData) {
-  //const data = xss(formData);
 
   const rawFormData = Object.fromEntries(formData.entries());
 
+  if (!rawFormData) {
+    return {
+      errors: "Form data is invalid!",
+      message: "Form is empty",
+      correctAnswers: [],
+    }
+  }
   //console.log(rawFormData);
   //console.log(typeof rawFormData);
 
@@ -44,6 +49,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
     }
   }
   const date = new Date().toISOString().split("T")[0];
+
   try {
     await Promise.all(
       questionAnswerPairs.map(([question_num, questionText, answer], id) => {
@@ -60,42 +66,60 @@ export async function createTutorial(prevState: State, formData: FormData) {
         sql`INSERT INTO formanswers (question_id, question, answer, date) VALUES (${questionID}, ${processedQuestionText}, ${processedAnswer}, ${date});`;
       })
     );
+  } catch (error) {
+    console.log("Error insert to formanswer: ,", error);
+    return {
+      errors: "Failed to process form data.",
+      message: "Failed to submit form.",
+      correctAnswers: [],
+    };
+  }
 
-    const questionIds = questionAnswerPairs.map(
+  
+    const questionIds = questionAnswerPairs?.map(
       ([questionNum]) => questionNum as string
     ); //or questionNum as number
-
-    // const dbCorrAnswers = await sql<CorrectAnswer[]>`
-    //                       SELECT question_id, correct_answer
-    //                       FROM questions
-    //                       WHERE question_id IN (${questionIds.join(",")});`;
-
+  
+  try {
     const dbCorrAnswers = await sql<CorrectAnswer>`
-                                  SELECT question_id, correct_answer
-                                  FROM questions
-                                  WHERE question_id = ANY(${questionIds.join(",")});`;
+                          SELECT question_id, correct_answer
+                          FROM questions
+                          WHERE question_id = ANY(${questionIds as any})`;
+
+    // Check if dbCorrAnswers is undefined
+    if (!dbCorrAnswers) {
+      console.error("dbCorrAnswers is undefined or null");
+    }
 
     //return the correct answers to the client
-    //console.log("success message will be returned.");
-    const answers = dbCorrAnswers.rows;
-    
+    console.log("success message will be returned.");
+
+    const answers = dbCorrAnswers?.rows;
 
     if (dbCorrAnswers) {
       return {
-        message: "Form submitted successfully!", //// If there's no message, set it to null
-        correctAnswers: dbCorrAnswers ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
+        message: "Form successfully submitted successfully!", //// If there's no message, set it to null
+        correctAnswers: answers ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
       };
     } else {
       return {
-        message: "Form was not successfully submitted!", //// If there's no message, set it to null
-        correctAnswers: dbCorrAnswers?? [],
+        errors: "Can't find correct answers. Failed to submit form.",
+        message: "Form not successfully submitted!", //// If there's no message, set it to null
+        correctAnswers: answers ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
       };
     }
   } catch (error) {
-    console.error("Error during form submission: ", error);
+    console.log("Error during form submission: ", error);
     return {
-      message: "Database Error: Failed to create answer form.",
+      message: "Failed to submit form.",
+      correctAnswers: [],
     };
+   
+  } 
+
+  return {
+    message: "Unknown form submission",
+    correctAnswers: [],
   }
 
   //revalidatePath("/tutorials/");
