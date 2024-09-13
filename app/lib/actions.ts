@@ -64,15 +64,11 @@ export async function createTutorial(prevState: State, formData: FormData) {
       ([questionNum]) => questionNum as string
     ); //or questionNum as number
 
-    // const correctAnswers = await sql`
-    //                       SELECT question_id, correct_answer
-    //                       FROM questions
-    //                       WHERE question_id = ANY(${questionIds});`;
+    const correctAnswers = await sql`
+                          SELECT question_id, correct_answer
+                          FROM questions
+                          WHERE question_id = ANY(${sql(questionIds)});`;
 
-    const correctAnswers = await sql`SELECT question_id, correct_answer 
-                                      FROM questions 
-                                      WHERE question_id IN (${sql.array(questionIds, "uuid")});
-                                      `;
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
