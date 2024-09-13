@@ -3,7 +3,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
-import xss from "xss";
+import { CorrectAnswer } from "./definitions";
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -13,11 +13,10 @@ const FormSchema = z.object({
 
 export type State = {
   errors?: {
-    questionId?: string[];
     answer?: string[];
   };
   message?: string | null;
-  correctAnswers:  CorrectAnswer[]; //the database query result type.
+  correctAnswers: CorrectAnswer[] | null; //the database query result type.
 };
 
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });
@@ -72,13 +71,13 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
-    correctAnswers: correctAnswers.rows;
+    correctAnswers.rows;
 
     //console.log(correctAnswers.rows);
 
     return {
       message: "Form submitted successfully!",
-      correctAnswers: correctAnswers.rows,
+      correctAnswers: correctAnswers.rows as CorrectAnswer[], //returned result from db correctAnswers: QueryResult<QueryResultRow>
     };
   } catch (error) {
     console.error("Error during form submission: ", error);
@@ -108,7 +107,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
     const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
     console.log("placeholder: ", placeholders);
-    
+
     await sql`INSERT INTO studentsAnswers (${columns.join(', ')}) VALUES (${placeholders}) RETURNING *`;
 
 
