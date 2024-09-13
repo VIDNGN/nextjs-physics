@@ -99,7 +99,7 @@ export async function fetchOptionsAnswersBySlug(slug: string){
 
 export async function fetchCorrectAnswerbyQuestionId(questionId: string){
     try {
-        const correctAnswers = await sql`SELECT question_id, correct_answer FROM questions WHERE question_id = ANY(${question_id});
+        const correctAnswers = await sql`SELECT question_id, correct_answer FROM questions WHERE question_id = ANY(${questionId});
         `;
         return correctAnswers.rows;
     } catch (error) {
