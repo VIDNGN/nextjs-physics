@@ -20,7 +20,12 @@ export default function Form({
       (e.key === "Enter" || e.key === "NumpadEnter")
     ) {
       e.preventDefault();
-      e.currentTarget.form?.requestSubmit();
+      
+      // Add an explicit check for e.currentTarget. e.currentTarget can be null under certain conditions, especially when the event is fired from something that doesn't have a form element as its target.
+      const target = e.currentTarget as HTMLElement | null; // This ensures that target is correctly typed as HTMLElement | null, and we can then safely check if target?.form exists.
+      if (target?.form) {
+        target.form.requestSubmit();
+      }
     }
   };
 
