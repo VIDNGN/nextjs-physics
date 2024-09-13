@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: { qslug: string } }) {
       />
 
       <div className="flex flex-col py-4 space-y-4">
-        <h1 className={`${lusitana.className} text-2xl`}>Question Page</h1>
+        <h1 className={`${lusitana.className} text-2xl`}>Experiment Page</h1>
 
         <h3 className={`${lusitana.className} text-xl`}>List of Equipment for Experiment</h3>
 

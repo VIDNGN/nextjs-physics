@@ -98,7 +98,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
     if (dbCorrAnswers) {
       return {
-        message: "Form successfully submitted successfully!", //// If there's no message, set it to null
+        message: "Form successfully submitted!", //// If there's no message, set it to null
         correctAnswers: answers ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
       };
     } else {

@@ -49,7 +49,7 @@ export default function Home() {
       <div className="pb-48 pt-24">
         <Link
           href="/tutorials"
-          className="flex h-20 items-center rounded-lg bg-sky-600 px-4 text-med font-medium text-white transition-colors hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-sky-600 active:bg-sky-500 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+          className="flex h-20 items-center rounded-lg bg-[#27374D] px-4 text-med font-medium text-white transition-colors hover:bg-[#526D82] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#27374D] active:bg-[#526D82]aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
         >
           <span>Enter</span>
           <span>

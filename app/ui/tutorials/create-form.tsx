@@ -93,7 +93,7 @@ export default function Form({
                     {/* {console.log(formState.correctAnswers)} */}
 
                     {formState.correctAnswers.length > 0 && (
-                      <p className="correct-answer text-md text-[#0F4C75]">
+                      <p className="correct-answer text-lg text-[#0F4C75]">
                         Correct Answer:{" "}
                         {
                           formState.correctAnswers.find(
