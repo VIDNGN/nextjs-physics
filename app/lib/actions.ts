@@ -17,7 +17,7 @@ export type State = {
     answer?: string[];
   };
   message?: string | null;
-  correctAnswers:  QueryResultRow[]; //the database query result type.
+  correctAnswers:  CorrectAnswer[]; //the database query result type.
 };
 
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });

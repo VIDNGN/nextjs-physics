@@ -106,3 +106,8 @@ export type TutorialForm = {
   short_answer: string;
   multiple_choice_answer: string;
 }
+
+export type CorrectAnswer = {
+  question_id: string;
+  correct_answer: string; 
+};
