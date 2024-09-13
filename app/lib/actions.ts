@@ -16,8 +16,9 @@ export type State = {
     questionId?: string[];
     answer?: string[];
   };
-  message?: string | null;
-  correctAnswers: CorrectAnswer[]; //the database query result type.
+  //message?: string | null;
+  message?: string;
+  correctAnswers?: CorrectAnswer[]; //the database query result type.
 };
 
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });
@@ -64,21 +65,32 @@ export async function createTutorial(prevState: State, formData: FormData) {
       ([questionNum]) => questionNum as string
     ); //or questionNum as number
 
+    // const dbCorrAnswers = await sql<CorrectAnswer[]>`
+    //                       SELECT question_id, correct_answer
+    //                       FROM questions
+    //                       WHERE question_id IN (${questionIds.join(",")});`;
+
     const dbCorrAnswers = await sql<CorrectAnswer>`
-                          SELECT question_id, correct_answer
-                          FROM questions
-                          WHERE question_id IN (${questionIds.join(",")});`;
+                                  SELECT question_id, correct_answer
+                                  FROM questions
+                                  WHERE question_id = ANY(${questionIds.join(",")});`;
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
-    correctAnswers: dbCorrAnswers;
+    const answers = dbCorrAnswers;
+    
 
-    //console.log(correctAnswers.rows);
-
-    return {
-      message: "Form submitted successfully!",
-      correctAnswers: dbCorrAnswers.rows,
-    };
+    if (dbCorrAnswers) {
+      return {
+        message: "Form submitted successfully!", //// If there's no message, set it to null
+        correctAnswers: dbCorrAnswers.rows ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
+      };
+    } else {
+      return {
+        message: "Form was not successfully submitted!", //// If there's no message, set it to null
+        correctAnswers: dbCorrAnswers.rows?? [],
+      };
+    }
   } catch (error) {
     console.error("Error during form submission: ", error);
     return {
