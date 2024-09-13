@@ -20,9 +20,12 @@ export default function Form({
       (e.key === "Enter" || e.key === "NumpadEnter")
     ) {
       e.preventDefault();
-      
+
       // Add an explicit check for e.currentTarget. e.currentTarget can be null under certain conditions, especially when the event is fired from something that doesn't have a form element as its target.
-      const target = e.currentTarget as HTMLInputElement | HTMLTextAreaElement | null; // This ensures that target is correctly typed as HTMLElement | null, and we can then safely check if target?.form exists.
+      const target = e.currentTarget as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | null; // This ensures that target is correctly typed as HTMLElement | null, and we can then safely check if target?.form exists.
       if (target?.form) {
         target.form.requestSubmit();
       }
@@ -33,7 +36,7 @@ export default function Form({
   //initialState can be anything. In this case, it is an object with two empty keys: message and errors. Import from actions.ts.
   const initialState: State = { errors: {}, message: null, correctAnswers: [] };
 
-  const [formState, formAction] = useFormState(createTutorial, initialState); 
+  const [formState, formAction] = useFormState(createTutorial, initialState);
 
   // const handleSubmit = async (formAction) => {
   //   event.preventDefault();
@@ -79,18 +82,18 @@ export default function Form({
 
                   {/* Display correct answer after submission */}
                   <div className="py-3">
-                  {/* {console.log(formState.correctAnswers)} */}
+                    {/* {console.log(formState.correctAnswers)} */}
 
-                  {formState.correctAnswers.length > 0 && (
-                    <p className="correct-answer text-md text-[#0F4C75]">
-                      Correct Answer:{" "}
-                      {
-                        formState.correctAnswers.find(
-                          (ca) => ca.question_id === question.question_id
-                        )?.correct_answer
-                      }
-                    </p>
-                  )}
+                    {formState.correctAnswers.length > 0 && (
+                      <p className="correct-answer text-md text-[#0F4C75]">
+                        Correct Answer:{" "}
+                        {
+                          formState.correctAnswers.find(
+                            (ca) => ca.question_id === question.question_id
+                          )?.correct_answer
+                        }
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -126,16 +129,16 @@ export default function Form({
                     ))}
                   </select>
                   <div className="py-3">
-                  {formState.correctAnswers.length > 0 && (
-                    <p className="correct-answer text-md text-[#0F4C75]">
-                      Correct Answer:{" "}
-                      {
-                        formState.correctAnswers.find(
-                          (ca) => ca.question_id === question.question_id
-                        )?.correct_answer
-                      }
-                    </p>
-                  )}
+                    {formState.correctAnswers.length > 0 && (
+                      <p className="correct-answer text-md text-[#0F4C75]">
+                        Correct Answer:{" "}
+                        {
+                          formState.correctAnswers.find(
+                            (ca) => ca.question_id === question.question_id
+                          )?.correct_answer
+                        }
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
