@@ -1,11 +1,12 @@
 "use client";
 
-//import { useActionState } from "react";
+import { useActionState } from "react";
 import { useFormState } from "react-dom";
 import { createTutorial, State } from "@/app/lib/actions";
 import { QuestionField, OptionField, CorrectAnswer } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/button";
 import { fetchCorrectAnswerbyQuestionId } from "@/app/lib/data";
+
 
 export default function Form({
   questions,
@@ -34,9 +35,9 @@ export default function Form({
 
   //useActionState takes two argument, action and initialState, and return values: formState and formAction, which is a function to be called when the form is submitted.
   //initialState can be anything. In this case, it is an object with two empty keys: message and errors. Import from actions.ts.
-  const initialState: State = { errors: {}, message: null, correctAnswers:[]};
+  const initialState: State = { errors: {}, message: null,correctAnswers: [] };
 
-  const [formState, formAction] = useFormState(createTutorial, initialState);
+  const [formState, formAction] = useActionState(createTutorial, initialState);
 
   // const handleSubmit = async (formAction) => {
   //   event.preventDefault();
