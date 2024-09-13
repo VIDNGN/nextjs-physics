@@ -77,18 +77,18 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
-    const answers = dbCorrAnswers;
+    const answers = dbCorrAnswers.rows;
     
 
     if (dbCorrAnswers) {
       return {
         message: "Form submitted successfully!", //// If there's no message, set it to null
-        correctAnswers: dbCorrAnswers.rows ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
+        correctAnswers: dbCorrAnswers ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
       };
     } else {
       return {
         message: "Form was not successfully submitted!", //// If there's no message, set it to null
-        correctAnswers: dbCorrAnswers.rows?? [],
+        correctAnswers: dbCorrAnswers?? [],
       };
     }
   } catch (error) {
