@@ -14,7 +14,7 @@ export default function Form({
   questions: QuestionField[];
   options: OptionField[];
 }) {
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (
       (e.ctrlKey || e.metaKey) &&
       (e.key === "Enter" || e.key === "NumpadEnter")
