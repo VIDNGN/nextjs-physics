@@ -3,7 +3,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
-import xss from "xss";
+import { CorrectAnswer } from "@/app/lib/definitions";
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -17,7 +17,7 @@ export type State = {
     answer?: string[];
   };
   message?: string | null;
-  correctAnswers:  CorrectAnswer[]; //the database query result type.
+  correctAnswers: CorrectAnswer[]; //the database query result type.
 };
 
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });
@@ -64,21 +64,20 @@ export async function createTutorial(prevState: State, formData: FormData) {
       ([questionNum]) => questionNum as string
     ); //or questionNum as number
 
-    const correctAnswers = await sql`
+    const dbCorrAnswers = await sql<CorrectAnswer>`
                           SELECT question_id, correct_answer
                           FROM questions
-                          WHERE question_id IN (${questionIds.join(',')});`;
-
+                          WHERE question_id IN (${questionIds.join(",")});`;
 
     //return the correct answers to the client
     //console.log("success message will be returned.");
-    correctAnswers: correctAnswers.rows;
+    correctAnswers: dbCorrAnswers;
 
     //console.log(correctAnswers.rows);
 
     return {
       message: "Form submitted successfully!",
-      correctAnswers: correctAnswers.rows,
+      correctAnswers: dbCorrAnswers.rows,
     };
   } catch (error) {
     console.error("Error during form submission: ", error);
