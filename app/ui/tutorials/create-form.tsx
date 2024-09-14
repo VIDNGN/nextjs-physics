@@ -62,7 +62,7 @@ export default function Form({
   return (
     // <form onSubmit={handleSubmit}>
     <form action={formAction}>
-      <div className="text-justify leading-7 whitespace-pre-wrap text-wrap py-3">
+      <div className="text-justify leading-7 whitespace-pre-wrap text-wrap py-3 px-4">
         {questions.map((question) =>
           question.type === "short_answer" ? (
             <ul key={question.question_id}>
@@ -74,7 +74,7 @@ export default function Form({
                     value={question.question}
                   />
                 </div>
-                <div>
+                <div className="w-2/5">
                   <p>{question.question}</p>{" "}
                 </div>
                 <div className="w-2/5">

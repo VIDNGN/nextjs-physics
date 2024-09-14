@@ -21,6 +21,27 @@ export default async function Page({ params }: { params: { slug: string } }) {
   //const title = tutorial.title;
   const images = await fetchAllImages();
 
+  const keyTerms = [
+    "gravity",
+    "strong nuclear force",
+    "like charges repel, and opposite charges attract",
+    "uncertainty principle",
+    "Coulomb's Law"
+  ];
+
+  const highlightTerms = (text:string) => {
+    const regex = new RegExp(`(${keyTerms.join("|")})`, "gi");
+    return text.split(regex).map((part, idx) =>
+      keyTerms.includes(part) ? (
+        <strong key={idx} className="font-bold">
+          {part}
+        </strong>
+      ) : (
+        part
+      )
+    );
+  };
+
   if (!tutorial) {
     notFound();
   }
@@ -56,56 +77,65 @@ export default async function Page({ params }: { params: { slug: string } }) {
               </div>
             ))}
           <div className="py-8">
-            <h1 className="text-4xl"> {tutorial.title}</h1>{" "}
+            <h1 className="text-4xl font-bold"> {tutorial.title}</h1>{" "}
           </div>
           <div className="grid grid-cols-2 gap-36">
-            <div className="text-justify leading-9 whitespace-pre-wrap">
-              <p>{tutorial.description}</p>
+            <div className="text-justify leading-9 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-md">
+              <p>
+                {tutorial.description.split(".").map((sentence:string, idx:number) => (
+                  <span key={idx}>
+                    {idx === 0 ? (
+                      <strong>{highlightTerms(sentence)}</strong>
+                    ) : (
+                      highlightTerms(sentence)
+                    )}
+                  </span>
+                ))}
+              </p>
             </div>
-            <div className='px-8 space-y-8'>
-            {images.blobs
-              .filter((image) => image.pathname.startsWith(`${tslug}`))
-              .map((image, index) => (
-                <div key={image.pathname}>
-                  {/* next 3 images */}
-                  
-                  {index === 4 && (
-                    <div>
-                      <Image
-                        className="rounded-lg w-3/5 h-3/5"
-                        priority
-                        // src={tutorial.image_url}
-                        src={image.url}
-                        alt={tutorial.title}
-                        width={1024}
-                        height={638}
-                      />
-                    </div>
-                  )}
+            <div className="px-8 space-y-8">
+              {images.blobs
+                .filter((image) => image.pathname.startsWith(`${tslug}`))
+                .map((image, index) => (
+                  <div key={image.pathname}>
+                    {/* next 3 images */}
+
+                    {index === 4 && (
+                      <div>
+                        <Image
+                          className="rounded-lg w-3/5 h-3/5 bg-gray-100 p-6 rounded-lg shadow-md"
+                          priority
+                          // src={tutorial.image_url}
+                          src={image.url}
+                          alt={tutorial.title}
+                          width={1024}
+                          height={638}
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
 
               {images.blobs
-              .filter((image) => image.pathname.startsWith(`${tslug}`))
-              .map((image, index) => (
-                <div key={image.pathname}>
-                  {index < 1 && (
-                    <div>
-                      <Image
-                        className="rounded-lg w-3/5 h-3/5"
-                        priority
-                        // src={tutorial.image_url}
-                        src={image.url}
-                        alt={tutorial.title}
-                        width={1064}
-                        height={1064}
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
-           
-              </div>
+                .filter((image) => image.pathname.startsWith(`${tslug}`))
+                .map((image, index) => (
+                  <div key={image.pathname}>
+                    {index < 1 && (
+                      <div>
+                        <Image
+                          className="rounded-lg w-3/5 h-3/5 bg-gray-100 p-6 rounded-lg shadow-md"
+                          priority
+                          // src={tutorial.image_url}
+                          src={image.url}
+                          alt={tutorial.title}
+                          width={1064}
+                          height={1064}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
         <div className="mt-6 flex justify-center gap-4">
