@@ -1,4 +1,4 @@
-import { fetchTutorialBySlug, fetchAllImages } from "@/app/lib/data";
+import { fetchTutorialBySlug, fetchAllImagesFromBlob, fetchImagesByTutorialSlug } from "@/app/lib/data";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Breadcrumbs from "@/app/ui/tutorials/breadcrumbs";
@@ -19,7 +19,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   const tutorial = await fetchTutorialBySlug(tslug);
   //const title = tutorial.title;
-  const images = await fetchAllImages();
+  const images = await fetchAllImagesFromBlob();
+
+  const tutorial_images = await fetchImagesByTutorialSlug(tslug)
 
   const keyTerms = [
     "gravity",
@@ -56,18 +58,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
       />
       <div className="flex flex-col justify-left">
         <div>
-          {images.blobs
-            .filter((image) => image.pathname.startsWith(`${tslug}`))
+          {tutorial_images
+            .filter((image) => image.image_name.startsWith(`${tslug}`))
             .map((image, index) => (
-              <div key={image.pathname}>
+              <div key={image.image_name}>
                 {/*First image*/}
-                {index === 1 && (
+                {image.image_name.includes('Rutherford_model') && (
                   <div className="section1 flex flex-row">
                     <Image
                       className="rounded-lg w-2/5 h-2/5"
                       priority
                       // src={tutorial.image_url}
-                      src={image.url}
+                      src={image.image_url}
                       alt={tutorial.title}
                       width={1024}
                       height={638}
@@ -94,19 +96,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
               </p>
             </div>
             <div className="px-8 space-y-8">
-              {images.blobs
-                .filter((image) => image.pathname.startsWith(`${tslug}`))
-                .map((image, index) => (
-                  <div key={image.pathname}>
+              {tutorial_images.map((image, index) => (
+                  <div key={image.image_name}>
                     {/* next 3 images */}
 
-                    {index === 4 && (
+                    {image.image_name.includes("Rutherford_atom_model") && (
                       <div>
                         <Image
                           className="rounded-lg w-3/5 h-3/5 bg-gray-100 p-6 rounded-lg shadow-md"
                           priority
                           // src={tutorial.image_url}
-                          src={image.url}
+                          src={image.image_url}
                           alt={tutorial.title}
                           width={1024}
                           height={638}
@@ -116,17 +116,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   </div>
                 ))}
 
-              {images.blobs
-                .filter((image) => image.pathname.startsWith(`${tslug}`))
+              {tutorial_images
+                .filter((image) => image.image_name.startsWith(`${tslug}`))
                 .map((image, index) => (
-                  <div key={image.pathname}>
-                    {index < 1 && (
+                  <div key={image.image_name}>
+                    {image.image_name.includes("simple_model_atom") && (
                       <div>
                         <Image
                           className="rounded-lg w-3/5 h-3/5 bg-gray-100 p-6 rounded-lg shadow-md"
                           priority
                           // src={tutorial.image_url}
-                          src={image.url}
+                          src={image.image_url}
                           alt={tutorial.title}
                           width={1064}
                           height={1064}
@@ -138,7 +138,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </div>
-        <div className="mt-6 flex justify-center gap-4">
+        <div className="mt-6 flex justify-end gap-4">
           <Link
             href={`${tutorial.slug}/${tutorial.qslug}/`}
             className="flex h-10 items-center rounded-lg bg-[#27374D] px-4 text-sm font-medium text-white transition-colors hover:bg-[#526D82] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#27374D] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"

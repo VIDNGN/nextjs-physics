@@ -266,6 +266,7 @@ try{
 //   // await seedUsers();
 // }
 
+
 // async function seedTutorialsImages() {
 //   //studentAnswers.map((answer, id) => console.log(answer.tutorial_slug));
 
@@ -343,7 +344,7 @@ try{
 //   return Promise.all(uploadPromises);
 // }
 
-// async function updateTutorialsImages(tutorialId, folderPath) {
+// async function updateTutorialsImagesFromBlob(tutorialId, folderPath) {
 
 //   // Upload images from local storage
 //   const uploadedImages = await uploadImagesToBlobFromLocal(folderPath);
@@ -351,8 +352,8 @@ try{
 //   // Update the homework_images table with the URLs
 //   const updatePromises = uploadedImages.map(({ fileName, url }) => {
 //     return client.sql`
-//       INSERT INTO tutorials_images (tutorial_id, image_url)
-//       VALUES (${tutorialId}, ${url});
+//       INSERT INTO tutorials_images (tutorial_id, image_url, image_name)
+//       VALUES (${tutorialId}, ${url}, ${fileName});
 //     `;
 //   });
 
@@ -365,8 +366,8 @@ export async function GET() {
           'Uncomment this file and remove this line. Can delete this file after seeding the DB.',
   });
 
-  // try {
-  //   await client.sql`BEGIN`;
+  //try {
+    //await client.sql`BEGIN`;
 
     // await seedUsers();
     // await seedTutorials();
@@ -382,24 +383,24 @@ export async function GET() {
     // const cwd = process.cwd();
 
     // const folderPath1 = cwd + "\\public\\em\\electric_charge";
-    // await updateTutorialsImages(alltutorials[0].id, folderPath1);
+    // await updateTutorialsImagesFromBlob(alltutorials[0].id, folderPath1);
     // const folderPath2 = cwd + "\\public\\em\\electric_field";
-    // await updateTutorialsImages(alltutorials[2].id, folderPath2);
+    // await updateTutorialsImagesFromBlob(alltutorials[2].id, folderPath2);
     // const folderPath3 = cwd + "\\public\\em\\gauss";
-    // await updateTutorialsImages(alltutorials[3].id, folderPath3);
+    // await updateTutorialsImagesFromBlob(alltutorials[3].id, folderPath3);
     // const folderPath4 = cwd + "\\public\\em\\application_em_tech";
-    // await updateTutorialsImages(alltutorials[5].id, folderPath4);
+    // await updateTutorialsImagesFromBlob(alltutorials[5].id, folderPath4);
     // const folderPath5 = cwd + "\\public\\em\\vector_calculus";
-    // await updateTutorialsImages(alltutorials[4].id, folderPath5);
+    // await updateTutorialsImagesFromBlob(alltutorials[4].id, folderPath5);
     // const folderPath6 = cwd + "\\public\\em\\coulomb_law";
-    // await updateTutorialsImages(alltutorials[1].id, folderPath6);
+    // await updateTutorialsImagesFromBlob(alltutorials[1].id, folderPath6);
 
-  //   await client.sql`COMMIT`;
+    //await client.sql`COMMIT`;
 
-  //   return Response.json({ message: "Database seeded successfully" });
-  // } catch (error) {
-  //   console.log(error);
-  //   await client.sql`ROLLBACK`;
-  //   return Response.json({ error }, { status: 500 });
-  // }
+    // return Response.json({ message: "Database seeded successfully" });
+//   } catch (error) {
+//     console.log(error);
+//     await client.sql`ROLLBACK`;
+//     return Response.json({ error }, { status: 500 });
+//  }
 }

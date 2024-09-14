@@ -24,11 +24,13 @@ export async function fetchTutorials(){
     }
 }
 
-export async function fetchAllImages() {
+export async function fetchAllImagesFromBlob() {
     
     try {
         
         const blobs = await list();
+
+    
         return blobs
 
     } catch (error){
@@ -36,6 +38,32 @@ export async function fetchAllImages() {
         throw new Error("Failed to fetch blobs!")
     }
 
+}
+
+export async function fetchHomePageImages(){
+    try{
+        const data = await sql`SELECT tutorials_images.image_url, tutorials_images.image_name FROM tutorials_images WHERE image_name LIKE 'homepage%';`
+        const images = data.rows;
+        return images;
+    }catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch images for the homepage!");
+    }
+}
+
+export async function fetchImagesByTutorialSlug(slug: string){
+    try {
+        const data = await sql`SELECT tutorials_images.image_url, 
+                                      tutorials_images.image_name 
+                                    FROM tutorials_images
+                                    JOIN tutorials ON tutorials_images.tutorial_id = tutorials.tutorial_id 
+                                    WHERE tutorials.slug = ${slug};`
+        const images = data.rows;
+        return images;
+    } catch(error){
+        console.log(error);
+        throw new Error("Failed to fetch images for the tutorial.");
+    }
 }
 
 export async function fetchTutorialBySlug(slug: string){
