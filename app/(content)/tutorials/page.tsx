@@ -18,8 +18,9 @@ export default async function Page() {
         ]}
       />
 
-      <h1 className={`${lusitana.className} mb-4 text-2xl md:text 2xl`}>
-        {" "}
+      {/* <h1 className={`${lusitana.className} mb-4 text-2xl md:text 2xl`}> */}
+      <h1 className="font-bold mb-4 text-2xl md:text 2xl">
+        {/* {" "} */}
         Tutorials{" "}
       </h1>
 

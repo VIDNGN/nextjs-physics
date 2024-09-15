@@ -5,10 +5,15 @@ import {
   fetchOptionsAnswersBySlug,
 } from "@/app/lib/data";
 import Form from "@/app/ui/tutorials/create-form";
-import { lusitana } from "@/app/ui/fonts";
+import { unstable_noStore as noStore } from "next/cache";
+
+//import { lusitana } from "@/app/ui/fonts";
+
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { qslug: string } }) {
+  noStore();
+
   const slug = params.qslug;
 
   //console.log(slug);
@@ -34,9 +39,9 @@ export default async function Page({ params }: { params: { qslug: string } }) {
       />
 
       <div className="flex flex-col py-4 space-y-4 px-4">
-        <h1 className={`${lusitana.className} text-2xl`}>Experiment</h1>
-        
-        <h3 className={`${lusitana.className} text-xl`}>List of Equipment for Experiment</h3>
+        <h1 className="font-fold text-4xl">Experiment</h1>
+
+        <h2 className="text-2xl">List of Equipment for Experiment</h2>
 
         {demo_equipment && demo_equipment.length > 0 ? (
           <ul className="list-inside list-disc leading-7">

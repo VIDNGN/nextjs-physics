@@ -18,13 +18,14 @@ export default function Home() {
           height={400}
           priority
         />
-
-        <h1 className={`${montserrat.className} text-4xl`}>
-          Tutorials in Introductory Physics
+{/* 
+        <h1 className={`${montserrat.className} text-4xl`}> */}
+        <h1 className="text-4xl font-bold">
+          Introductory Physics and Tutorials
         </h1>
-        <div className="text-xl space-y-16 text-center">
+        <div className="text-xl space-y-8">
           <p>
-            Tutorials in Introductory Physics is an sequence of questions and
+            <strong>Introductory Physics and tutorials</strong> is an sequence of questions and
             answers which are indended to supplement the classroom and textbook
             of Introductory Physics in Mechanics, ELectromagnetism, Heat, and
             Wave.
