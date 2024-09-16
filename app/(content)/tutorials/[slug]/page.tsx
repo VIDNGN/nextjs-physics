@@ -6,12 +6,12 @@ import {
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Breadcrumbs from "@/app/ui/tutorials/breadcrumbs";
-import { lusitana } from "@/app/ui/fonts";
+//import { lusitana } from "@/app/ui/fonts";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/app/ui/button";
 import { unstable_noStore as noStore } from "next/cache";
-//import { motion, Variants } from 'framer-motion';
+import { Variants } from "framer-motion";
 // React Server Components
 import * as motion from "framer-motion/client";
 export const metadata: Metadata = {
@@ -74,20 +74,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
             whileHover={{ scale: 1.3, x: "calc(50vh - 100px)" }}
             whileInView={{
               opacity: [0, 1],
-              transition: { type: "spring", stiffness: 300, damping: 100 },
-              duration: 0.5,
+              transition: { type: "spring", stiffness: 400, damping: 100 },
+              //duration: 0.5,
             }}
-            style={{ transformOrigin: "Center"}}
+            style={{ transformOrigin: "Center" }}
           >
             {tutorial_images
               .filter((image) => image.image_name.startsWith(`${tslug}`))
               .map((image, index) => (
                 <div key={image.image_name}>
                   {/*First image*/}
-                  {image.image_name.includes("Rutherford_model") && (
+                  {image.image_name.includes("atomic-model") && (
                     <div className="section1 flex flex-row">
                       <Image
-                        className="rounded-lg w-2/5 h-2/5"
+                        className="rounded-lg w-2/5 h-2/5 bg-gray-100 p-4 shadow-md"
                         priority
                         // src={tutorial.image_url}
                         src={image.image_url}
@@ -103,84 +103,157 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <div className="py-8">
             <h1 className="text-4xl font-bold"> {tutorial.title}</h1>{" "}
           </div>
-          <div className="grid grid-cols-2 gap-36">
-            <div className="text-justify leading-9 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-md">
-              {/* add text motion */}
-              <motion.div initial="hidden" animate="visible">
-                <p>
-                  {tutorial.description
-                    .split(".")
-                    .map((sentence: string, idx: number) => (
-                      <motion.span key={idx} variants={sentenceVariant}>
-                        {idx === 0 ? (
-                          <strong>{highlightTerms(sentence)}</strong>
-                        ) : (
-                          highlightTerms(sentence)
-                        )}
-                      </motion.span>
-                    ))}
-                </p>
-              </motion.div>
-            </div>
-            <div className="px-8">
-              <motion.div
-                whileHover={{ scale: 1.3, x: "calc(0vh - 100px)" }}
-                whileInView={{
-                  opacity: [0, 1],
-                  transition: { ease: "linear" },
-                  duration: 0.5,
-                }}
-                style={{ transformOrigin: "Center" }}
-              >
-                {tutorial_images.map((image, index) => (
-                  <div key={image.image_name}>
-                    {image.image_name.includes("Rutherford_atom_model") && (
-                      <div className="py-8">
-                        <Image
-                          className="rounded-lg w-3/5 h-3/5 bg-gray-100 p-6 rounded-lg shadow-md"
-                          priority
-                          // src={tutorial.image_url}
-                          src={image.image_url}
-                          alt={tutorial.title}
-                          width={1024}
-                          height={638}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.3, x: "calc(0vh - 100px)" }}
-                whileInView={{
-                  opacity: [0, 1],
-                  transition: { ease: "linear" },
-                  duration: 0.5,
-                }}
-                style={{ transformOrigin: "Center" }}
-              >
-                {tutorial_images
-                  .filter((image) => image.image_name.startsWith(`${tslug}`))
-                  .map((image, index) => (
-                    <div key={image.image_name}>
-                      {image.image_name.includes("simple_model_atom") && (
-                        <div>
-                          <Image
-                            className="rounded-lg w-3/5 h-3/5 bg-gray-100 p-6 rounded-lg shadow-md"
-                            priority
-                            // src={tutorial.image_url}
-                            src={image.image_url}
-                            alt={tutorial.title}
-                            width={1064}
-                            height={1064}
-                          />
+          <div className="text-justify leading-9 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-md">
+            {tutorial.description
+              .split("\n")
+              .map((paragraph: string, idx: number, paragraphs) => {
+                if (idx < 3) {
+                  return (
+                    <div key={idx}>
+                      {/* {console.log(paragraph)} */}
+                      <p>
+                        {paragraph
+                          .split(".")
+                          .map((sentence: string, index: number) => (
+                            <motion.span key={index} variants={sentenceVariant}>
+                              {" "}
+                              {index === 0 && idx === 0 ? (
+                                <strong>{highlightTerms(sentence)}</strong>
+                              ) : (
+                                highlightTerms(sentence)
+                              )}
+                            </motion.span>
+                          ))}
+                      </p>
+                      {idx === 2 && (
+                        <div className="flex flex-row p-2">
+                          <motion.div
+                            whileHover={{ scale: 1.3, x: "calc(0vh - 50px)" }}
+                            whileInView={{
+                              opacity: [0, 1],
+                              transition: { ease: "linear" },
+                              //duration: 0.5,
+                            }}
+                            style={{ transformOrigin: "Center" }}
+                          >
+                            {tutorial_images.map((image, index) => (
+                              <div key={image.image_name}>
+                                {image.image_name.includes(
+                                  "Rutherford_atom_model"
+                                ) && (
+                                  <div className="p-2">
+                                    <Image
+                                      className="rounded-lg w-96 h-96 shadow-md"
+                                      priority
+                                      // src={tutorial.image_url}
+                                      src={image.image_url}
+                                      alt={tutorial.title}
+                                      width={1024}
+                                      height={638}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </motion.div>
+
+                          <motion.div
+                            whileHover={{ scale: 1.3, x: "calc(0vh - 100px)" }}
+                            whileInView={{
+                              opacity: [0, 1],
+                              transition: { ease: "linear" },
+                              //duration: 0.5,
+                            }}
+                            style={{ transformOrigin: "Center" }}
+                          >
+                            {tutorial_images
+                              .filter((image) =>
+                                image.image_name.startsWith(`${tslug}`)
+                              )
+                              .map((image, index) => (
+                                <div key={image.image_name}>
+                                  {image.image_name.includes(
+                                    "simple_model_atom"
+                                  ) && (
+                                    <div className="p-2">
+                                      <Image
+                                        className="rounded-lg w-96 h-96 shadow-md"
+                                        priority
+                                        // src={tutorial.image_url}
+                                        src={image.image_url}
+                                        alt={tutorial.title}
+                                        width={1064}
+                                        height={1064}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                          </motion.div>
                         </div>
                       )}
                     </div>
-                  ))}
-              </motion.div>
-            </div>
+                  );
+                } else {
+                  return (
+                    <div key={idx} className="">
+                       
+                      <div className="">
+                        {/* add text motion */}
+                        <motion.div initial="hidden" animate="visible">
+                          <p>
+                            {paragraph
+                              .split(".")
+                              .map((sentence: string, idx: number) => (
+                                <motion.span
+                                  key={idx}
+                                  variants={sentenceVariant}
+                                >
+                                  {highlightTerms(sentence)}
+                                </motion.span>
+                              ))}
+                          </p>
+                        </motion.div>
+                      </div>
+                      {idx === 5 && ( //this is pagragraphs array. 
+                        <div>
+                          <motion.div
+                            whileHover={{ scale: 2, x: "calc(100vh - 100px)" }}
+                            whileInView={{
+                              opacity: [0, 1],
+                              transition: { ease: "linear" },
+                              //duration: 0.5,
+                            }}
+                            style={{ transformOrigin: "Center" }}
+                          >
+                            {tutorial_images.map((image, index) => (
+                              <div key={image.image_name}>
+                                {image.image_name.includes(
+                                  "Rutherford_model"
+                                ) && (
+                                  <div className="p-2">
+                                    <Image
+                                      className="rounded-lg w-96 h-96 shadow-md"
+                                      priority
+                                      // src={tutorial.image_url}
+                                      src={image.image_url}
+                                      alt={tutorial.title}
+                                      width={1024}
+                                      height={638}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </motion.div>
+                        </div>
+                      )}
+                     
+                    </div>
+                  );
+                }
+              })}
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">

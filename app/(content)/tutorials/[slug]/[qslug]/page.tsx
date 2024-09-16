@@ -12,7 +12,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { qslug: string } }) {
-  noStore();
+  //noStore();
 
   const slug = params.qslug;
 
