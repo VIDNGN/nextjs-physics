@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className="flex flex-col justify-left">
         <div>
           <motion.div
-            whileHover={{ scale: 1.3, x: "calc(50vh - 100px)" }}
+            whileTap={{ scale: 1.3, x: "calc(50vh - 100px)" }}
             whileInView={{
               opacity: [0, 1],
               transition: { type: "spring", stiffness: 400, damping: 100 },
@@ -107,14 +107,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <div className="text-justify leading-9 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-md">
             {tutorial.description
               .split("\n")
-              .map((paragraph: string, idx: number, paragraphs) => {
+              .map((paragraph: string, idx: number, paragraphs: string[]) => {
                 if (idx < 3) {
                   return (
                     <div key={idx}>
                       {/* {console.log(paragraph)} */}
                       <p>
                         {paragraph
-                          .split(".")
+                          .split(/(\.)/)
                           .map((sentence: string, index: number) => (
                             <motion.span key={index} variants={sentenceVariant}>
                               {" "}
@@ -129,7 +129,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       {idx === 2 && (
                         <div className="flex flex-row p-2">
                           <motion.div
-                            whileHover={{ scale: 1.3, x: "calc(0vh - 50px)" }}
+                            whileTap={{ scale: 1.3, x: "calc(0vh - 50px)" }}
                             whileInView={{
                               opacity: [0, 1],
                               transition: { ease: "linear" },
@@ -159,7 +159,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                           </motion.div>
 
                           <motion.div
-                            whileHover={{ scale: 1.3, x: "calc(0vh - 100px)" }}
+                            whileTap={{ scale: 1.3, x: "calc(0vh - 100px)" }}
                             whileInView={{
                               opacity: [0, 1],
                               transition: { ease: "linear" },
@@ -219,7 +219,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       {idx === 5 && ( //this is pagragraphs array. 
                         <div>
                           <motion.div
-                            whileHover={{ scale: 2, x: "calc(100vh - 100px)" }}
+                            whileTap={{ scale: 2, x: "calc(100vh - 100px)" }}
                             whileInView={{
                               opacity: [0, 1],
                               transition: { ease: "linear" },
