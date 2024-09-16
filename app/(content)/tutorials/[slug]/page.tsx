@@ -11,9 +11,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/app/ui/button";
 import { unstable_noStore as noStore } from "next/cache";
-import { Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 // React Server Components
-import * as motion from "framer-motion/client";
+//import * as motion from "framer-motion/client";
 export const metadata: Metadata = {
   title: "Tutorials",
 };
