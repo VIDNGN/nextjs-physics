@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { Tutorial, Question, Equipment, Option  } from "./definitions";
-import { TutorialsTable } from "./definitions";
+import { TutorialsTable, TutorialImage } from "./definitions";
 import { list } from '@vercel/blob';
 
 
@@ -53,7 +53,7 @@ export async function fetchHomePageImages(){
 
 export async function fetchImagesByTutorialSlug(slug: string){
     try {
-        const data = await sql`SELECT tutorials_images.image_url, 
+        const data = await sql<TutorialImage>`SELECT tutorials_images.image_url, 
                                       tutorials_images.image_name 
                                     FROM tutorials_images
                                     JOIN tutorials ON tutorials_images.tutorial_id = tutorials.tutorial_id 

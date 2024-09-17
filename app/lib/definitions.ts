@@ -111,3 +111,8 @@ export type CorrectAnswer = {
   question_id: string;
   correct_answer: string; 
 };
+
+export type TutorialImage = {
+  image_name: string;
+  image_url: string;
+}
