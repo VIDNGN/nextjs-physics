@@ -138,3 +138,21 @@ export async function fetchCorrectAnswerbyQuestionId(questionId: string){
     }
 
 }
+
+export async function fetchTranslation(text: string, srcLang: string, tgtLang: string) {
+
+    const response = await fetch('http://127.0.0.1:8000/translate/', {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+            text,
+            src_lang: srcLang,
+            tgt_lang: tgtLang,
+        }),
+    });
+
+    const data = await response.json();
+    return data.translated_text;
+}

@@ -17,7 +17,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-
     "noImplicitAny": true, //setting stricter Typescript rules
     "strictNullChecks": true, //same here
     "strictFunctionTypes": true, //same here

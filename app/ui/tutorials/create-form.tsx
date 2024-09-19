@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import { useFormState } from "react-dom";
-import { createTutorial, State } from "@/app/lib/actions";
+import { createTutorial} from "@/app/lib/actions";
+import { State } from '@/app/lib/definitions';
 import {
   QuestionField,
   OptionField,

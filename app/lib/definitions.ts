@@ -1,54 +1,55 @@
-// This file contains type definitions for your data.
+// This file contains type definitions for  data.
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+
+//import { z } from 'zod';
+
 export type User = {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-  };
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};
 
+export type TutorialsTable = {
+  tutorial_id: string;
+  slug: string;
+  title: string;
+  image_url: string;
+  image_url_2: string;
+  date: string;
+  description: string;
+  qslug: string;
+};
 
-  export type TutorialsTable = {
-    tutorial_id: string;
-    slug: string;
-    title: string;
-    image_url: string;
-    image_url_2: string;
-    date: string;
-    description: string;
-    qslug: string;
-  };
+export type Tutorial = {
+  tutorial_id: string;
+  slug: string;
+  title: string;
+  image_url: string;
+  date: string;
+  description: string;
+};
 
-  export type Tutorial ={
-    tutorial_id: string;
-    slug: string;
-    title: string;
-    image_url: string;
-    date: string;
-    description: string;
-
-  }
-  
-  export type Customer = {
-    id: string;
-    name: string;
-    email: string;
-  }
+export type Customer = {
+  id: string;
+  name: string;
+  email: string;
+};
 
 export type Question = {
   question_id: string;
   tutorial_id: string;
   type: string;
   question: string;
-}
+};
 
 export type QuestionField = {
   question_id: string;
   question: string;
   type: string;
-}
+};
 
 export type shortAnswer = {
   id: string;
@@ -57,7 +58,7 @@ export type shortAnswer = {
   question_slug: string;
   question: string;
   correct_answer: string;
-}
+};
 
 export type optionAnswer = {
   id: string;
@@ -67,8 +68,7 @@ export type optionAnswer = {
   question: string;
   option_text: string;
   is_correct: boolean;
-}
-
+};
 
 export type Equipment = {
   id: string;
@@ -76,7 +76,7 @@ export type Equipment = {
   tutorial_slug: string;
   question_slug: string;
   equipment: string;
-}
+};
 
 export type studentAnswer = {
   id: string;
@@ -86,33 +86,93 @@ export type studentAnswer = {
   question_slug: string;
   question: string;
   answer: string;
+};
 
-}
-
-export type Option ={
+export type Option = {
   id: string;
   tutorial_id: string;
   option_text: string;
-}
+};
 
 export type OptionField = {
   id: string;
   tutorial_id: string;
   option_text: string;
-}
+};
 
 export type TutorialForm = {
   question: string;
   short_answer: string;
   multiple_choice_answer: string;
-}
+};
 
 export type CorrectAnswer = {
   question_id: string;
-  correct_answer: string; 
+  correct_answer: string;
 };
 
 export type TutorialImage = {
   image_name: string;
   image_url: string;
+};
+
+export type State = {
+  errors?: string | null;
+  //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
+  message: string;
+  correctAnswers: CorrectAnswer[]; //the database query result type.
+};
+
+//validate signup form
+import { z } from "zod";
+
+export const SignupFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long." })
+    .trim(),
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
+  password: z
+    .string()
+    .min(8, { message: "Be at least 8 characters long" })
+    .regex(/[a-zA-Z]/, { message: "Contain at least one letter." })
+    .regex(/[0-9]/, { message: "Contain at least one number." })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "Contain at least one special character.",
+    })
+    .trim(),
+});
+
+
+export const LoginFormSchema = z.object({
+ 
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
+  password: z
+    .string()
+    .min(8, { message: "Be at least 8 characters long" })
+    .regex(/[a-zA-Z]/, { message: "Contain at least one letter." })
+    .regex(/[0-9]/, { message: "Contain at least one number." })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "Contain at least one special character.",
+    })
+    .trim(),
+});
+
+
+export type SignupFormState =
+  | {
+      errors?: {
+        name?: string[];
+        email?: string[];
+        password?: string[];
+      } ;
+      message?: string;
+    }
+  | undefined;
+
+
+export type AuthMode = "login" | "signup";
+
+export interface AuthFormProps {
+  mode: AuthMode;
 }

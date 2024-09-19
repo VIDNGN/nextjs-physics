@@ -3,7 +3,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
-import { CorrectAnswer } from "@/app/lib/definitions";
+import { CorrectAnswer, State } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
 
@@ -13,12 +13,6 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
-export type State = {
-  errors?: string | null;
-  //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
-  message: string; 
-  correctAnswers: CorrectAnswer[]; //the database query result type.
-};
 
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });
 
