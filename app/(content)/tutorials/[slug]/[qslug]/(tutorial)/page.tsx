@@ -6,16 +6,17 @@ import {
 } from "@/app/lib/data";
 import Form from "@/app/ui/tutorials/create-form";
 import { unstable_noStore as noStore } from "next/cache";
-
+import { verifyAuth } from "@/app/lib/session";
 //import { lusitana } from "@/app/ui/fonts";
-
+import Link from 'next/link';
 import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
+import { ChatBubbleOvalLeftIcon } from "@heroicons/react/20/solid";
 
 export default async function Page({ params }: { params: { qslug: string } }) {
   //noStore();
 
   const slug = params.qslug;
-
   //console.log(slug);
 
   const [questions, demo_equipment, optionsAnswers] = await Promise.all([
@@ -29,7 +30,7 @@ export default async function Page({ params }: { params: { qslug: string } }) {
   }
 
   return (
-    <main>
+    <main className="w-full max-w-7xl">
       <Breadcrumbs
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -38,6 +39,15 @@ export default async function Page({ params }: { params: { qslug: string } }) {
         ]}
       />
 
+      <div className="mt-6 flex justify-end">
+        <Link
+          href={`${slug}/chat`}
+          className="flex h-10 items-center rounded-lg bg-[#27374D] px-4 text-sm font-medium text-white transition-colors hover:bg-[#526D82] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#27374D] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+        >
+          Ask A question <ChatBubbleOvalLeftIcon />
+
+        </Link>
+      </div>
       <div className="flex flex-col py-4 space-y-4 px-4">
         <h1 className="font-fold text-4xl">Experiment</h1>
 

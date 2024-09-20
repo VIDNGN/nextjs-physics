@@ -7,7 +7,8 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-36 mx-28">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 mx-auto max-w-7xl">
+   
       {/* <div className={styles.home}> */}
       <div className="flex flex-col items-center space-y-16">
         <Image

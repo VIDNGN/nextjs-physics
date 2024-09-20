@@ -3,7 +3,8 @@ import NavLinks from "@/app/ui/nav-links/nav-links";
 import PhysTLogo from "@/app/ui/phys-logo";
 //import { PowerIcon } from '@heroicons/react/24/outline';
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { signOut } from "@/auth";
+//import { signOut } from "@/auth";
+import { logout } from '@/app/lib/auth-actions';
 
 export default function SideNav() {
   return (
@@ -22,7 +23,7 @@ export default function SideNav() {
         <form
           action={async () => {
             "use server";
-            await signOut();
+            await logout();
           }}
         >
           <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">

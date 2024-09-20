@@ -86,7 +86,7 @@ export default function LoginForm() {
           )}
         </div>
 
-        <p>
+        <div className="py-2 flex justify-center">
           <Button
             //className="mt-4 w-full"
             aria-disabled={isPending}
@@ -94,10 +94,20 @@ export default function LoginForm() {
           >
             Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
           </Button>
+        </div>
+
+        <p className="flex justify-center text-rose-600">
+          {formState?.message && formState.message.length > 0 && (
+            <p>{formState.message}</p>
+          )}
         </p>
+
+        <div className="py-2 flex justify-center">
         <p>
           New here? <Link href="/signup">Create an account</Link>
         </p>
+        </div>
+    
       </div>
     </form>
   );

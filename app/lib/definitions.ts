@@ -171,8 +171,21 @@ export type SignupFormState =
   | undefined;
 
 
-export type AuthMode = "login" | "signup";
 
-export interface AuthFormProps {
-  mode: AuthMode;
-}
+  export interface NeonDbError extends Error {
+    code: string;
+    detail: {Key: string};
+    schema?: string;
+    table?: string;
+    column?: string;
+    dataType?: string;
+    constraint?: "auth_user_username_key";
+  };
+
+
+// export type AuthMode = "login" | "signup";
+
+// export interface AuthFormProps {
+//   mode: AuthMode;
+// }
+

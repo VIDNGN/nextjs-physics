@@ -1,5 +1,5 @@
-// import pg from "pg";
-// import bcrypt from "bcrypt";
+// //import pg from "pg";
+// import bcrypt from "bcryptjs";
 // import { db } from "@vercel/postgres";
 // import { put } from "@vercel/blob";
 
@@ -366,10 +366,10 @@ export async function GET() {
           'Uncomment this file and remove this line. Can delete this file after seeding the DB.',
   });
 
-  //try {
-    //await client.sql`BEGIN`;
+  // try {
+  //   await client.sql`BEGIN`;
 
-    // await seedUsers();
+  //   await seedUsers();
     // await seedTutorials();
     //await seedQuestions();
     //await seedShortAnswers();
@@ -395,9 +395,9 @@ export async function GET() {
     // const folderPath6 = cwd + "\\public\\em\\coulomb_law";
     // await updateTutorialsImagesFromBlob(alltutorials[1].id, folderPath6);
 
-    //await client.sql`COMMIT`;
+//     await client.sql`COMMIT`;
 
-    // return Response.json({ message: "Database seeded successfully" });
+//     return Response.json({ message: "Database seeded successfully" });
 //   } catch (error) {
 //     console.log(error);
 //     await client.sql`ROLLBACK`;
