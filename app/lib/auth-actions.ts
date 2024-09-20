@@ -83,7 +83,7 @@ export async function authenticate(
     // console.log(typeof user.id);
     // console.log(typeof id);
 
-    await createAuthSession(user.id);
+    await createAuthSession(user.id, email);
     
   } catch (error) {
     // if (error instanceof AuthError) {
@@ -134,13 +134,12 @@ export async function signup(state: SignupFormState, formData: FormData) {
           "Something went wrong. An error occurred while creating your account.!",
       };
     }
-    await createAuthSession(user.id);
+    const {session, email} =  await createAuthSession(user.id, user.email);
     
   } catch (error: unknown) {
     if (isNeonDbError(error)) {
       if (error.name === "NeonDbError") {
         if (error.code === "23505") {
-          console.log(error.detail.Key);
           return { message: error.detail.slice(4) };
         }
       }

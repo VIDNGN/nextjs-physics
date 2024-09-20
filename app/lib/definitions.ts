@@ -174,7 +174,7 @@ export type SignupFormState =
 
   export interface NeonDbError extends Error {
     code: string;
-    detail: {Key: string};
+    detail: string;
     schema?: string;
     table?: string;
     column?: string;
