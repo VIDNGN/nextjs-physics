@@ -2,7 +2,7 @@ import { google, lucia } from "@/app/lib/session";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 //import { generateIdFromEntropySize } from "lucia";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import { GoogleUser } from "@/app/lib/definitions";
 import { User } from "@/app/lib/definitions";
 import { sql } from "@vercel/postgres";
@@ -79,7 +79,7 @@ export async function GET(request: Request): Promise<Response> {
     }
 
     //const userId = generateIdFromEntropySize(10); // 16 characters long
-    const userId = uuid();
+    const userId = uuidv4();
 
     const { sub, name, picture, email } = googleUser;
 
