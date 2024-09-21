@@ -5,28 +5,50 @@ import { cookies } from "next/headers";
 import { Lucia } from "lucia";
 import { NodePostgresAdapter } from "@lucia-auth/adapter-postgresql";
 import { db } from "@vercel/postgres";
+import { Google} from "arctic"; //Arctic is a light weight library that provides API for creating authorization URLs, validating callbacks, and refreshing access tokens. 
+
 
 //const secretKey = process.env.SESSION_SECRET;
 //const encodedKey = new TextEncoder().encode(secretKey);
+const redirectURL = "http://localhost:3000/login/google/callback";
+export const google = new Google(process.env.GOOGLE_CLIENT_ID!, process.env.GOOGLE_CLIENT_SECRET!, redirectURL);
+
+declare module "lucia" {
+  interface Register {
+    Lucia: typeof lucia;
+    DatabaseSessionAttributes: {
+      prof_email?: string;
+      google_sub?: string;
+      prof_name?: string;
+      prof_picture?: string;
+    };
+  }
+}
 
 const adapter = new NodePostgresAdapter(db, {
   user: "users",
   session: "user_sessions",
 });
 
-const lucia = new Lucia(adapter, {
-  sessionCookie: {
-    expires: false,
-    attributes: {
-      secure: process.env.NODE_ENV === "production",
-      getSessionAttributes: (attributes) => {
-        return {
-          email: attributes.email,
-        };
+export const lucia = new Lucia(adapter, {
+    sessionCookie: {
+      expires: false,
+      attributes: {
+        secure: process.env.NODE_ENV === "production",
       },
     },
-  },
-});
+  
+    getSessionAttributes: (attributes) => {
+      return {
+        prof_email: attributes.email,
+        google_sub: attributes.google_id,
+        prof_name: attributes.name,
+        prof_picture: attributes.picture,
+
+      };
+    },
+  });
+
 
 //create cookie
 export async function createAuthSession(userId: string, email: string) {
@@ -111,9 +133,8 @@ export async function getSessionData() {
       session: null,
     };
   }
-  return sessionID
+  return sessionID;
 }
-
 
 //destroy session if no valid cookie and session.
 export async function destroySession() {

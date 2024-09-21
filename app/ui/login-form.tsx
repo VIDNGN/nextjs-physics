@@ -6,6 +6,8 @@ import { useFormState } from "react-dom";
 import { authenticate } from "@/app/lib/auth-actions";
 import { Button } from "@/app/ui/button";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import GoogleLogo from '@/app/ui/icons8-google.svg';
+import Image from 'next/image';
 
 import {
   //AuthMode,
@@ -74,16 +76,17 @@ export default function LoginForm() {
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-          {formState?.errors?.password && formState.errors.password.length > 0 && (
-            <div>
-              <p>Password must: </p>
-              <ul>
-                {formState.errors.password.map((error) => (
-                  <li key={error}> -{error}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {formState?.errors?.password &&
+            formState.errors.password.length > 0 && (
+              <div>
+                <p>Password must: </p>
+                <ul>
+                  {formState.errors.password.map((error) => (
+                    <li key={error}> -{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
         </div>
 
         <div className="py-2 flex justify-center">
@@ -96,18 +99,37 @@ export default function LoginForm() {
           </Button>
         </div>
 
-        <p className="flex justify-center text-rose-600">
+        <div className="flex justify-center text-rose-600">
           {formState?.message && formState.message.length > 0 && (
             <p>{formState.message}</p>
           )}
-        </p>
-
-        <div className="py-2 flex justify-center">
-        <p>
-          New here? <Link href="/signup">Create an account</Link>
-        </p>
         </div>
-    
+        <div className="py-2 flex justify-center">
+          <Link
+            className="flex h-10 items-center rounded-lg bg-[#DDE6ED] px-4 text-sm font-medium text-[#27374D] transition-colors hover:bg-[#9DB2BF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#9DB2BF] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            href="/login/google"
+          > 
+            <Image 
+              className="h-10 w-10 rounded-full object-cover p-2"
+              src={GoogleLogo}
+              alt="Google logo"
+              width={48}
+              height={48}/>
+            Log in with Google{" "}
+            {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
+          </Link>
+        </div>
+
+        <div className="flex justify-center text-rose-600">
+          {formState?.message && formState.message.length > 0 && (
+            <p>{formState.message}</p>
+          )}
+        </div>
+        <div className="py-2 flex justify-center text-[#526D82]">
+          <p>
+            <Link href="/signup">New here? Create an account</Link>
+          </p>
+        </div>
       </div>
     </form>
   );

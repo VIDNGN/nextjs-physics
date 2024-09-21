@@ -134,7 +134,8 @@ export async function signup(state: SignupFormState, formData: FormData) {
           "Something went wrong. An error occurred while creating your account.!",
       };
     }
-    const {session, email} =  await createAuthSession(user.id, user.email);
+    
+    await createAuthSession(user.id, user.email);
     
   } catch (error: unknown) {
     if (isNeonDbError(error)) {

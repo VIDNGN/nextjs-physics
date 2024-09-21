@@ -10,6 +10,7 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  username: string;
 };
 
 export type TutorialsTable = {
@@ -181,6 +182,11 @@ export type SignupFormState =
     dataType?: string;
     constraint?: "auth_user_username_key";
   };
+
+export interface GoogleUser {
+	id: string;
+	login: string;
+}
 
 
 // export type AuthMode = "login" | "signup";
