@@ -11,8 +11,8 @@ export default async function Page() {
 
   const sessionData = result.session;
   console.log(sessionData);
-  console.log(sessionData.prof_email)
-  const username = sessionData.prof_email.split("@")[0];
+  console.log(sessionData.email)
+  const username = sessionData?.email?.split("@")[0];
 
   const date = new Date().toISOString().split("T")[0];
 

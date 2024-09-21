@@ -10,7 +10,8 @@ export type User = {
   name: string;
   email: string;
   password: string;
-  username: string;
+  google_id?: string;
+  picture?: string;
 };
 
 export type TutorialsTable = {
@@ -184,8 +185,10 @@ export type SignupFormState =
   };
 
 export interface GoogleUser {
-	id: string;
-	login: string;
+	sub: string;
+  name: string;
+  picture: string;
+  email: string;
 }
 
 

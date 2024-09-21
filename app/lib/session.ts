@@ -17,10 +17,10 @@ declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
     DatabaseSessionAttributes: {
-      prof_email?: string;
-      google_sub?: string;
-      prof_name?: string;
-      prof_picture?: string;
+      email?: string;
+      google_id?: string;
+      name?: string;
+      picture?: string;
     };
   }
 }
@@ -40,10 +40,10 @@ export const lucia = new Lucia(adapter, {
   
     getSessionAttributes: (attributes) => {
       return {
-        prof_email: attributes.email,
-        google_sub: attributes.google_id,
-        prof_name: attributes.name,
-        prof_picture: attributes.picture,
+        email: attributes.email,
+        //google_sub: attributes.google_sub, //maybe we don't expose google sub id
+        name: attributes.name,
+        picture: attributes.picture,
 
       };
     },

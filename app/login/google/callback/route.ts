@@ -49,7 +49,7 @@ export async function GET(request: Request): Promise<Response> {
         
         if (existingUser) {
             const {id, name, email, google_id, picture } = existingUser;
-            const session = await lucia.createSession(existingUser.id, {email, google_id, name, picture});
+            const session = await lucia.createSession(existingUser.id, {email, google_id, name, picture}); //lucia will use {email, google_id, name, picture} these names and look for db column names in user_sessions table.
 			const sessionCookie = lucia.createSessionCookie(session.id);
 			cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 			return new Response(null, {
@@ -65,7 +65,7 @@ export async function GET(request: Request): Promise<Response> {
 
         const { sub, name, picture, email } = googleUser; 
         
-        const google_id = sub;
+        const google_id = sub; //since user_sessions db table has a column named google_id which is for sub
 
         await sql`INSERT INTO users (id, name, email, password, google_id, picture) VALUES (${userId}, ${googleUser.name}, ${googleUser.email}, 'google_password', ${googleUser.sub}, ${googleUser.picture});`
         
