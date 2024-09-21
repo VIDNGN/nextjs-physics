@@ -30,7 +30,7 @@ export default async function TutorialsList(): Promise<JSX.Element | null> {
                     )
                     .map((image) => (
                       <Image
-                        className="rounded-lg w-96 h-96"
+                        className="rounded-lg w- h-auto"
                         priority
                         key={image.image_name}
                         // src={tutorial.image_url}
