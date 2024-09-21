@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 
 export async function GET(): Promise<Response> {
 
+
     
 if (!process.env.AUTH_SECRET) {
     throw new Error("Auth Secret are required!");

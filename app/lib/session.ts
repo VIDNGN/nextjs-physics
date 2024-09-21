@@ -5,23 +5,27 @@ import { cookies } from "next/headers";
 import { Lucia } from "lucia";
 import { NodePostgresAdapter } from "@lucia-auth/adapter-postgresql";
 import { db } from "@vercel/postgres";
-import { Google} from "arctic"; //Arctic is a light weight library that provides API for creating authorization URLs, validating callbacks, and refreshing access tokens. 
-
+import { Google } from "arctic"; //Arctic is a light weight library that provides API for creating authorization URLs, validating callbacks, and refreshing access tokens.
 
 //const secretKey = process.env.SESSION_SECRET;
 //const encodedKey = new TextEncoder().encode(secretKey);
 const redirectURL = "http://localhost:3000/login/google/callback";
 
-
-//can do process.env.GOOGLE_CLIENT_ID! 
+//can do process.env.GOOGLE_CLIENT_ID!
 //The ! in TypeScript is called the non-null assertion operator. It tells the TypeScript compiler, "I know this value will not be null or undefined, trust me!"
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-    throw new Error("Google Client ID and Secret are required!");
-  }
+  throw new Error("Google Client ID and Secret are required!");
+}
 
+const redirectURL = process.env.NODE_ENV === 'production' ? 'https://nextjs-physics-seven.vercel.app/login/google/callback' : 'http://localhost:3000/login/google/callback'
 
-export const google = new Google(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirectURL); 
+export const google = new Google(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  redirectURL
+);
+
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
@@ -40,24 +44,22 @@ const adapter = new NodePostgresAdapter(db, {
 });
 
 export const lucia = new Lucia(adapter, {
-    sessionCookie: {
-      expires: false,
-      attributes: {
-        secure: process.env.NODE_ENV === "production",
-      },
+  sessionCookie: {
+    expires: false,
+    attributes: {
+      secure: process.env.NODE_ENV === "production",
     },
-  
-    getSessionAttributes: (attributes) => {
-      return {
-        email: attributes.email,
-        //google_sub: attributes.google_sub, //maybe we don't expose google sub id
-        name: attributes.name,
-        picture: attributes.picture,
+  },
 
-      };
-    },
-  });
-
+  getSessionAttributes: (attributes) => {
+    return {
+      email: attributes.email,
+      //google_sub: attributes.google_sub, //maybe we don't expose google sub id
+      name: attributes.name,
+      picture: attributes.picture,
+    };
+  },
+});
 
 //create cookie
 export async function createAuthSession(userId: string, email: string) {
