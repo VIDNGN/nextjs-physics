@@ -11,8 +11,17 @@ import { Google} from "arctic"; //Arctic is a light weight library that provides
 //const secretKey = process.env.SESSION_SECRET;
 //const encodedKey = new TextEncoder().encode(secretKey);
 const redirectURL = "http://localhost:3000/login/google/callback";
-export const google = new Google(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirectURL);
 
+
+//can do process.env.GOOGLE_CLIENT_ID! 
+//The ! in TypeScript is called the non-null assertion operator. It tells the TypeScript compiler, "I know this value will not be null or undefined, trust me!"
+
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    throw new Error("Google Client ID and Secret are required!");
+  }
+
+
+export const google = new Google(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirectURL); 
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
