@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus} from "react-dom";
 import { createTutorial} from "@/app/lib/actions";
 import { State } from '@/app/lib/definitions';
 import {
@@ -19,6 +19,7 @@ export default function Form({
   questions: QuestionField[];
   options: OptionField[];
 }) {
+ 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
       (e.ctrlKey || e.metaKey) &&
@@ -46,7 +47,7 @@ export default function Form({
   };
 
   const [formState, formAction] = useFormState(createTutorial, initialState);
-
+  
   // const handleSubmit = async (formAction) => {
   //   event.preventDefault();
 
@@ -72,7 +73,7 @@ export default function Form({
                   <input
                     type="hidden"
                     name={`questionId_${question.question_id}`}
-                    value={question.question}
+                    // value={question.question}
                   />
                 </div>
                 <div className="w-2/3">
@@ -114,7 +115,7 @@ export default function Form({
                   <input
                     type="hidden"
                     name={`questionId_${question.question_id}`}
-                    value={question.question}
+                    // value={question.question}
                   />
                 </div>
                 <div>

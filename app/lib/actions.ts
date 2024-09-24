@@ -3,7 +3,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
-import { CorrectAnswer, State } from "@/app/lib/definitions";
+import { CorrectAnswer, State, AskQuestionFormSchema, DiscussionFormState } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
 
@@ -131,31 +131,37 @@ export async function createTutorial(prevState: State, formData: FormData) {
 //   'questionId_d448bc1b-66b4-4e6f-a4e0-f5b4072cee82': 'what would happen if you brought the PVC pipe and the balloon near each other? Describe the interaction?',
 // 'answer_d448bc1b-66b4-4e6f-a4e0-f5b4072cee82': 'test5'
 
-/* const columns = Object.keys(rawFormData);
-    const values = Object.values(rawFormData);
-    console.log("values: ", values);
 
-    const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
-    console.log("placeholder: ", placeholders);
-    
-    await sql`INSERT INTO studentsAnswers (${columns.join(', ')}) VALUES (${placeholders}) RETURNING *`;
+export async function answerQuestions(prevState: DiscussionFormState, formData: FormData) {
+
+  const validatedFields = AskQuestionFormSchema.safeParse({
+    subject: formData.get("subject"),
+    content: formData.get("content"),
+  });
 
 
-    Object.entries(rawFormData).forEach(([key, value]) => {
 
-        console.log(`key: ${key}, value: ${value}`);
-    }); */
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Ask Questions Form Missing fields"
+    }
+  }
 
-//const validatedEntries = CreateTutorial.safeParse({rawFormData});
+  const { subject, content }  = validatedFields.data;
+  console.log(subject)
+  console.log(content)
 
-// if (!validatedEntries.success) {
-//     console.log(validatedEntries);
-//     return {
-//         errors: validatedEntries.error.flatten().fieldErrors,
-//         message: "Missing answers. Failed to submit questions!"
-//     };
-// }
+  const date = new Date().toISOString().split("T")[0];
 
-// if (validatedEntries.success) {
-//     console.log(validatedEntries.data);
-// }
+  try {
+    await sql`INSERT into discussion (username, subject, content, date) VALUES ('current_user', ${subject}, ${cotent}, ${date});`
+    return { message: "Successfully submitted your message."}
+  } catch (error) {
+    console.log(error)
+    return {message: "Something went wrong. Cannot submitted your message!"}
+  }
+
+
+
+}

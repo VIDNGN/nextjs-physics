@@ -145,9 +145,7 @@ export const SignupFormSchema = z.object({
     .trim(),
 });
 
-
 export const LoginFormSchema = z.object({
- 
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
     .string()
@@ -160,41 +158,50 @@ export const LoginFormSchema = z.object({
     .trim(),
 });
 
-
 export type SignupFormState =
   | {
       errors?: {
         name?: string[];
         email?: string[];
         password?: string[];
-      } ;
+      };
       message?: string;
     }
   | undefined;
 
-
-
-  export interface NeonDbError extends Error {
-    code: string;
-    detail: string;
-    schema?: string;
-    table?: string;
-    column?: string;
-    dataType?: string;
-    constraint?: "auth_user_username_key";
-  };
+export interface NeonDbError extends Error {
+  code: string;
+  detail: string;
+  schema?: string;
+  table?: string;
+  column?: string;
+  dataType?: string;
+  constraint?: "auth_user_username_key";
+}
 
 export interface GoogleUser {
-	sub: string;
+  sub: string;
   name: string;
   picture: string;
   email: string;
 }
 
+export type DiscussionFormState =
+  | {
+      errors?: {
+        subject?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+export const AskQuestionFormSchema = z.object({
+  subject: z.string({ message: "please enter a subject" }),
+  content: z.string({ message: "please enter your comments" }),
+});
 
 // export type AuthMode = "login" | "signup";
 
 // export interface AuthFormProps {
 //   mode: AuthMode;
 // }
-

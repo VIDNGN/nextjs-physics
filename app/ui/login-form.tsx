@@ -92,7 +92,7 @@ export default function LoginForm() {
         <div className="py-2 flex justify-center">
           <Button
             //className="mt-4 w-full"
-            aria-disabled={isPending}
+           aria-disabled={isPending}
             type="submit"
           >
             Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />

@@ -14,8 +14,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import { motion, Variants } from "framer-motion";
 import ClientAnimatedImages from "@/app/ui/tutorials/clientAnimatedImages";
 import { ChatBubbleOvalLeftIcon } from "@heroicons/react/20/solid";
-// React Server Components
-//import * as motion from "framer-motion/client";
+import AskQuestionClient from "@/app/ui/chat/ask-question-client";
+
 export const metadata: Metadata = {
   title: "Tutorials",
 };
@@ -66,14 +66,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
         ]}
       />
       <div className="mt-6 flex justify-end">
-        <Link
+        {/* <Link
           href= "/chat"
           className="flex h-10 items-center rounded-lg bg-[#27374D] px-4 text-sm font-medium text-white transition-colors hover:bg-[#526D82] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#27374D] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
         >
           Ask A question <ChatBubbleOvalLeftIcon />
 
-        </Link>
+        </Link> */}
+       <AskQuestionClient />
+
+        
       </div>
+     
+
       <div className="flex flex-col justify-left">
         <div>
           {tutorial_images
