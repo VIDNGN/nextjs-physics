@@ -3,7 +3,11 @@ import { Tutorial, Question, Equipment, Option  } from "./definitions";
 import { TutorialsTable, TutorialImage } from "./definitions";
 import { list } from '@vercel/blob';
 
-
+export async function fetch askedQuestions(){
+    try {
+        const data = await sql`SELECT * FROM discussions`
+    }
+}
 
 export async function fetchTutorials(){
 

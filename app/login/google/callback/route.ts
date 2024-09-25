@@ -26,7 +26,7 @@ export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
-
+  
   const codeVerifier = process.env.AUTH_SECRET;
   const storedState = cookies().get("google_oauth_state")?.value ?? null;
   if (!code || !state || !storedState || state !== storedState) {
@@ -34,6 +34,12 @@ export async function GET(request: Request): Promise<Response> {
       status: 400,
     });
   }
+  const callbackUrl = cookies().get("callbackUrl")?.value ?? null;
+  //console.log("callbackURL from google OAuth: ", callbackUrl); // http://localhost:3000/login?callbackUrl=%2Ftutorials%2Felectrical-charge
+
+//   const redirectURL = decodeURIComponent(callbackUrl?.split('callbackUrl=')[1]) ?? '/chat' //decodeURIComponent will throw error if callbackUrl is null or undefined!!
+  //console.log("redirectURL ", redirectURL);
+  const redirectURL = callbackUrl ? decodeURIComponent(callbackUrl.split('callbackUrl=')[1] || '/chat') : '/chat'; //check for callbackUrl before attempting to decode and split. If callbackUrl is defined, then we split and decode. If the split fails to find the parameter (array [1]), we default to '/chat'. Finally, if the entire callback is null or undefined, we default to '/chat'
 
   try {
     const tokens = await google.validateAuthorizationCode(code, codeVerifier);
@@ -73,7 +79,7 @@ export async function GET(request: Request): Promise<Response> {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/chat",
+          Location: `${redirectURL}`,
         },
       });
     }
@@ -102,7 +108,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/chat",
+        Location: `${redirectURL}`,
       },
     });
   } catch (error) {

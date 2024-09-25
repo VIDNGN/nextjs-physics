@@ -6,6 +6,7 @@ type ModalProps = {
   onClose: () => void;
   children: ReactNode;
 };
+import {XMarkIcon} from "@heroicons/react/20/solid";
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -14,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     <div className={styles.modaloverlay}>
       <div className={styles.modalcontent}>
         <div className={styles.modalcancelbutton}>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={onClose}> <XMarkIcon className="w-6" /></button>
           {/* <Button onClick={onClose}>Cancel</Button> */}
         </div>
         {children}

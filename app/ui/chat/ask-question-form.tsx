@@ -10,6 +10,9 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { answerQuestions } from "@/app/lib/actions";
 import styles from "@/app/ui/home.module.css";
+import { verifyAuth, getSessionData } from "@/app/lib/session";
+import { redirect } from "next/navigation";
+
 export default function AskQuestionsForm({}: //username,
 //date,
 //picture,
@@ -22,6 +25,7 @@ export default function AskQuestionsForm({}: //username,
     answerQuestions,
     undefined
   );
+
 
   return (
     <div>
@@ -49,14 +53,14 @@ export default function AskQuestionsForm({}: //username,
           </div>
         </div>
 
-        <div className="flex relative justify-end py-2">
-          <Button type="submit">Submit</Button>
-        </div>
-       
+        <div className="">
+          <div className="flex justify-end py-2">
+            <Button type="submit">Submit</Button>
+          </div>
           {formState?.message && formState.message.length > 0 && (
-             <dialog className={styles.modaloverlay} open>{formState.message} </dialog>
+            <div className="flex justify-end py-2">{formState.message} </div>
           )}
-       
+        </div>
       </form>
     </div>
   );

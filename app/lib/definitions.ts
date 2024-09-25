@@ -143,6 +143,7 @@ export const SignupFormSchema = z.object({
       message: "Contain at least one special character.",
     })
     .trim(),
+  callbackUrl: z.string(),
 });
 
 export const LoginFormSchema = z.object({
@@ -156,6 +157,7 @@ export const LoginFormSchema = z.object({
       message: "Contain at least one special character.",
     })
     .trim(),
+  callbackUrl: z.string(),
 });
 
 export type SignupFormState =

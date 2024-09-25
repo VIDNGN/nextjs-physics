@@ -13,7 +13,17 @@ body {
   background-color: #F0EFEB;
   color: #070702;
 } */
-
+.messagedialog {
+  position: fixed;
+  top: 25%;
+  left: 0%;
+  width: 25%;
+  height: 25%;
+  background-color: #9DB2BF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .modaloverlay {
   position: fixed;
   top: 0;
@@ -32,22 +42,23 @@ body {
   border-radius: 8px;
   max-width: 50%;
   width: 100%;
-  position: absolute;
+  position: relative;
 }
 
 
 .modalcancelbutton {
   position: absolute;
-  top: 79%;
-  right: 150px;
-  height: 40px;
+  top: 0;
+  right: 0; 
+  height: 24px;
+  width: 24x;
   border-radius: 0.5rem; /*8px*/
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   align-content: center;
-  background: #526D82;
-  color: white;
-  border: 1px solid #ccc;
+  /* background: #f3f4f4;
+  color: white; */
+  border: 2px solid #ccc;
   font-weight: 500;
   font-size: 0.875rem; /*14px*/
   /* font-size: 16px;

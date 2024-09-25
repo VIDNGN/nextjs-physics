@@ -1,6 +1,7 @@
 import PhysTLogo from "@/app/ui/phys-logo";
 import SignUpForm from "@/app/ui/signup-form";
-//import { AuthMode, AuthFormProps } from "@/app/lib/definitions";
+import { Suspense } from "react";
+
 export default function SignUpPage() {
 
 
@@ -12,7 +13,7 @@ export default function SignUpPage() {
             <PhysTLogo />
           </div>
         </div>
-        <SignUpForm />
+        <Suspense fallback={<div>Loading....</div>}><SignUpForm /></Suspense>
       </div>
     </main>
   );

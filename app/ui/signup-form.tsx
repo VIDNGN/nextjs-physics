@@ -5,25 +5,24 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { signup } from "@/app/lib/auth-actions";
 import { Button } from "./button";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import {
-  //AuthMode,
-  //AuthFormProps,
-  SignupFormState,
-} from "@/app/lib/definitions";
-
+import { SignupFormState } from "@/app/lib/definitions";
 import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 
+import { useSearchParams } from "next/navigation";
+
+
 export default function SignUpForm() {
-  //mode = 'login' or 'signup'
-  //const [formState, formAction] = useActionState(signup, {});
+   
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get('callbackUrl') || "/signup";
 
   const [formState, formAction, isPending] = useFormState(signup, undefined);
-
+   
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -33,6 +32,10 @@ export default function SignUpForm() {
         <h1 className="flex justify-center mb-3 text-2xl">Welcome!</h1>
         <div className="w-full">
           <div>
+            {" "}
+            <input type="hidden" name="callbackUrl" value={callbackUrl} />
+          </div>
+          <div>
             <div>
               <label
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -41,7 +44,12 @@ export default function SignUpForm() {
                 Name
               </label>
             </div>
-            <input className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500" id="name" name="name" placeholder="Name" />
+            <input
+              className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              id="name"
+              name="name"
+              placeholder="Name"
+            />
           </div>
           {formState?.errors?.name && <p>{formState.errors.name.join(",")}</p>}
           <div>

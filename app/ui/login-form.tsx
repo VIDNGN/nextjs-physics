@@ -5,25 +5,23 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { authenticate } from "@/app/lib/auth-actions";
 import { Button } from "@/app/ui/button";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import GoogleLogo from '@/app/ui/icons8-google.svg';
-import Image from 'next/image';
-
-import {
-  //AuthMode,
-  //AuthFormProps,
-  SignupFormState,
-} from "@/app/lib/definitions";
+import GoogleLogo from "@/app/ui/icons8-google.svg";
+import Image from "next/image";
+import { useSearchParams} from "next/navigation";
+import { SignupFormState } from "@/app/lib/definitions";
 
 import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 
 export default function LoginForm() {
-  //mode = 'login' or 'signup'
-  //const [formState, formAction] = useActionState(signup, {});
+
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || "/login";
+  //console.log("search params callbackUrl login form", callbackUrl);
 
   const [formState, formAction, isPending] = useFormState(
     authenticate,
@@ -33,8 +31,14 @@ export default function LoginForm() {
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 w-full rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className="mb-3 text-2xl">Please log in to ask a question.</h1>
+        <h1 className="mb-3 text-2xl">
+          Please log in to ask questions or participate in discussions.
+        </h1>
         <div className="w-full">
+          <div>
+            {" "}
+            <input type="hidden" name="callbackUrl" value={callbackUrl} />
+          </div>
           <div>
             <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -79,7 +83,8 @@ export default function LoginForm() {
           {formState?.errors?.password &&
             formState.errors.password.length > 0 && (
               <div>
-                <p>Password must: </p>
+                <div className="flex flex-row"><ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                <p>Password must: </p></div>
                 <ul>
                   {formState.errors.password.map((error) => (
                     <li key={error}> -{error}</li>
@@ -92,7 +97,7 @@ export default function LoginForm() {
         <div className="py-2 flex justify-center">
           <Button
             //className="mt-4 w-full"
-           aria-disabled={isPending}
+            aria-disabled={isPending}
             type="submit"
           >
             Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
@@ -108,13 +113,14 @@ export default function LoginForm() {
           <Link
             className="flex h-10 items-center rounded-lg bg-[#DDE6ED] px-4 text-sm font-medium text-[#27374D] transition-colors hover:bg-[#9DB2BF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#9DB2BF] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
             href="/login/google"
-          > 
-            <Image 
+          >
+            <Image
               className="h-10 w-10 rounded-full object-cover p-2"
               src={GoogleLogo}
               alt="Google logo"
               width={48}
-              height={48}/>
+              height={48}
+            />
             Log in with Google{" "}
             {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
           </Link>

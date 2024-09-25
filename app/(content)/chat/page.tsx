@@ -35,12 +35,7 @@ export default async function Page() {
         ]}
       />
 
-      <div className={styles.modal}>
-       
-
-          <AskQuestionsForm />
- 
-      </div>
+      
       <div className="p-6">
         <h2 className="text-lg font-bold mb-4">Comments</h2>
         <div className="flex flex-col space-y-4">

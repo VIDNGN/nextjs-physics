@@ -155,7 +155,7 @@ export async function answerQuestions(prevState: DiscussionFormState, formData: 
   const date = new Date().toISOString().split("T")[0];
 
   try {
-    await sql`INSERT into discussion (username, subject, content, date) VALUES ('current_user', ${subject}, ${cotent}, ${date});`
+    await sql`INSERT into discussion (username, subject, content, date) VALUES ('current_user', ${subject}, ${content}, ${date});`
     return { message: "Successfully submitted your message."}
   } catch (error) {
     console.log(error)

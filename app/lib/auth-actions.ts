@@ -24,17 +24,6 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-// export async function authenticate(
-//   mode: AuthMode,
-//   prevState: SignupFormState,
-//   formData: FormData
-// ) {
-//   if (mode === "login") {
-//     return login(prevState, formData);
-//   }
-
-//   return signup(prevState, formData);
-// }
 
 function isNeonDbError(error: unknown): error is NeonDbError {
   return (
@@ -49,9 +38,12 @@ export async function authenticate(
   prevState: SignupFormState,
   formData: FormData
 ) {
+
+  
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
+    callbackUrl: formData.get("callbackUrl"),
   });
 
   if (!validatedFields.success) {
@@ -61,7 +53,7 @@ export async function authenticate(
   }
 
   // 2. Prepare data
-  const { email, password } = validatedFields.data;
+  const { email, password, callbackUrl } = validatedFields.data;
 
   try {
     const user = await getUser(email);
@@ -98,8 +90,8 @@ export async function authenticate(
     return { message: "Invalid credentials or something went wrong!" };
     throw new Error("Cannot sign in.");
   }
-
-  redirect("/chat");
+  //console.log(callbackUrl.slice(1));
+  redirect(callbackUrl.slice(1) || '/tutorials');
 }
 
 export async function signup(state: SignupFormState, formData: FormData) {
@@ -108,6 +100,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
+    callbackUrl: formData.get("callbackUrl"),
   });
 
   // If any form fields are invalid, return early
@@ -118,7 +111,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
   }
 
   // 2. Prepare data for insertion into database
-  const { name, email, password } = validatedFields.data;
+  const { name, email, password, callbackUrl } = validatedFields.data;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -151,7 +144,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     };
     throw error;
   }
-  redirect("/chat");
+  redirect(callbackUrl.slice(1) || "/tutorials");
 }
 
 export async function logout() {
@@ -167,3 +160,16 @@ export async function logout() {
 //     }
 // }
 //store it in the database (create a new user)
+
+
+// export async function authenticate(
+//   mode: AuthMode,
+//   prevState: SignupFormState,
+//   formData: FormData
+// ) {
+//   if (mode === "login") {
+//     return login(prevState, formData);
+//   }
+
+//   return signup(prevState, formData);
+// }
