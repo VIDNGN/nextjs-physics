@@ -5,7 +5,12 @@ import { list } from '@vercel/blob';
 
 export async function fetch askedQuestions(){
     try {
-        const data = await sql`SELECT * FROM discussions`
+        const data = await sql`SELECT * FROM discussion ORDER BY date DESC;`
+        const all_data = data.rows;
+        return all_data;
+    }catch(error){
+        console.log(error);
+        throw new Error("Failed to fetch asked questions");
     }
 }
 
