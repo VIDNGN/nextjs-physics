@@ -39,6 +39,7 @@ export default function AskQuestionsForm({}: //username,
               rows={1}
               placeholder="in a brief sentence what is this discussion"
               required
+              autoFocus={true}
             />
           </div>
           <div className="">

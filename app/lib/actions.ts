@@ -3,10 +3,16 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
-import { CorrectAnswer, State, AskQuestionFormSchema, DiscussionFormState, DiscussionReplyFormSchema } from "@/app/lib/definitions";
+import {
+  CorrectAnswer,
+  State,
+  AskQuestionFormSchema,
+  DiscussionFormState,
+  DiscussionReplyFormSchema,
+} from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
-import {verifyAuth} from "@/app/lib/session";
+import { verifyAuth } from "@/app/lib/session";
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -14,11 +20,9 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
-
 //const CreateTutorial = FormSchema.omit({ id: true, date: true });
 
 export async function createTutorial(prevState: State, formData: FormData) {
-
   const rawFormData = Object.fromEntries(formData.entries());
 
   if (!rawFormData) {
@@ -26,7 +30,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
       errors: "Form data is invalid!",
       message: "Form is empty",
       correctAnswers: [],
-    }
+    };
   }
   //console.log(rawFormData);
   //console.log(typeof rawFormData);
@@ -70,11 +74,10 @@ export async function createTutorial(prevState: State, formData: FormData) {
     };
   }
 
-  
-    const questionIds = questionAnswerPairs?.map(
-      ([questionNum]) => questionNum as string
-    ); //or questionNum as number
-  
+  const questionIds = questionAnswerPairs?.map(
+    ([questionNum]) => questionNum as string
+  ); //or questionNum as number
+
   try {
     const dbCorrAnswers = await sql<CorrectAnswer>`
                           SELECT question_id, correct_answer
@@ -93,7 +96,7 @@ export async function createTutorial(prevState: State, formData: FormData) {
 
     if (dbCorrAnswers) {
       return {
-        message: "Form successfully submitted!", //// If there's no message, set it to null
+        message: "Your responses have been successfully submitted. Thank you!", //// If there's no message, set it to null
         correctAnswers: answers ?? [], //can also use optional chaining to access rows and nullish coalescing to ensure dbCorrectAnswers.rows has a fallback if it's undefined
       };
     } else {
@@ -109,13 +112,12 @@ export async function createTutorial(prevState: State, formData: FormData) {
       message: "Failed to submit form.",
       correctAnswers: [],
     };
-   
-  } 
+  }
 
   return {
     message: "Unknown form submission",
     correctAnswers: [],
-  }
+  };
 
   //revalidatePath("/tutorials/");
   //redirect("/tutorials/")
@@ -132,26 +134,25 @@ export async function createTutorial(prevState: State, formData: FormData) {
 //   'questionId_d448bc1b-66b4-4e6f-a4e0-f5b4072cee82': 'what would happen if you brought the PVC pipe and the balloon near each other? Describe the interaction?',
 // 'answer_d448bc1b-66b4-4e6f-a4e0-f5b4072cee82': 'test5'
 
-
-export async function answerQuestions(prevState: DiscussionFormState, formData: FormData) {
-
+export async function answerQuestions(
+  prevState: DiscussionFormState,
+  formData: FormData
+) {
   const validatedFields = AskQuestionFormSchema.safeParse({
     subject: formData.get("subject"),
     content: formData.get("content"),
   });
 
-
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Ask Questions Form Missing fields"
-    }
+      message: "Ask Questions Form Missing fields",
+    };
   }
 
-  const { subject, content }  = validatedFields.data;
-  console.log(subject)
-  console.log(content)
+  const { subject, content } = validatedFields.data;
+  console.log(subject);
+  console.log(content);
 
   const date = new Date().toISOString().split("T")[0];
 
@@ -160,37 +161,40 @@ export async function answerQuestions(prevState: DiscussionFormState, formData: 
   const username = sessionData?.email?.split("@")[0];
 
   try {
-    await sql`INSERT into discussions (username, subject, content, date) VALUES (${username}, ${subject}, ${content}, ${date});`
+    await sql`INSERT into discussions (username, subject, content, date) VALUES (${username}, ${subject}, ${content}, ${date});`;
     //return { message: "Successfully submitted your message."}
   } catch (error) {
-    console.log(error)
-    return {message: "Something went wrong. Cannot submitted your message!"}
+    console.log(error);
+    return { message: "Something went wrong. Cannot submitted your message!" };
   }
-    console.log("Successfully submitted your message.");
-    redirect('/chat');
-
+  console.log("Your responses have been successfully submitted. Thank you!.");
+  redirect("/chat");
 }
 
-
-export async function replyDiscussion(discussionId: string, subject: string, formData: FormData) {
+export async function replyDiscussion(
+  //discussionId: string, //if want to use bind to bind discussionId and subject. 
+  //subject: string,
+  prevState: DiscussionFormState,
+  formData: FormData,
+  
+) {
 
   const validatedFields = DiscussionReplyFormSchema.safeParse({
-    //subject: formData.get("subject"),
+    discussionId: formData.get("discussionId"),
+    subject: formData.get("subject"),
     content: formData.get("content"),
   });
 
-
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Ask Questions Form Missing fields"
-    }
+      message: "Discussion Form Missing fields",
+    };
   }
 
-  const { content }  = validatedFields.data;
-  //console.log(subject)
-  console.log(content)
+  const { discussionId, subject, content } = validatedFields.data;
+  console.log(subject)
+  //console.log(content);
 
   const date = new Date().toISOString().split("T")[0];
 
@@ -199,14 +203,37 @@ export async function replyDiscussion(discussionId: string, subject: string, for
   const username = sessionData?.email?.split("@")[0];
 
   try {
-    await sql`INSERT into replies (discussion_id, username, subject, content, date) VALUES (${discussionId}, ${username}, ${subject}, ${content}, ${date});`
-    //return { message: "Successfully submitted your message."}
+    await sql`INSERT into replies (discussion_id, username, subject, content, date) VALUES (${discussionId}, ${username}, ${subject}, ${content}, ${date});`;
+    revalidatePath("/chat")
+    return {
+      success: true,
+      message: "Thank you! Your message has been posted."
+    };
   } catch (error) {
-    console.log(error)
-    return {message: "Something went wrong. Cannot submitted your message!"}
+    console.error("Error inserting reply: ", error);
+    return { success: false };
   }
-    console.log("Successfully submitted your message.");
-    revalidatePath("/chat");
-    redirect('/chat');
+  
+  //console.log("Your responses have been successfully submitted. Thank you!");
+  //revalidatePath("/chat");
+  //redirect('/chat');
+}
 
+export async function postReplyToServer(
+  discussionId: string,
+  data: { content: string }
+) {
+  try {
+    // Insert the reply into the database
+    await sql`
+      INSERT INTO replies (discussionId, content, date)
+      VALUES (${discussionId}, ${data.content}, NOW())
+    `;
+
+    // If no error is thrown, assume success
+    return { success: true };
+  } catch (error) {
+    console.error("Error inserting reply:", error);
+    return { success: false};
+  }
 }

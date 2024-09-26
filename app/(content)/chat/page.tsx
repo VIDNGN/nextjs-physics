@@ -30,11 +30,6 @@ export default async function Page() {
 
   const date = new Date().toISOString().split("T")[0];
 
-  // const [isModalOpen, setModalOpen] = useState(false);
-
-  // const openModal = () => setModalOpen(true);
-  // const closeModal = () => setModalOpen(false);
-
   return (
     <main className="max-w-7xl">
       <Breadcrumbs
@@ -52,11 +47,11 @@ export default async function Page() {
               className="bg-gray-200 p-4 rounded-lg shadow-md"
             >
               {/* Main discussion */}
-              <h3 className="text-lg font-bold">{discussion.username}</h3>
+              <h3 className="text-md font-bold">{discussion.username}</h3>
               <p className="text-gray-700 text-sm mb-2">
                 {new Date(discussion.date).toLocaleDateString()}
               </p>
-              <p className="text-gray-700">{discussion.subject}</p>
+              <p className="text-gray-900 font-bold">{discussion.subject}</p>
               <p className="text-gray-700">{discussion.content}</p>
               {/* Replies container */}
               <div className="ml-6 mt-4">

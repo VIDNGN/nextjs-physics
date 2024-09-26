@@ -210,6 +210,8 @@ export const AskQuestionFormSchema = z.object({
 });
 
 export const DiscussionReplyFormSchema = z.object({
+  discussionId: z.string(),
+  subject: z.string(),
   content: z.string({ message: "please enter your comments" }),
 });
 
