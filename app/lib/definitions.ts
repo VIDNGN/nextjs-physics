@@ -209,6 +209,10 @@ export const AskQuestionFormSchema = z.object({
   content: z.string({ message: "please enter your comments" }),
 });
 
+export const DiscussionReplyFormSchema = z.object({
+  content: z.string({ message: "please enter your comments" }),
+});
+
 // export type AuthMode = "login" | "signup";
 
 // export interface AuthFormProps {

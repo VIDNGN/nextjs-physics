@@ -3,15 +3,26 @@ import { Tutorial, Question, Equipment, Option } from "./definitions";
 import { TutorialsTable, TutorialImage } from "./definitions";
 import { list } from "@vercel/blob";
 
-export async function fetchAskedQuestions() {
+export async function fetchDiscussions() {
   try {
-    const data = await sql`SELECT * FROM discussion ORDER BY date DESC;`;
-    const all_data = data.rows;
-    return all_data;
+    const data = await sql`SELECT * FROM discussions ORDER BY date DESC;`;
+    const discussions = data.rows;
+    return discussions;
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch asked questions");
   }
+}
+
+export async function fetchDisussionReplies() {
+    try {
+        const data = await sql`SELECT * FROM replies ORDER BY date DESC;`
+        const all_replies = data.rows;
+        return all_replies;
+    } catch (error){
+        console.log(error);
+        throw new Error("Failed to fetch all replies!");
+    }
 }
 
 export async function fetchTutorials() {

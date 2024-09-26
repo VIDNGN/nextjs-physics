@@ -2,22 +2,24 @@
 
 import React, { useState } from "react";
 import Modal from "@/app/ui/modal/modal";
-import AskQuestionsForm from "./ask-question-form";
+import DiscussionReplyForm from "./discussion-reply-form";
 import { Button } from "@/app/ui/button";
 import { ChatBubbleOvalLeftIcon } from "@heroicons/react/20/solid";
 import styles from "@/app/ui/home.module.css";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-type AskQuestionClientProps = {
+type DiscussionReplyClientProps = {
     isAuthenticated: boolean;
     buttonName: string;
+    discussionId: string;
+    subject: string;
 };
 
-const AskQuestionClient: React.FC<AskQuestionClientProps> = ({ isAuthenticated, buttonName }) => {
+const DiscussionReplyClient: React.FC<DiscussionReplyClientProps> = ({ isAuthenticated, buttonName, discussionId, subject }) => {
   const pathname = usePathname();
-
-  //console.log("pathname from ask question cliennt", pathname);
+  
+ // console.log("pathname from ask question cliennt", pathname);
 
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
@@ -48,11 +50,11 @@ const AskQuestionClient: React.FC<AskQuestionClientProps> = ({ isAuthenticated, 
       <div>
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           {" "}
-          <AskQuestionsForm />
+          <DiscussionReplyForm discussionId={discussionId} subject={subject} />
         </Modal>
       </div>
     </div>
   );
 };
 
-export default AskQuestionClient;
+export default DiscussionReplyClient;

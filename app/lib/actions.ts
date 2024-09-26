@@ -3,7 +3,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
-import { CorrectAnswer, State, AskQuestionFormSchema, DiscussionFormState } from "@/app/lib/definitions";
+import { CorrectAnswer, State, AskQuestionFormSchema, DiscussionFormState, DiscussionReplyFormSchema } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
 import {verifyAuth} from "@/app/lib/session";
@@ -160,13 +160,53 @@ export async function answerQuestions(prevState: DiscussionFormState, formData: 
   const username = sessionData?.email?.split("@")[0];
 
   try {
-    await sql`INSERT into discussion (username, subject, content, date) VALUES (${username}, ${subject}, ${content}, ${date});`
+    await sql`INSERT into discussions (username, subject, content, date) VALUES (${username}, ${subject}, ${content}, ${date});`
     //return { message: "Successfully submitted your message."}
   } catch (error) {
     console.log(error)
     return {message: "Something went wrong. Cannot submitted your message!"}
   }
     console.log("Successfully submitted your message.");
+    redirect('/chat');
+
+}
+
+
+export async function replyDiscussion(discussionId: string, subject: string, formData: FormData) {
+
+  const validatedFields = DiscussionReplyFormSchema.safeParse({
+    //subject: formData.get("subject"),
+    content: formData.get("content"),
+  });
+
+
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Ask Questions Form Missing fields"
+    }
+  }
+
+  const { content }  = validatedFields.data;
+  //console.log(subject)
+  console.log(content)
+
+  const date = new Date().toISOString().split("T")[0];
+
+  const result = await verifyAuth();
+  const sessionData = result.session;
+  const username = sessionData?.email?.split("@")[0];
+
+  try {
+    await sql`INSERT into replies (discussion_id, username, subject, content, date) VALUES (${discussionId}, ${username}, ${subject}, ${content}, ${date});`
+    //return { message: "Successfully submitted your message."}
+  } catch (error) {
+    console.log(error)
+    return {message: "Something went wrong. Cannot submitted your message!"}
+  }
+    console.log("Successfully submitted your message.");
+    revalidatePath("/chat");
     redirect('/chat');
 
 }

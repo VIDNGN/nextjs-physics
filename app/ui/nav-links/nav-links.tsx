@@ -7,6 +7,7 @@ import {
     HomeIcon,
     BookOpenIcon,
     UserGroupIcon,
+    ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline'
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -15,8 +16,13 @@ import {
 const links = [
     {name: 'Home', href: '/', icon: HomeIcon}, 
     {name: 'Tutorials', 
-        href: '/home/tutorials',
+        href: '/tutorials',
         icon: BookOpenIcon,
+    },
+    {
+        name: "Discussions/Questions",
+        href: '/chat',
+        icon: ChatBubbleLeftRightIcon
     }
 ];
 
