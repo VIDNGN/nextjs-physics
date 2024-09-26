@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: { qslug: string } }) {
       />
 
       <div className="mt-6 flex justify-end">
-        <AskQuestionClient isAuthenticated={!!userId} />
+        <AskQuestionClient isAuthenticated={!!userId} buttonName="Ask Questions" />
       </div>
 
       <div className="flex flex-col py-4 space-y-4 px-4">

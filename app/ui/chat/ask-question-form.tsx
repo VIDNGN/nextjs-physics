@@ -37,7 +37,7 @@ export default function AskQuestionsForm({}: //username,
               name="subject"
               id="subject"
               rows={1}
-              placeholder="what is your question about in one brief sentence"
+              placeholder="in a brief sentence what is this discussion"
               required
             />
           </div>

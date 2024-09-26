@@ -6,6 +6,7 @@ import { sql } from "@vercel/postgres";
 import { CorrectAnswer, State, AskQuestionFormSchema, DiscussionFormState } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
+import {verifyAuth} from "@/app/lib/session";
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -154,14 +155,18 @@ export async function answerQuestions(prevState: DiscussionFormState, formData: 
 
   const date = new Date().toISOString().split("T")[0];
 
+  const result = await verifyAuth();
+  const sessionData = result.session;
+  const username = sessionData?.email?.split("@")[0];
+
   try {
-    await sql`INSERT into discussion (username, subject, content, date) VALUES ('current_user', ${subject}, ${content}, ${date});`
-    return { message: "Successfully submitted your message."}
+    await sql`INSERT into discussion (username, subject, content, date) VALUES (${username}, ${subject}, ${content}, ${date});`
+    //return { message: "Successfully submitted your message."}
   } catch (error) {
     console.log(error)
     return {message: "Something went wrong. Cannot submitted your message!"}
   }
-
-
+    console.log("Successfully submitted your message.");
+    redirect('/chat');
 
 }

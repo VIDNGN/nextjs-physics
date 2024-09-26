@@ -118,6 +118,13 @@ export type TutorialImage = {
   image_url: string;
 };
 
+export type DiscussionQuestion = {
+  id: string;
+  username: string;
+  subject: string;
+  content: string;
+  date: string;
+}
 export type State = {
   errors?: string | null;
   //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.

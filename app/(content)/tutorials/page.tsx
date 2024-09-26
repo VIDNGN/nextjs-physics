@@ -1,4 +1,4 @@
-import { lusitana } from "@/app/ui/fonts";
+//import { lusitana } from "@/app/ui/fonts";
 import Breadcrumbs from "@/app/ui/tutorials/breadcrumbs";
 import TutorialsList from "@/app/ui/tutorials/tutorials-list/tutorials-list";
 import { Suspense } from "react";

@@ -11,9 +11,10 @@ import Link from "next/link";
 
 type AskQuestionClientProps = {
     isAuthenticated: boolean;
+    buttonName: string;
 };
 
-const AskQuestionClient: React.FC<AskQuestionClientProps> = ({ isAuthenticated }) => {
+const AskQuestionClient: React.FC<AskQuestionClientProps> = ({ isAuthenticated, buttonName }) => {
   const pathname = usePathname();
 
   console.log("pathname from ask question cliennt", pathname);
@@ -40,8 +41,8 @@ const AskQuestionClient: React.FC<AskQuestionClientProps> = ({ isAuthenticated }
     <div>
       <div className="mt-6 flex justify-end">
         <Button onClick={openModal}>
-          {" "}
-          Ask Questions <ChatBubbleOvalLeftIcon />{" "}
+         {buttonName}  
+        <ChatBubbleOvalLeftIcon />
         </Button>
       </div>
       <div>
