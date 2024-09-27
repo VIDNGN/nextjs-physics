@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const userId = result.user;
 
   return (
-    <main className="w-full max-w-7xl justify-center">
+    <main className="w-full max-w-7xl justify-center z-0">
       <Breadcrumbs
         breadcrumbs={[
           { label: "Home", href: "/" },

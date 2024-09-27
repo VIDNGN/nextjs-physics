@@ -29,7 +29,7 @@ export default function AskQuestionsForm({}: //username,
 
   return (
     <div>
-      <form action={formAction} className="bg-white p-4 rounded-lg shadow-md">
+      <form action={formAction} className="bg-white p-4 rounded-lg shadow-md z-40">
         <div className="max-w-7xl">
           <div className="">
             <textarea
