@@ -13,7 +13,7 @@ import { Button } from "@/app/ui/button";
 import { unstable_noStore as noStore } from "next/cache";
 import { motion, Variants } from "framer-motion";
 import ClientAnimatedImages from "@/app/ui/tutorials/clientAnimatedImages";
-import { ChatBubbleOvalLeftIcon } from "@heroicons/react/20/solid";
+import { ChatBubbleOvalLeftIcon, SpeakerWaveIcon } from "@heroicons/react/20/solid";
 import AskQuestionClient from "@/app/ui/chat/ask-question-client";
 import { verifyAuth, getSessionData } from "@/app/lib/session";
 import { redirect } from "next/navigation";
