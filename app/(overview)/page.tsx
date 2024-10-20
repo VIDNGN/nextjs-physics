@@ -1,5 +1,6 @@
 import Image from "next/image";
-import logo from "@/app/ui/logo.png";
+//import logo from "@/app/ui/logo.png";
+import PhysTLogo from "@/app/ui/phys-logo";
 import Link from "next/link";
 import { lusitana, montserrat } from "../ui/fonts";
 //import styles from '@/app/ui/home.module.css';
@@ -15,17 +16,19 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24 mx-auto max-w-7xl">
       {/* Hero Section */}
       <div className="flex flex-col items-center text-center space-y-8">
-        <Image
+        {/* <Image
           className="rounded-full w-80 h-80 dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
           src={logo}
           alt="logo"
           width={400}
           height={400}
           priority
-        />
+        /> */}
+        <PhysTLogo />
         <h1 className="text-4xl font-bold">
-          Tutorials in Introductory Math and Physics
+          Grok Vectors 
         </h1>
+        <h2 className="text-2xl font-italic">Tutorials in Introductory Math and Physics</h2>
         <p className="text-xl max-w-2xl text-wrap text-pretty text-justify">
           <strong>Introductory Math and Physics Tutorials</strong> is a
           comprehensive sequence of questions and answers designed to supplement

@@ -13,13 +13,13 @@ export default function PhysTLogo() {
           className="rounded-full h-40 w-40"
           src={Logo}
           alt="G and V logo"
-          width={961}
-          height={871}
+          width={1024}
+          height={1024}
         />
         {/* <div>
-          <p className="text-[38px]">The Math and Physics Tutorials</p>{" "}
-        </div> */}
-      
+          <p className="text-[38px]">Grok Vectors</p>{" "}
+        </div>
+       */}
     </div>
   );
 }
