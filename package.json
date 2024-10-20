@@ -12,6 +12,7 @@
     "@auth/pg-adapter": "^1.5.0",
     "@heroicons/react": "^2.1.5",
     "@lucia-auth/adapter-postgresql": "^3.1.2",
+    "@next/third-parties": "^14.2.15",
     "@typescript-eslint/parser": "^5.0.1",
     "@vercel/blob": "^0.23.4",
     "@vercel/postgres": "^0.9.0",

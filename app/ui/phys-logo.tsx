@@ -10,7 +10,7 @@ export default function PhysTLogo() {
         className="flex items-center justify-center leading-none text-[#DDE6ED]"
       >
         <Image
-          className="rounded-md h-40 w-40"
+          className="rounded-full h-40 w-40"
           src={Logo}
           alt="G and V logo"
           width={961}

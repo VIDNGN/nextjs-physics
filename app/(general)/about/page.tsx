@@ -18,9 +18,9 @@ export default function Page() {
           priority
         /> */}
 
-        <section className="mt-8 pt-2 pb-4 mx-40 px-24 text-wrap text-pretty">
+        <section className="mt-8 pt-2 pb-4 mx-4 px-4 lg:mx-48 lg:px-52 text-wrap text-pretty">
           <h1 className="text-4xl font-bold pb-8">About Us</h1>
-          <p className="text-xl text-justify">
+          <p className="text-lg text-justify">
             <strong>At GV</strong>, our mission is to transform education by
             making learning engaging, accessible, and dynamic. We believe that
             true understanding comes from asking the right questions, exploring
@@ -29,17 +29,17 @@ export default function Page() {
             scientific inquiry, empowering students to move beyond rote
             memorization and deeply engage with core principles.
           </p>
-          <p className="text-xl text-justify ">
+          <p className="text-lg text-justify ">
             {" "}
             By integrating cutting-edge AI, we create interactive, personalized
             tutorials that guide students through their learning journey,
-            encouraging curiosity and critical thinking. Whether you're a
+            encouraging curiosity and critical thinking. Whether you&apos;re a
             beginner or advancing your skills, GV is designed to adapt to your
             unique needs, providing tailored support that makes complex concepts
             clear and achievable.
           </p>
 
-          <p className="text-xl text-justify ">
+          <p className="text-lg text-justify ">
             We are a passionate and diverse team of developers, educators,
             designers, strategists, and scientists united by a shared vision: to
             inspire students to take control of their learning, ask meaningful
@@ -48,23 +48,23 @@ export default function Page() {
             to to solve complex problems.{" "}
           </p>
 
-          <p className="text-xl text-justify ">
+          <p className="text-lg text-justify ">
             Our focus is your learning—accessible to anyone, anywhere.
           </p>
         </section>
       </div>
 
       {/* Section 3: AI-Assisted Platform Features */}
-      <section className="mt-4 pt-16 pb-8 mx-40 px-24 bg-[#F5EFFF] text-wrap text-pretty">
+      <section className="mt-4 pt-8 pb-8 mx-2 px-2 lg:mx-48 lg:px-52 bg-[#F5EFFF] text-wrap text-pretty">
         <h2 className="text-3xl font-semibold text-center pb-11">
           Meet Clara - Your AI teaching assistant
         </h2>
         <p></p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ul className="space-y-4 text-lg px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-2">
+          <ul className="space-y-4 text-md px-2">
             <li>
               <strong>Bright and Famous:</strong> Clara radiates enthusiasm and
-              positivity. She's friendly and encouraging, always providing
+              positivity. She&apos; friendly and encouraging, always providing
               constructive feedback.
             </li>
             <li>
@@ -74,9 +74,9 @@ export default function Page() {
             </li>
             <li>
               <strong>
-                Loyal:</strong> Clara could track individual users' progress over time,
+                Loyal:</strong> Clara could track individual users&apos;progress over time,
                 offering personalized tips, reminders, and motivation. She could
-                also remember the user's preferred style of learning.
+                also remember the user&apos;s preferred style of learning.
               
             </li>
 
@@ -91,7 +91,7 @@ export default function Page() {
           <div className="flex justify-center">
             <Image
               src={claraImage}
-              alt="Platform Features"
+              alt="Clara AI agent"
               width={400}
               height={400}
             />

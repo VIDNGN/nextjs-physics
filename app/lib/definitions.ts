@@ -206,7 +206,7 @@ export type DiscussionFormState =
 
 export const AskQuestionFormSchema = z.object({
   subject: z.string({ message: "please enter a subject" }),
-  content: z.string({ message: "please enter your comments" }),
+  content: z.string({ message: "please enter your comments." }),
 });
 
 export const DiscussionReplyFormSchema = z.object({
@@ -215,6 +215,22 @@ export const DiscussionReplyFormSchema = z.object({
   content: z.string({ message: "please enter your comments" }),
 });
 
+export type ContactFormState = 
+| {
+  errors?: {
+    name?: string[];
+    email?: string[];
+    content?: string[];
+  }; 
+  message?: stirng;
+}
+| undefined;
+
+export const ContactFormSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters long." }),
+  email: z.string().email({message: "Please enter a valid email"}).trim(),  
+  content: z.string({  message: "please enter your message." }),
+});
 // export type AuthMode = "login" | "signup";
 
 // export interface AuthFormProps {

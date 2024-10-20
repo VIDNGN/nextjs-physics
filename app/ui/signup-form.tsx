@@ -18,6 +18,12 @@ import { useSearchParams } from "next/navigation";
 
 export default function SignUpForm() {
    
+  /*
+  usePathname(): This hook gets the current path on the server component (DiscussionPage) so you can pass it as the callbackUrl to the sign-in link.
+    useSearchParams(): Used on the sign-in page to retrieve the callbackUrl query parameter from the URL.
+    signIn(): This is an example using NextAuth.js, where you can sign in without redirecting immediately (redirect: false). After successful authentication, 
+    you use router.push(callbackUrl) to send the user back to the original page.
+  */
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get('callbackUrl') || "/signup";
 

@@ -9,13 +9,14 @@ import conceptImage from "@/app/ui/front_page_cover_engineer.jpg";
 import adaptiveImage from "@/app/ui/illustratiion_balance.jpg";
 import featuresImage from "@/app/ui/illustration_features_selection.jpg";
 
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 mx-auto max-w-7xl">
       {/* Hero Section */}
       <div className="flex flex-col items-center text-center space-y-8">
         <Image
-          className="rounded-med w-80 h-80 dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+          className="rounded-full w-80 h-80 dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
           src={logo}
           alt="logo"
           width={400}

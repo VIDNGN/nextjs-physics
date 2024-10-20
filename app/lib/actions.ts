@@ -9,10 +9,12 @@ import {
   AskQuestionFormSchema,
   DiscussionFormState,
   DiscussionReplyFormSchema,
+  ContactFormSchema,
 } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
 import { verifyAuth } from "@/app/lib/session";
+
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -172,13 +174,11 @@ export async function answerQuestions(
 }
 
 export async function replyDiscussion(
-  //discussionId: string, //if want to use bind to bind discussionId and subject. 
+  //discussionId: string, //if want to use bind to bind discussionId and subject.
   //subject: string,
   prevState: DiscussionFormState,
-  formData: FormData,
-  
+  formData: FormData
 ) {
-
   const validatedFields = DiscussionReplyFormSchema.safeParse({
     discussionId: formData.get("discussionId"),
     subject: formData.get("subject"),
@@ -193,7 +193,7 @@ export async function replyDiscussion(
   }
 
   const { discussionId, subject, content } = validatedFields.data;
-  console.log(subject)
+  console.log(subject);
   //console.log(content);
 
   const date = new Date().toISOString().split("T")[0];
@@ -204,16 +204,16 @@ export async function replyDiscussion(
 
   try {
     await sql`INSERT into replies (discussion_id, username, subject, content, date) VALUES (${discussionId}, ${username}, ${subject}, ${content}, ${date});`;
-    revalidatePath("/chat")
+    revalidatePath("/chat");
     return {
       success: true,
-      message: "Thank you! Your message has been posted."
+      message: "Thank you! Your message has been posted.",
     };
   } catch (error) {
     console.error("Error inserting reply: ", error);
     return { success: false };
   }
-  
+
   //console.log("Your responses have been successfully submitted. Thank you!");
   //revalidatePath("/chat");
   //redirect('/chat');
@@ -234,6 +234,39 @@ export async function postReplyToServer(
     return { success: true };
   } catch (error) {
     console.error("Error inserting reply:", error);
-    return { success: false};
+    return { success: false };
+  }
+}
+
+export async function contact(prevState: ContactFormState, formData: FormData) {
+  // Use Zod to update the expected types: 
+  const CreateContactMessage = ContactFormSchema.omit({ date: true });  
+  const validatedFields = CreateContactMessage.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    content: formData.get("content"),
+    callbackUrl: formData.get("callbackUrl")
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Message Form Missing fields",
+    };
+  }
+
+  const { name, email, content, callbackUrl } = validatedFields.data;
+
+  const date = new Date().toISOString().split("T")[0];
+
+  try {
+    await sql`INSERT INTO contacts (name, email, content, date) VALUES (${name}, ${email}, ${content}, ${date});`;
+    return {
+      success: true,
+      message: "Thank you! Your message has beent sent.",
+    };
+  } catch (error) {
+    console.error("Error inserting into contacts: ", error);
+    return { success: false, message: "Something's wrong. Failed to submit your message"};
   }
 }
