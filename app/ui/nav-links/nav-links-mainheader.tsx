@@ -11,16 +11,15 @@ import {
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 
-
-
-export default function NavLinksMainHeader({ href, children }) {
+export default function NavLinksMainHeader({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   const pathName = usePathname();
-  const [open, setOpen] = useState<boolean>(false);
-    const HamburgerMenu = ({handelDrawerOpen} : THamburgerMenuProps) => {
-        return {
 
-        }
-    }
   return (
     <Link
       href={href}

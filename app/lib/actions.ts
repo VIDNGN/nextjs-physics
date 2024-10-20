@@ -9,6 +9,7 @@ import {
   AskQuestionFormSchema,
   DiscussionFormState,
   DiscussionReplyFormSchema,
+  ContactFormState,
   ContactFormSchema,
 } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
@@ -240,8 +241,8 @@ export async function postReplyToServer(
 
 export async function contact(prevState: ContactFormState, formData: FormData) {
   // Use Zod to update the expected types: 
-  const CreateContactMessage = ContactFormSchema.omit({ date: true });  
-  const validatedFields = CreateContactMessage.safeParse({
+  //const CreateContactMessage = ContactFormSchema.omit({ date: true });  
+  const validatedFields = ContactFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     content: formData.get("content"),

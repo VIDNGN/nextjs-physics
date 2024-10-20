@@ -124,7 +124,7 @@ export type DiscussionQuestion = {
   subject: string;
   content: string;
   date: string;
-}
+};
 export type State = {
   errors?: string | null;
   //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
@@ -215,21 +215,24 @@ export const DiscussionReplyFormSchema = z.object({
   content: z.string({ message: "please enter your comments" }),
 });
 
-export type ContactFormState = 
-| {
-  errors?: {
-    name?: string[];
-    email?: string[];
-    content?: string[];
-  }; 
-  message?: stirng;
-}
-| undefined;
+export type ContactFormState =
+  | {
+      errors?: {
+        name?: string[];
+        email?: string[];
+        content?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
 
 export const ContactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters long." }),
-  email: z.string().email({message: "Please enter a valid email"}).trim(),  
-  content: z.string({  message: "please enter your message." }),
+  name: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long." }),
+  email: z.string().email({ message: "Please enter a valid email" }).trim(),
+  content: z.string({ message: "please enter your message." }),
+  callbackUrl: z.string(),
 });
 // export type AuthMode = "login" | "signup";
 

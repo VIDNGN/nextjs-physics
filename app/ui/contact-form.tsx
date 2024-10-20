@@ -59,7 +59,9 @@ export default function ContactForm() {
               />
             </div>
             {formState?.errors?.name && (
-              <p className="text-rose-600 py-4">{formState.errors.name.join(",")}</p>
+              <p className="text-rose-600 py-4">
+                {formState.errors.name.join(",")}
+              </p>
             )}
             <div>
               <div className="flex justify-right">
@@ -82,7 +84,9 @@ export default function ContactForm() {
                 <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
               </div>
             </div>
-            {formState?.errors?.email && <p className="text-rose-600 py-4">{formState.errors.email}</p>}
+            {formState?.errors?.email && (
+              <p className="text-rose-600 py-4">{formState.errors.email}</p>
+            )}
             <div className="mt-4">
               <div className="flex justify-right">
                 <label
@@ -96,7 +100,6 @@ export default function ContactForm() {
                 <textarea
                   className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                   id="content"
-                  type="text"
                   name="content"
                   placeholder="Messages"
                   required
@@ -105,17 +108,13 @@ export default function ContactForm() {
                 {/* <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" /> */}
               </div>
             </div>
-            {formState?.errors?.message &&
-              formState.errors.message.length > 0 && (
-                <div>
-                  <p className="text-rose-600">Failed to submit your message: </p>
-                  <ul>
-                    {formState.errors.message.map((error) => (
-                      <li key={error} className="text-rose-600"> -{error}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+            {formState?.errors?.content && (
+              <div>
+                <p className="text-rose-600">Failed to submit your message: </p>
+
+                {formState.errors.content}
+              </div>
+            )}
           </div>
 
           <div className="flex justify-center">

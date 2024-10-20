@@ -3,9 +3,9 @@
 import Link from "next/link";
 //import { useActionState } from 'react';
 import { useFormState } from "react-dom";
-import { signup } from "@/app/lib/auth-actions";
+import { contact } from "@/app/lib/actions";
 import { Button } from "./button";
-import { SignupFormState } from "@/app/lib/definitions";
+import { ContactFormState } from "@/app/lib/definitions";
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -17,9 +17,9 @@ import { useSearchParams } from "next/navigation";
 
 export default function ContactForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/signup";
+  const callbackUrl = searchParams.get("callbackUrl") || "/contatus";
 
-  const [formState, formAction, isPending] = useFormState(signup, undefined);
+  const [formState, formAction, isPending] = useFormState(contact, undefined);
 
   return (
     <form action={formAction}>
@@ -31,7 +31,7 @@ export default function ContactForm() {
             </h1>
             <p className="mx-auto text-base leading-relaxed lg:w-96">
               Feel free to reach out to us! Whether you have a question,
-              feedback, or a collaboration proposal, we'd love to hear from
+              feedback, or a collaboration proposal, we&apos;d love to hear from
               you.
             </p>
           </div>
@@ -94,7 +94,6 @@ export default function ContactForm() {
                 <textarea
                   className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                   id="message"
-                  type="text"
                   name="message"
                   placeholder="Messages"
                   required
@@ -104,12 +103,12 @@ export default function ContactForm() {
                 {/* <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" /> */}
               </div>
             </div>
-            {formState?.errors?.message &&
-              formState.errors.message.length > 0 && (
+            {formState?.errors?.content &&
+              formState.errors.content.length > 0 && (
                 <div>
                   <p>Messages must: </p>
                   <ul>
-                    {formState.errors.message.map((error) => (
+                    {formState.errors.content.map((error) => (
                       <li key={error}> -{error}</li>
                     ))}
                   </ul>
