@@ -29,7 +29,7 @@ export default function SignUpForm() {
 
   return (
     <form action={formAction} className="space-y-3">
-      <div className="flex w-full rounded-lg bg-gray-50 p-16">
+      <div className="flex w-full justify-center rounded-lg bg-gray-50 p-16 md:p-8">
         {/* <div>
           <img src="/images/auth-icon.jpg" alt="A lock icon" />
         </div> */}
@@ -42,7 +42,7 @@ export default function SignUpForm() {
           </p> */}
           </h1>
 
-          <div className="mx-auto md:w-2/3 lg:w-full">
+          <div className="">
             <div>
               {" "}
               <input type="hidden" name="callbackUrl" value={callbackUrl} />

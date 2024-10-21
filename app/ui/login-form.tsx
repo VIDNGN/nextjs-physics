@@ -29,12 +29,12 @@ export default function LoginForm() {
 
   return (
     <form action={formAction} className="space-y-3">
-      <div className="flex-1 w-full rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+      <div className="flex w-full justify-center rounded-lg bg-gray-50 p-16 md:p-8">
         <div className="md:w-2/3 lg:w-full">
           <h1 className="mx-auto text-2xl text-pretty text-center">
             Please log in to ask questions.
           </h1>
-          <div className="w-full">
+          <div className="">
             <div>
               {" "}
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
