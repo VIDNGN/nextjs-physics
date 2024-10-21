@@ -24,7 +24,9 @@ export default function Home() {
           height={400}
           priority
         /> */}
+        <div className="w-44 w-44">
         <PhysTLogo />
+        </div>
         <h1 className="text-4xl font-bold">
           Grok Vectors 
         </h1>

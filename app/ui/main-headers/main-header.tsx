@@ -24,7 +24,7 @@ export default function MainHeader() {
           <div className="flex flex-auto items-center mx-auto px-6 xl:container pt-3 pb-2">
             <div className="flex mx-auto flex-auto justify-between items-center relative">
               <div className="flex mx-auto gap-4 md:gap-10 items-center">
-                <div className="flex items-center">
+                <div className="flex items-center w-44 h-44">
                   <Link href="/">
                     <PhysTLogo />
                   </Link>
