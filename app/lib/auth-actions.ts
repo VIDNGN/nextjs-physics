@@ -67,7 +67,7 @@ export async function authenticate(
 
     if (!passwordsMatch) {
       return {
-        message: "wrong password!",
+        message: "invalid password!",
       };
     }
 

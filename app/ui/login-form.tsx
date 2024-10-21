@@ -106,7 +106,7 @@ export default function LoginForm() {
             </Button>
           </div>
 
-          <div className="flex justify-center text-rose-600">
+          <div className="flex justify-center font-bold text-blue-600 py-2">
             {formState?.message && formState.message.length > 0 && (
               <p>{formState.message}</p>
             )}
@@ -128,11 +128,11 @@ export default function LoginForm() {
             </Link>
           </div>
 
-          <div className="flex justify-center text-rose-600">
+          {/* <div className="flex justify-center text-rose-600">
             {formState?.message && formState.message.length > 0 && (
               <p>{formState.message}</p>
             )}
-          </div>
+          </div> */}
           <div className="py-2 flex justify-center text-[#526D82]">
             <p>
               <Link href="/signup">New here? Create an account</Link>

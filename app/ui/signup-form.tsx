@@ -113,12 +113,17 @@ export default function SignUpForm() {
             {formState?.errors?.password &&
               formState.errors.password.length > 0 && (
                 <div>
-                  <p>Password must: </p>
-                  <ul>
-                    {formState.errors.password.map((error) => (
-                      <li key={error}> -{error}</li>
-                    ))}
-                  </ul>
+                  <div className="flex flex-row  text-red-500">
+                    <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                    <p>Password must: </p>
+                  </div>
+                  <div className="flex justify-left text-rose-600 py-2">
+                    <ul className="">
+                      {formState.errors.password.map((error) => (
+                        <li key={error}> -{error}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               )}
           </div>
@@ -129,12 +134,13 @@ export default function SignUpForm() {
               <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
             </Button>
           </div>
-
-          <p>
-            {formState?.message && formState.message.length > 0 && (
-              <p>{formState.message}</p>
-            )}
-          </p>
+          <div className="flex justify-center">
+            <p className="font-bold text-blue-600 py-2">
+              {formState?.message && formState.message.length > 0 && (
+                <p>{formState.message}</p>
+              )}
+            </p>
+          </div>
         </div>
       </div>
     </form>
