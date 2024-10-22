@@ -235,7 +235,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <a
-                      href="?cmpscreen" className="cmpfooterlink cmpfooterlinkcmp"
+                      href="?cmpscreen"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
