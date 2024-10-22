@@ -193,7 +193,7 @@ export default function Footer() {
                   className="text-gray-700 transition hover:opacity-75"
                 >
                   {" "}
-                  Independent study{" "}
+                  Physics{" "}
                 </a>
               </li>
 
@@ -203,7 +203,7 @@ export default function Footer() {
                   className="text-gray-700 transition hover:opacity-75"
                 >
                   {" "}
-                  Tutorial Group Sessions{" "}
+                  Math{" "}
                 </a>
               </li>
             </ul>
@@ -231,6 +231,15 @@ export default function Footer() {
                     >
                       {" "}
                       Meet the Team{" "}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="?cmpscreen" className="cmpfooterlink cmpfooterlinkcmp"
+                      className="text-gray-700 transition hover:opacity-75"
+                    >
+                      {" "}
+                      Privacy Setting{" "}
                     </a>
                   </li>
 

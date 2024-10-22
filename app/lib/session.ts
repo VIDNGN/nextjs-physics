@@ -20,7 +20,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
 // const redirectURL = process.env.NODE_ENV === 'production' ? 'https://nextjs-physics-seven.vercel.app/login/google/callback' : 'http://localhost:3000/login/google/callback'
 
-const redirectURL = process.env.NODE_ENV === 'production' ? 'http://www.grokvectors.com/login/google/callback' : 'http://localhost:3000/login/google/callback'
+const redirectURL = process.env.NODE_ENV === 'production' ? 'https://www.grokvectors.com/login/google/callback' : 'http://localhost:3000/login/google/callback'
 
 export const google = new Google(
   process.env.GOOGLE_CLIENT_ID,
