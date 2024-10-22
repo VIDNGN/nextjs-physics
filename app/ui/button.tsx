@@ -9,14 +9,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({ children, className, onClick, ...rest }: ButtonProps) {
 
-  const handleClick = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 
     //send the GTM event
     sendGTMEvent({event: 'buttonClicked', value: 'xyz'})
 
     //call the passed onClick function (like openModal), if exists
     if (onClick) {
-      onClick();
+      onClick(event);
     } 
   }
 
