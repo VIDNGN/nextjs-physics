@@ -24,12 +24,12 @@ export default function ContactForm() {
 
   return (
     <form action={formAction}>
-      <div className="flex p-16 rounded-lg bg-gray-200 z-20 sm:pb-16 md:pb-16 mt-28 md:mt-16">
+      <div className="flex p-4 rounded-lg bg-gray-200 z-20 sm:pb-8 md:pb-10 mt-8 md:mt-4">
         <div className="flex flex-col text-center">
           <h1 className="title-font mb-4 text-2xl font-medium text-black sm:text-3xl">
             Contact Us
           </h1>
-          <p className="mx-auto text-base leading-relaxed">
+          <p className="mx-auto text-base italic leading-relaxed">
             Feel free to reach out to us! Whether you have a question, feedback,
             or a collaboration proposal, we&apos;d love to hear from you.
           </p>

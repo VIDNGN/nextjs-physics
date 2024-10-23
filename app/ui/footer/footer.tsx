@@ -226,7 +226,7 @@ export default function Footer() {
 
                   <li>
                     <a
-                      href="/about"
+                      href="/about/meet-the-team"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}

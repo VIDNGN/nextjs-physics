@@ -4,7 +4,7 @@ import "./globals.css";
 import { montserrat } from "@/app/ui/fonts";
 import Footer from "@/app/ui/footer/footer";
 import { GoogleTagManager } from "@next/third-parties/google";
-
+import MainHeader from "@/app/ui/main-headers/main-header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleTagManager gtmId="GTM-NX6CBD34" />
+      
       {/* <body className={`${inter.className} antialiased ` }>{children}</body> */}
       <body className={`${montserrat.className} antialiased `}>
         {children}

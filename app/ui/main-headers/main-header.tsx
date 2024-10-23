@@ -50,13 +50,13 @@ export default function MainHeader() {
                 <div
                   className={`${
                     isMenuOpen ? "block" : "hidden"
-                  } absolute top-full mt-2 right-0 left-0 bg-blue-200 lg:flex lg:relative lg:flex-row lg:items-center lg:gap-10 shadow z-50 px-2 py-2`}
+                  } absolute top-full mt-2 right-0 left-0 bg-[#] lg:flex lg:relative lg:flex-row lg:items-center lg:gap-10 z-50 px-2 py-2`}
                 >
                   <nav>
                     <ul className="flex flex-row gap-3">
                       <li>
                         <NavLinksMainHeader href="/tutorials">
-                          Tutorials
+                          Brows Topics
                         </NavLinksMainHeader>
                       </li>
                       <li>
