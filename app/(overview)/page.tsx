@@ -32,7 +32,7 @@ export default function Home() {
             Ready to Elevate Your Learning? Start with a Quiz to Personalize
             Your Journey!
           </h1>
-          <h2 className="text-2xl italic">
+          <h2 className="text-2xl italic py-8">
             Answer a few questions, and we’ll tailor your learning path with
             interactive lessons, quizzes, and personalized recommendations.
           </h2>
