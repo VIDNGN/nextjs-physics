@@ -4,7 +4,7 @@ import Link from "next/link";
 //import { useActionState } from 'react';
 import { useFormState } from "react-dom";
 import { signup } from "@/app/lib/auth-actions";
-import { Button } from "./button";
+import Button from "./button";
 import { SignupFormState } from "@/app/lib/definitions";
 import {
   AtSymbolIcon,
@@ -12,7 +12,8 @@ import {
   ExclamationCircleIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
-
+import GoogleLogo from "@/app/ui/icons8-google.svg";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 export default function SignUpForm() {
@@ -57,14 +58,16 @@ export default function SignUpForm() {
                 </label>
               </div>
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 id="name"
                 name="name"
                 placeholder="Name"
               />
             </div>
             {formState?.errors?.name && (
-              <p>{formState.errors.name.join(",")}</p>
+              <p className="text-md text-pink-500">
+                {formState.errors.name.join(",")}
+              </p>
             )}
             <div>
               <div className="flex justify-right">
@@ -77,7 +80,7 @@ export default function SignUpForm() {
               </div>
               <div className="relative">
                 <input
-                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-8 text-sm outline-2 placeholder:text-gray-500"
+                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-8 text-sm outline-2 placeholder:text-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                   id="email"
                   type="email"
                   name="email"
@@ -87,7 +90,9 @@ export default function SignUpForm() {
                 <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
               </div>
             </div>
-            {formState?.errors?.email && <p>{formState.errors.email}</p>}
+            {formState?.errors?.email && (
+              <p className="text-md text-pink-500">{formState.errors.email}</p>
+            )}
             <div className="mt-4">
               <div className="flex justify-right">
                 <label
@@ -99,7 +104,7 @@ export default function SignUpForm() {
               </div>
               <div className="relative">
                 <input
-                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                   id="password"
                   type="password"
                   name="password"
@@ -113,11 +118,11 @@ export default function SignUpForm() {
             {formState?.errors?.password &&
               formState.errors.password.length > 0 && (
                 <div>
-                  <div className="flex flex-row  text-red-500">
+                  <div className="flex flex-row  text-pink-500">
                     <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                    <p>Password must: </p>
+                    <p className="text-pink-600 py-2">Password must: </p>
                   </div>
-                  <div className="flex justify-left text-rose-600 py-2">
+                  <div className="flex justify-left text-pink-600 py-2">
                     <ul className="">
                       {formState.errors.password.map((error) => (
                         <li key={error}> -{error}</li>
@@ -127,6 +132,13 @@ export default function SignUpForm() {
                 </div>
               )}
           </div>
+          <div className="flex justify-center">
+            <p className="font-bold text-blue-600 py-2">
+              {formState?.message && formState.message.length > 0 && (
+                <p>{formState.message}</p>
+              )}
+            </p>
+          </div>
 
           <div className="flex justify-center mt-8">
             <Button aria-disabled={isPending} type="submit">
@@ -134,12 +146,21 @@ export default function SignUpForm() {
               <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
             </Button>
           </div>
-          <div className="flex justify-center">
-            <p className="font-bold text-blue-600 py-2">
-              {formState?.message && formState.message.length > 0 && (
-                <p>{formState.message}</p>
-              )}
-            </p>
+          <div className="mt-4 flex justify-center">
+            <Link
+              className="flex h-10 items-center rounded-lg bg-[#DDE6ED] px-4 text-sm font-medium text-[#27374D] transition-colors hover:bg-[#9DB2BF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#9DB2BF] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+              href="/login/google"
+            >
+              <Image
+                className="h-10 w-10 rounded-full object-cover p-2"
+                src={GoogleLogo}
+                alt="Google logo"
+                width={48}
+                height={48}
+              />
+              Log in with Google{" "}
+              {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
+            </Link>
           </div>
         </div>
       </div>

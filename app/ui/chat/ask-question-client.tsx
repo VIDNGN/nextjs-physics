@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Modal from "@/app/ui/modal/modal";
 import AskQuestionsForm from "./ask-question-form";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import { ChatBubbleOvalLeftIcon } from "@heroicons/react/20/solid";
 import styles from "@/app/ui/home.module.css";
 import { usePathname } from "next/navigation";

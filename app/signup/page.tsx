@@ -8,7 +8,7 @@ export default function SignUpPage() {
       <div className="w-full max-w-2xl">
         <div className="flex-col space-y-2.5 p-4">
           <div className="flex items-center justify-center">
-            <div className="w-32 md:w-32">
+            <div className="">
               <PhysTLogo />
             </div>
           </div>

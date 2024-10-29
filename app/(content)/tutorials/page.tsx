@@ -12,7 +12,7 @@ export default async function Page() {
 
     
   return (
-    <main className="mx-auto max-w-8xl items-center">
+    <main className="mx-auto h-min-screen lg:mt-8 lg:pt-38 lg:pb-24 max-w-8xl justify-between items-center">
       <Breadcrumbs
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -21,7 +21,7 @@ export default async function Page() {
       />
 
       {/* <h1 className={`${lusitana.className} mb-4 text-2xl md:text 2xl`}> */}
-      <h1 className="font-bold mb-4 text-2xl md:text 2xl">
+      <h1 className="font-bold lg:mb-4 text-2xl md:text 2xl">
         {/* {" "} */}
         Tutorials{" "}
       </h1>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 //import { useActionState } from 'react';
 import { useFormState } from "react-dom";
-import { Button } from "./button";
+import Button from "./button";
 //import { ContactFormSchema } from "@/app/lib/definitions";
 import { contact } from "@/app/lib/actions";
 

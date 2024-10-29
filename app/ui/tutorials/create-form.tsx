@@ -9,7 +9,7 @@ import {
   OptionField,
   CorrectAnswer,
 } from "@/app/lib/definitions";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import { fetchCorrectAnswerbyQuestionId } from "@/app/lib/data";
 
 export default function Form({

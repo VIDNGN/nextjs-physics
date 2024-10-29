@@ -25,7 +25,7 @@ export default function Footer() {
 
           {/* <ContactForm className="absolute inset-0"/> */}
           {/* </div> */}
-          <div className="px-4 py-8 sm:px-6 col-start-1 mx-auto lg:col-span-1 lg:px-2">
+          <div className="px-4 lg:py-8 sm:px-6 col-start-1 mx-auto lg:col-span-1 lg:px-2">
             <div className="flex flex-cols justify-items-center">
               <div className="text center">
                 {/* <p>
@@ -173,7 +173,7 @@ export default function Footer() {
           </div>
 
           <div className="px-4 py-8 sm:px-6 col-start-2 mx-auto lg:col-span-1 lg:px-2">
-            <p className="font-medium text-gray-900">Classes</p>
+            {/* <p className="font-medium text-gray-900">Browse All Topics</p> */}
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
@@ -182,7 +182,7 @@ export default function Footer() {
                   className="text-gray-700 transition hover:opacity-75"
                 >
                   {" "}
-                  1-on-1 Coaching{" "}
+                  How it works{" "}
                 </a>
               </li>
 
@@ -193,7 +193,7 @@ export default function Footer() {
                   className="text-gray-700 transition hover:opacity-75"
                 >
                   {" "}
-                  Physics{" "}
+                 Browse All Topics{" "}
                 </a>
               </li>
 
@@ -203,7 +203,16 @@ export default function Footer() {
                   className="text-gray-700 transition hover:opacity-75"
                 >
                   {" "}
-                  Math{" "}
+                  Why Personalized Learning Matters{" "}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/signup"
+                  className="text-gray-700 transition hover:opacity-75"
+                >
+                  {" "}
+                  Sign Up to Save Your Progress{" "}
                 </a>
               </li>
             </ul>

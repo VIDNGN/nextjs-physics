@@ -7,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export function Button({ children, className, onClick, ...rest }: ButtonProps) {
+export default function Button({ children, className, onClick, ...rest }: ButtonProps) {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 

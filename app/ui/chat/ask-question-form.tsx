@@ -5,7 +5,7 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import { answerQuestions } from "@/app/lib/actions";

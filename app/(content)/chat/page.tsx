@@ -1,6 +1,6 @@
 import { verifyAuth, getSessionData } from "@/app/lib/session";
 import { redirect } from "next/navigation";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import Breadcrumbs from "@/app/ui/tutorials/breadcrumbs";
 import React, { useState } from "react";
 import { fetchDiscussions, fetchDisussionReplies } from "@/app/lib/data";
@@ -38,13 +38,13 @@ export default async function Page() {
           { label: "Discussion", href: "/chat", active: true },
         ]}
       />
-      <div className="p-6 space-y-6">
+      <div className="lg:p-6 space-y-6">
         <h2 className="text-lg font-bold mb-8">Comments</h2>
         <div className="flex flex-col space-y-4">
           {discussions.map((discussion) => (
             <div
               key={discussion.id}
-              className="bg-gray-200 p-4 rounded-lg shadow-md"
+              className="bg-gray-200 lg:p-4 rounded-lg shadow-md"
             >
               {/* Main discussion */}
               <h3 className="text-md font-bold">{discussion.username}</h3>

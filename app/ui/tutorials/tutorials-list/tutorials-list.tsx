@@ -18,7 +18,7 @@ export default async function TutorialsList(): Promise<JSX.Element | null> {
 
   return (
     <div>
-      <ul className="grid gap-28 grid-cols-3">
+      <ul className="grid lg:gap-28 lg:grid-cols-3 gap-3 grid-cols-2">
         {tutorials.map((tutorial) => (
           <li key={tutorial.id}>
             <Link href={`/tutorials/${tutorial.slug}`}>

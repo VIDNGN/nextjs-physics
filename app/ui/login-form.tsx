@@ -4,7 +4,7 @@ import Link from "next/link";
 //import { useActionState } from 'react';
 import { useFormState } from "react-dom";
 import { authenticate } from "@/app/lib/auth-actions";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import GoogleLogo from "@/app/ui/icons8-google.svg";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -49,7 +49,7 @@ export default function LoginForm() {
 
               <div className="relative">
                 <input
-                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                   id="email"
                   type="email"
                   name="email"
@@ -59,7 +59,11 @@ export default function LoginForm() {
                 <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
               </div>
             </div>
-            {formState?.errors?.email && <p>{formState.errors.email}</p>}
+            {formState?.errors?.email && (
+              <p className="text-lg text-pink-600 pt-2">
+                {formState.errors.email}
+              </p>
+            )}
             <div className="mt-4">
               <label
                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -69,7 +73,7 @@ export default function LoginForm() {
               </label>
               <div className="relative">
                 <input
-                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                  className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                   id="password"
                   type="password"
                   name="password"
@@ -85,9 +89,9 @@ export default function LoginForm() {
                 <div>
                   <div className="flex flex-row">
                     <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                    <p>Password must: </p>
+                    <p className="text-pink-600 py-2">Password must: </p>
                   </div>
-                  <ul>
+                  <ul className="text-pink-600 py-2">
                     {formState.errors.password.map((error) => (
                       <li key={error}> -{error}</li>
                     ))}
@@ -95,8 +99,13 @@ export default function LoginForm() {
                 </div>
               )}
           </div>
+          <div className="flex justify-center font-bold text-blue-600 py-2">
+            {formState?.message && formState.message.length > 0 && (
+              <p>{formState.message}</p>
+            )}
+          </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-5 flex justify-center">
             <Button
               //className="mt-4 w-full"
               aria-disabled={isPending}
@@ -106,11 +115,6 @@ export default function LoginForm() {
             </Button>
           </div>
 
-          <div className="flex justify-center font-bold text-blue-600 py-2">
-            {formState?.message && formState.message.length > 0 && (
-              <p>{formState.message}</p>
-            )}
-          </div>
           <div className="mt-4 flex justify-center">
             <Link
               className="flex h-10 items-center rounded-lg bg-[#DDE6ED] px-4 text-sm font-medium text-[#27374D] transition-colors hover:bg-[#9DB2BF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#526D82] active:bg-[#9DB2BF] aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
@@ -135,7 +139,9 @@ export default function LoginForm() {
           </div> */}
           <div className="py-2 flex justify-center text-[#526D82]">
             <p>
-              <Link href={`/signup?callbackUrl=${callbackUrl}`}>New here? Create an account</Link>
+              <Link href={`/signup?callbackUrl=${callbackUrl}`}>
+                New here? Create an account
+              </Link>
             </p>
           </div>
         </div>

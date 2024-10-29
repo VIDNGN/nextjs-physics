@@ -9,7 +9,7 @@ import Breadcrumbs from "@/app/ui/tutorials/breadcrumbs";
 //import { lusitana } from "@/app/ui/fonts";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import { unstable_noStore as noStore } from "next/cache";
 import { motion, Variants } from "framer-motion";
 import ClientAnimatedImages from "@/app/ui/tutorials/clientAnimatedImages";

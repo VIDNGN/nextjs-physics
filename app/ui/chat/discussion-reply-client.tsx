@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Modal from "@/app/ui/modal/modal";
 import DiscussionReplyForm from "./discussion-reply-form";
-import { Button } from "@/app/ui/button";
+import Button  from "@/app/ui/button";
 import { ChatBubbleOvalLeftIcon } from "@heroicons/react/20/solid";
 import styles from "@/app/ui/home.module.css";
 import { usePathname } from "next/navigation";
@@ -41,7 +41,7 @@ const DiscussionReplyClient: React.FC<DiscussionReplyClientProps> = ({ isAuthent
 
   return (
     <div>
-      <div className="mt-6 flex justify-end">
+      <div className="lg:mt-6 p-2 flex justify-end">
         <Button onClick={openModal}>
          {buttonName}  
         <ChatBubbleOvalLeftIcon />

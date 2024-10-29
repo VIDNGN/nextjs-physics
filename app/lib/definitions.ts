@@ -47,6 +47,18 @@ export type Question = {
   question: string;
 };
 
+export type SurveyQuestion = {
+  id: string;
+  question_text: string;
+  options: { id: string; option_text: string, created_at: string,question_id: string, survey_id?:string }[]; // Adjust based on the actual structure of options
+  created_at: string;
+  survey_id?: string;
+};
+
+export type MyFormData = {
+  [key: string]: string;
+};
+
 export type QuestionField = {
   question_id: string;
   question: string;
@@ -234,8 +246,16 @@ export const ContactFormSchema = z.object({
   content: z.string({ message: "please enter your message." }),
   callbackUrl: z.string(),
 });
-// export type AuthMode = "login" | "signup";
 
-// export interface AuthFormProps {
-//   mode: AuthMode;
-// }
+export type SurveyFormState = 
+  |{ 
+    errors?: string | null;
+    //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
+    message?: string;
+  
+  }
+  | undefined;
+
+
+
+

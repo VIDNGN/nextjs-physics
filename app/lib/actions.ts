@@ -11,11 +11,13 @@ import {
   DiscussionReplyFormSchema,
   ContactFormState,
   ContactFormSchema,
+  SurveyFormState,
+  MyFormData,
 } from "@/app/lib/definitions";
 import { v4 as uuidv4 } from "uuid";
 import { validate as validateUUID } from "uuid";
 import { verifyAuth } from "@/app/lib/session";
-
+import { createSurveyEntry, submitSurveyAnswers } from "@/app/lib/data";
 
 const FormSchema = z.object({
   questionId: z.string(),
@@ -240,13 +242,13 @@ export async function postReplyToServer(
 }
 
 export async function contact(prevState: ContactFormState, formData: FormData) {
-  // Use Zod to update the expected types: 
-  //const CreateContactMessage = ContactFormSchema.omit({ date: true });  
+  // Use Zod to update the expected types:
+  //const CreateContactMessage = ContactFormSchema.omit({ date: true });
   const validatedFields = ContactFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     content: formData.get("content"),
-    callbackUrl: formData.get("callbackUrl")
+    callbackUrl: formData.get("callbackUrl"),
   });
 
   if (!validatedFields.success) {
@@ -268,6 +270,54 @@ export async function contact(prevState: ContactFormState, formData: FormData) {
     };
   } catch (error) {
     console.error("Error inserting into contacts: ", error);
-    return { success: false, message: "Something's wrong. Failed to submit your message"};
+    return {
+      success: false,
+      message: "Something's wrong. Failed to submit your message",
+    };
   }
+}
+
+export async function createSurvey(
+  prevState: SurveyFormState,
+  formData: MyFormData
+) {
+  //const rawFormData = Object.fromEntries(formData.entries());
+  const rawFormData = formData;
+  console.log(rawFormData);
+
+  if (!rawFormData) {
+    return {
+      errors: "Form data is invalid!",
+      message: "Form is empty",
+      correctAnswers: [],
+    };
+  }
+
+  try {
+    const survey_id = await createSurveyEntry(formData);
+
+    console.log("survey_id: ", survey_id);
+
+    const result = await submitSurveyAnswers(survey_id, formData);
+    if (result) {
+      return {
+        success: true,
+        message: "Successfully submitted survey answers",
+      };
+    }
+  } catch (error) {
+    console.error("Failed to submit answers for survey: ", error);
+    return { errors: "Failed to submit survey answers" };
+  }
+
+  // try {
+  //  // await sql`INSERT INTO contacts (name, email, content, date) VALUES (${name}, ${email}, ${content}, ${date});`;
+  //   return {
+  //     success: true,
+  //     message: "Thank you! Your message has beent sent.",
+  //   };
+  // } catch (error) {
+  //   console.error("Error inserting into contacts: ", error);
+  //   return { success: false, message: "Something's wrong. Failed to submit your message"};
+  // }
 }

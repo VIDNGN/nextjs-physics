@@ -4,7 +4,7 @@ import Link from "next/link";
 //import { useActionState } from 'react';
 import { useFormState } from "react-dom";
 import { contact } from "@/app/lib/actions";
-import { Button } from "./button";
+import Button from "./button";
 import { ContactFormState } from "@/app/lib/definitions";
 import {
   AtSymbolIcon,

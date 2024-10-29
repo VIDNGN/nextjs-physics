@@ -9,7 +9,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { redirect } from "next/navigation";
-import { Button } from "@/app/ui/button";
+import Button from "@/app/ui/button";
 import AskQuestionsForm from "@/app/ui/chat/ask-question-form";
 import styles from "@/app/ui/home.module.css";
 import AskQuestionClient from "@/app/ui/chat/ask-question-client";

@@ -28,7 +28,7 @@ export default function Page() {
         <PhysTLogo />
         </div> */}
         <h1 className="text-4xl font-bold">
-          Grok Vectors 
+          Grok Vectors AI
         </h1>
         <h2 className="text-2xl">Tutorials in Introductory Math and Physics</h2>
         <p className="text-xl max-w-3xl text-wrap text-pretty text-justify">
