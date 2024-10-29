@@ -60,9 +60,9 @@ questions in state will look like:
 */
 
   // Debugging log to check `questions` and `currentQuestion`
-//   console.log("Current Question Index:", currentQuestion);
-//   console.log("Questions:", questions);
-//   console.log("formData: ", formData);
+  console.log("Current Question Index:", currentQuestion);
+  console.log("Questions:", questions);
+  console.log("formData: ", formData);
 
   if (questions === null) {
     return <div>Loading survey questions</div>;
@@ -80,7 +80,9 @@ questions in state will look like:
   }
 
   // Increment current question
-  const handleNext = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleNext = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
     if (!selectedAnswer) {
@@ -88,11 +90,19 @@ questions in state will look like:
       alert("Please select an answer before proceeding.");
       return;
     }
-    
-    setFormData((prevData) => ({
-      ...prevData,
+
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   [selectedQuestion]: selectedAnswer,
+    // }));
+
+    // Temporarily store updated form data for immediate use in the last question check
+    const updatedFormData = {
+      ...formData,
       [selectedQuestion]: selectedAnswer,
-    }));
+    };
+
+    setFormData(updatedFormData)
 
     setSelectedAnswer(""); //clear the selected Answer for the next question
     setSelecteQuestion("");
@@ -101,8 +111,9 @@ questions in state will look like:
       setCurrentQuestion((prev) => prev + 1);
       //const nameInput = event.target.nodeName.split("_")[0];
     } else {
-      console.log(formData);
-      formAction(formData);
+      console.log("What is updatedFormData after last question: ", updatedFormData);
+      //formAction(formData);
+      formAction(updatedFormData); //use updatedFormData because formData is not updated. formData is only updated after the form is already sent for processing!
       setIsProcessing(true);
       setTimeout(
         () => {
@@ -114,7 +125,9 @@ questions in state will look like:
   };
 
   // Update the selected answer state when a radio button is clicked
-  const handleAnswerChange = (event : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleAnswerChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     const target = event.target as HTMLTextAreaElement | HTMLInputElement;
 
     //console.log(target.name);

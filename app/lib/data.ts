@@ -234,7 +234,8 @@ export async function createSurveyEntry(formData: MyFormData) {
 }
 export async function submitSurveyAnswers(survey_id: string, formData: MyFormData) {
   try {
-    const response = await fetch("https://survey-response-service-ecbe20fab83d.herokuapp.com/survey_answers", {
+   const response = await fetch("https://survey-response-service-ecbe20fab83d.herokuapp.com/survey_answers", {
+   //const response = await fetch("http://localhost:3002/survey_answers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -242,7 +243,7 @@ export async function submitSurveyAnswers(survey_id: string, formData: MyFormDat
         formData,
       }),
     });
-    console.log("resposne status submitSurveyanswers: ", response.status);
+    console.log("resposne status submitSurveyAnswers: ", response.status);
     if (!response.ok) {
       throw new Error("Failed to submit survey answers");
     }
