@@ -1,4 +1,5 @@
 import React from "react";
+import { Milestone } from "@/app/lib/definitions";
 
 const TimelineSVG: React.FC = () => {
   const milestones: Milestone[] = [
