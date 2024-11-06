@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer>
       
-        <div className="bg-gray-100 lg:grid lg:grid-cols-3 max-w-8xl">
+        <div className="bg-gray-100 lg:grid lg:grid-cols-3 md:grid md:grid-cols-2 max-w-8xl">
           {/* <div className="relative block lg:col-span-2 lg:h-full"> */}
           {/* <Image
           className="absolute inset-0 flex rounded-med w-2/3 h-96 relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
@@ -173,7 +173,7 @@ export default function Footer() {
           </div>
 
           <div className="px-4 py-8 sm:px-6 col-start-2 mx-auto lg:col-span-1 lg:px-2">
-            {/* <p className="font-medium text-gray-900">Browse All Topics</p> */}
+            <p className="font-medium text-gray-900">Information</p> 
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
@@ -197,7 +197,7 @@ export default function Footer() {
                 </a>
               </li>
 
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   className="text-gray-700 transition hover:opacity-75"
@@ -205,7 +205,7 @@ export default function Footer() {
                   {" "}
                   Why Personalized Learning Matters{" "}
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   href="/signup"

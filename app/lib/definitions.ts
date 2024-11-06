@@ -256,6 +256,12 @@ export type SurveyFormState =
   }
   | undefined;
 
+  interface Milestone {
+    year: number;
+    title: string;
+    description: string;
+    positin: number; //position along the SVG path using SVG markers 
+  }
 
 
 

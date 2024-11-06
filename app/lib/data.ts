@@ -174,15 +174,16 @@ export async function fetchTranslation(
 }
 
 export async function fetchSurveyQuestions() {
-  const response = await fetch(
-    `https://nextjs-physics-survey-service-ed3eab6bd412.herokuapp.com/survey_questions`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const fetchURL =
+    process.env.NODE_ENV === "production"
+      ? "https://nextjs-physics-survey-service-ed3eab6bd412.herokuapp.com/survey_questions"
+      : "http://localhost:3001/survey_questions";
+  const response = await fetch(fetchURL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch survey questions");
@@ -193,15 +194,16 @@ export async function fetchSurveyQuestions() {
 }
 
 export async function fetchSurveyQuestionOptions(question_id: string) {
-  const response = await fetch(
-    `https://nextjs-physics-survey-service-ed3eab6bd412.herokuapp.com/survey_questions_options/${question_id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const fetchURL =
+    process.env.NODE_ENV === "production"
+      ? "https://nextjs-physics-survey-service-ed3eab6bd412.herokuapp.com/survey_questions_options"
+      : "http://localhost:3001/survey_questions_options";
+  const response = await fetch(`${fetchURL}/${question_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch options for survey questions.");
@@ -214,7 +216,13 @@ export async function fetchSurveyQuestionOptions(question_id: string) {
 
 export async function createSurveyEntry(formData: MyFormData) {
   try {
-    const response = await fetch("https://nextjs-physics-survey-service-ed3eab6bd412.herokuapp.com/surveys", {
+    const fetchURL =
+      process.env.NODE_ENV === "production"
+        ? "https://nextjs-physics-survey-service-ed3eab6bd412.herokuapp.com/surveys"
+        : "http://localhost:3001/surveys";
+    console.log("fetchURL: ", fetchURL);
+
+    const response = await fetch(fetchURL, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ formData }),
@@ -232,14 +240,23 @@ export async function createSurveyEntry(formData: MyFormData) {
     console.error("Error creating a survey: ", error);
   }
 }
-export async function submitSurveyAnswers(survey_id: string, formData: MyFormData) {
+export async function submitSurveyAnswers(
+  survey_id: string,
+  formData: MyFormData
+) {
   try {
-   const response = await fetch("https://survey-response-service-ecbe20fab83d.herokuapp.com/survey_answers", {
-   //const response = await fetch("http://localhost:3002/survey_answers", {
+    const fetchURL =
+      process.env.NODE_ENV === "production"
+        ? "https://survey-response-service-ecbe20fab83d.herokuapp.com/survey_answers"
+        : "http://localhost:3002/survey_answers";
+    console.log("fetchURL: ", fetchURL);
+
+    const response = await fetch(fetchURL, {
+      //const response = await fetch("http://localhost:3002/survey_answers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        survey_id, 
+        survey_id,
         formData,
       }),
     });
@@ -248,10 +265,32 @@ export async function submitSurveyAnswers(survey_id: string, formData: MyFormDat
       throw new Error("Failed to submit survey answers");
     }
 
-    const result = await response.json();
-    console.log("Survey answers submitted successfully: ", result);
+    const result = await response.json(); //return null.
+    console.log("Submitted survey answers: ", result);
     return result;
   } catch (error) {
     console.error("Error submit suvery answers: ", error);
   }
+}
+
+export async function fetchSurveyAnswersBySurveyId(survey_id: string) {
+  const fetchURL =
+    process.env.NODE_ENV === "production"
+      ? "https://survey-response-service-ecbe20fab83d.herokuapp.com/survey_answers"
+      : "http://localhost:3002/survey_answers";
+  console.log("fetchURL: ", fetchURL);
+
+  const response = await fetch(`${fetchURL}/${survey_id}`, {
+    method: "GET",
+    headers: { "Content-type": "application/json" },
+  });
+
+  console.log(response.status);
+  if (!response.ok) {
+    throw new Error("failed to get survey answers for a survey id");
+  }
+
+  const result = await response.json();
+  console.log(result);
+  return result;
 }

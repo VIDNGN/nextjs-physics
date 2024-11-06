@@ -293,22 +293,27 @@ export async function createSurvey(
     };
   }
 
+  let survey_id = null;
   try {
-    const survey_id = await createSurveyEntry(formData);
+    survey_id = await createSurveyEntry(formData);
 
     console.log("survey_id: ", survey_id);
 
     const result = await submitSurveyAnswers(survey_id, formData);
+
     if (result) {
-      return {
-        success: true,
-        message: "Successfully submitted survey answers",
-      };
+      // return {
+      //   success: true,
+      //   message: survey_id,
+      // };
+   
     }
   } catch (error) {
     console.error("Failed to submit answers for survey: ", error);
     return { errors: "Failed to submit survey answers" };
   }
+
+  return redirect(`/lessons?survey_id=${survey_id}`);
 
   // try {
   //  // await sql`INSERT INTO contacts (name, email, content, date) VALUES (${name}, ${email}, ${content}, ${date});`;

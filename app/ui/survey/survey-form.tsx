@@ -115,12 +115,12 @@ questions in state will look like:
       //formAction(formData);
       formAction(updatedFormData); //use updatedFormData because formData is not updated. formData is only updated after the form is already sent for processing!
       setIsProcessing(true);
-      setTimeout(
-        () => {
-          router.push("/lessons");
-        },
-        2000 //1000ms delay for processing
-      );
+      // setTimeout(
+      //   () => {
+      //     router.push("/lessons");
+      //   },
+      //   1000 //1000ms delay for processing
+      // );
     }
   };
 
@@ -228,7 +228,7 @@ questions in state will look like:
             onClick={handleNext}
             // disabled={currentQuestion === questions.length - 1}
           >
-            Next
+            {currentQuestion === questions.length - 1 ? 'Submit': 'Next'}
           </Button>
         </div>
         <div className="mt-8">
