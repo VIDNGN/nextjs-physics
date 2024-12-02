@@ -2,8 +2,9 @@ import React, { useState, useEffect, Suspense } from "react";
 // import ProgressBar from "@/app/ui/ProgressBar";
 // import Button from "@/app/ui/button";
 import SurveyForm from "@/app/ui/survey/survey-form";
-
 import { fetchSurveyQuestions } from "@/app/lib/data";
+import { revalidatePath } from 'next/cache';
+
 
 export default function Page() {
   //const data = fetchSurveyQuestions();
@@ -43,9 +44,10 @@ export default function Page() {
   //     return <div>Loading survey questions</div>;
   //   }
 
+  revalidatePath('/welcome')
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-8 lg:pt-38 pb-24 max-w-8xl">
-      <div className="p-8 mt-24 flex-col bg-[#DBE2EF] flex items-center max-w-5xl">
+      <div className="lg:p-16 lg:mt-44 mt-28 flex-col bg-[#DBE2EF] flex items-center max-w-5xl">
         <h1 className="text-3xl font-bold pb-8"> Welcome!</h1>
         <Suspense fallback={<div>Loading...</div>}>
           <SurveyForm />

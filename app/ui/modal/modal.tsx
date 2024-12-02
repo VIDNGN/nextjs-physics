@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import styles from "@/app/ui/home.module.css";
 import Button from "@/app/ui/button";
+
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;

@@ -139,7 +139,7 @@ export default function LoginForm() {
           </div> */}
           <div className="py-2 flex justify-center text-[#526D82]">
             <p>
-              <Link href={`/signup?callbackUrl=${callbackUrl}`}>
+              <Link href={`/signup?callbackUrl=${callbackUrl}`} className="hover:underline">
                 New here? Create an account
               </Link>
             </p>

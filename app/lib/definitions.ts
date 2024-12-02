@@ -256,13 +256,31 @@ export type SurveyFormState =
   }
   | undefined;
 
- export interface Milestone {
-    year: number;
+  interface SubMilestone {
+    title: string;
+    description?: string;
+    status?: "Ready" | "Locked" | "Completed"; // Status for individual topics
+  }
+
+  export interface Milestone {
     title: string;
     description: string;
+    //topics: string[];
+    topics: subMilestone[];
     positionX?: number; //position along the SVG path using SVG markers
     positionY?: number 
   }
+
+
+
+
+//  export interface Milestone {
+//     year: number;
+//     title: string;
+//     description: string;
+//     positionX?: number; //position along the SVG path using SVG markers
+//     positionY?: number 
+//   }
 
 
 

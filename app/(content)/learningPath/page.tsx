@@ -34,13 +34,13 @@ function SuruveyContent() {
   return (
     //<Suspense fallback={<div>Loading...</div>}>: This component wraps around your main content and displays a loading fallback (<div>Loading...</div>) while waiting for useSearchParams to resolve.
 
-    <main className="flex min-h-screen flex-col items-center mt-8 lg:pt-38 lg:pt-24 pt-8 max-w-8xl">
+    <main className="flex min-h-screen flex-col items-center mt-4 lg:pt-12 pt-4 max-w-8xl">
       {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:mx-20 mx-5 lg:gap-4 mt-12 bg-[#DBE2EF]"> */}
-      <div className="lg:py-8 flex flex-col">
-        <h1 className="lg:text-4xl text-3xl font-bold text-pretty">
+      <div className="lg:py-8 lg:mt-8 flex flex-col">
+        <h1 className="lg:text-3xl text-2xl font-bold text-pretty">
           Based on what you shared with us
         </h1>
-        <h2 className="lg:text-3xl text-2xl italic py-8 text-pretty">
+        <h2 className="lg:text-3xl text-xl italic py-8 text-pretty">
           We created a tailored learning path for you!
         </h2>
         {/* 
@@ -70,8 +70,9 @@ function SuruveyContent() {
 
         </div> */}
       {/* </div> */}
-      <div className="w-2/3">
-        <TimelineSVG />
+      <div className="lg:w-full">
+      {console.log("survey_id to be passed to timeline: ", survey_id)}
+        <TimelineSVG survey_id = {survey_id} />
       </div>
     </main>
   );

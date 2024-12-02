@@ -143,7 +143,7 @@ questions in state will look like:
 
   return (
     // Centers the form container itself within the available space.
-    <div className="w-full flex justify-center">
+    <div className="w-full flex p-8 justify-center">
       {/*max-w-lg This limits the width of the form, keeping it from stretching unnecessarily wide on larger screens. */}
       <form className="max-w-lg" action="">
         <div className="flex flex-col items-center">

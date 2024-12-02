@@ -2,6 +2,8 @@ import { sql } from "@vercel/postgres";
 import { Tutorial, Question, Equipment, Option } from "./definitions";
 import { TutorialsTable, TutorialImage, MyFormData } from "./definitions";
 import { list } from "@vercel/blob";
+//import { open, close, readFile, appendFile } from "fs";
+//import { promisify } from "util";
 
 export async function fetchDiscussions() {
   try {
@@ -48,6 +50,27 @@ export async function fetchAllImagesFromBlob() {
     throw new Error("Failed to fetch blobs!");
   }
 }
+
+//how to go through blob:
+// const images = await fetchAllImagesFromBlob();
+
+// <div>
+//   {images.blobs
+//       .filter((image) =>
+//          image.pathname.startsWith(`homepage_${tutorial.slug}`))
+//        .map((image) => (
+//           <Image
+//             className="rounded-lg w-96 h-96"
+//             priority
+//             key={image.pathname}
+//             // src={tutorial.image_url}
+//             src={image.url}
+//             alt={tutorial.title}
+//             width={1064}
+//             height={1064}
+//           />
+//         ))}
+// </div>
 
 export async function fetchHomePageImages() {
   try {
@@ -294,3 +317,60 @@ export async function fetchSurveyAnswersBySurveyId(survey_id: string) {
   console.log(result);
   return result;
 }
+
+/*
+export async function fetchLearningPath(survey_id: str) {
+  // Promisify fs methods for easier use
+  const readFileAsync = promisify(readFile);
+  const appendFileAsync = promisify(appendFile);
+  const openAsync = promisify(open);
+  const closeAsync = promisify(close);
+
+  const CACHE_FILE = "AI_api_cache.json"; //Cache file to store responses
+
+  try {
+    let cache = {};
+    try {
+      const cacheContent = await readFileAsync(CACHE_FILE, "utf8");
+      cache = JSON.parse(cacheContent || {});
+    } catch (error) {
+      console.log("Cache file not found or empty, initializing a new one.");
+    }
+
+    if (cache[survey_id]) {
+      console.log(`Cache hit for survey id: ${survey_id}`);
+      return cache[survey_id];
+    }
+
+    const fetchUrl =
+      process.env.NODE_ENV === "production"
+        ? `http://localhost:3003/generate_personalized_learning_path/${survey_id}`
+        : `http://localhost:3003/generate_personalized_learning_path/${survey_id}`;
+
+    console.log("fetchUrl: ", fetchUrl);
+
+    const response = await fetch(fetchUrl, {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    });
+
+    console.log(response.status);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch learning path from AI service");
+    }
+
+    const result = await response.json();
+    cache[survey_id] = result;
+
+    await appendFileAsync(CACHE_FILE, JSON.stringify(cache, null, 2), "utf8"); //Pretty-print JSON for readability
+
+    console.log(`Cache updated for survey_id ${survey_id}`);
+    return result;
+  } catch (err) {
+    console.error("Error fetching or caching learing path: ", err);
+    throw err;
+  }
+}
+
+*/

@@ -313,7 +313,7 @@ export async function createSurvey(
     return { errors: "Failed to submit survey answers" };
   }
 
-  return redirect(`/lessons?survey_id=${survey_id}`);
+  return redirect(`/learningPath?survey_id=${survey_id}`);
 
   // try {
   //  // await sql`INSERT INTO contacts (name, email, content, date) VALUES (${name}, ${email}, ${content}, ${date});`;
