@@ -16,14 +16,14 @@ export default async function Page() {
       <Breadcrumbs
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Tutorials", href: "/tutorials", active: true },
+          { label: "Lessons", href: "/tutorials", active: true },
         ]}
       />
 
       {/* <h1 className={`${lusitana.className} mb-4 text-2xl md:text 2xl`}> */}
       <h1 className="font-bold lg:mb-4 text-2xl md:text 2xl">
         {/* {" "} */}
-        Tutorials{" "}
+        Lessons{" "}
       </h1>
 
       <div>

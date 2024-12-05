@@ -36,12 +36,12 @@ function SuruveyContent() {
 
     <main className="flex min-h-screen flex-col items-center mt-4 lg:pt-12 pt-4 max-w-8xl">
       {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:mx-20 mx-5 lg:gap-4 mt-12 bg-[#DBE2EF]"> */}
-      <div className="lg:py-8 lg:mt-8 flex flex-col">
+      <div className="lg:py-8 lg:mt-8 flex flex-col items-center">
         <h1 className="lg:text-3xl text-2xl font-bold text-pretty">
           Based on what you shared with us
         </h1>
-        <h2 className="lg:text-3xl text-xl italic py-8 text-pretty">
-          We created a tailored learning path for you!
+        <h2 className="lg:text-3xl text-xl italic pt-8 text-pretty">
+         Check out your Personalized learning path!
         </h2>
         {/* 
           <div className="text-lg items-center">

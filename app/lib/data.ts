@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { Tutorial, Question, Equipment, Option } from "./definitions";
-import { TutorialsTable, TutorialImage, MyFormData } from "./definitions";
+import { TutorialsTable, TutorialImage, MyFormData, AIContent } from "./definitions";
 import { list } from "@vercel/blob";
 //import { open, close, readFile, appendFile } from "fs";
 //import { promisify } from "util";
@@ -27,16 +27,16 @@ export async function fetchDisussionReplies() {
   }
 }
 
-export async function fetchTutorials() {
+export async function fetchLessons() {
   try {
-    const data = await sql`SELECT * FROM tutorials ORDER BY date ASC;`;
+    const data = await sql`SELECT * FROM lessons ORDER BY created_at ASC;`;
 
-    const tutorials = data.rows;
+    const lessons = data.rows;
 
-    return tutorials;
+    return lessons;
   } catch (error) {
     console.error("Database error: ", error);
-    throw new Error("Failed to fetch all tutorials!");
+    throw new Error("Failed to fetch all lessons!");
   }
 }
 
@@ -84,34 +84,34 @@ export async function fetchHomePageImages() {
   }
 }
 
-export async function fetchImagesByTutorialSlug(slug: string) {
+export async function fetchImagesByLessonSlug(slug: string) {
   try {
     const data = await sql<TutorialImage>`SELECT tutorials_images.image_url, 
                                       tutorials_images.image_name 
                                     FROM tutorials_images
-                                    JOIN tutorials ON tutorials_images.tutorial_id = tutorials.tutorial_id 
-                                    WHERE tutorials.slug = ${slug};`;
+                                    JOIN lessons ON tutorials_images.tutorial_id = lessons.tutorial_id 
+                                    WHERE lessons.slug = ${slug};`;
     const images = data.rows;
     return images;
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to fetch images for the tutorial.");
+    throw new Error("Failed to fetch images for the lesson.");
   }
 }
 
-export async function fetchTutorialBySlug(slug: string) {
+export async function fetchLessonBySlug(slug: string) {
   try {
     const data = await sql`SELECT 
-           tutorials.slug, tutorials.title, tutorials.image_url, tutorials.description, tutorials.qslug FROM tutorials WHERE tutorials.slug= ${slug};`;
+           lessons.slug, lessons.title, lessons.image_url, lessons.content, lessons.qslug FROM lessons WHERE lessons.slug= ${slug};`;
 
-    const tutorial = data.rows.map((tutorial) => ({
-      ...tutorial,
+    const lesson = data.rows.map((lesson) => ({
+      ...lesson,
     }));
 
-    return tutorial[0];
+    return lesson[0];
   } catch (error) {
     console.log("Database error: ", error);
-    throw new Error("Failed to fetch tutorial.");
+    throw new Error("Failed to fetch lesson.");
   }
 }
 
@@ -316,6 +316,25 @@ export async function fetchSurveyAnswersBySurveyId(survey_id: string) {
   const result = await response.json();
   console.log(result);
   return result;
+}
+
+export async function generateDBEntriesForLessons(parsedAIContent: AIContent){
+
+  const stages = parsedContent.stages;
+  const fetchUrl =
+  process.env.NODE_ENV === "production"
+    ? `http://localhost:3003/generate_lesson_content/`
+    : `http://localhost:3003/generate_lesson_content/`;
+
+  stages.forEach(async (stage, index) => {
+    
+    const topics = stage.topics;
+    topics.map((topic, Idx) => {
+      const prompt = `Generate a detailed lesson on the topic ${topic}`
+      const lessContent = fetch()
+    })
+  })
+
 }
 
 /*

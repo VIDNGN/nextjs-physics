@@ -50,7 +50,13 @@ export type Question = {
 export type SurveyQuestion = {
   id: string;
   question_text: string;
-  options: { id: string; option_text: string, created_at: string,question_id: string, survey_id?:string }[]; // Adjust based on the actual structure of options
+  options: {
+    id: string;
+    option_text: string;
+    created_at: string;
+    question_id: string;
+    survey_id?: string;
+  }[]; // Adjust based on the actual structure of options
   created_at: string;
   survey_id?: string;
 };
@@ -247,40 +253,53 @@ export const ContactFormSchema = z.object({
   callbackUrl: z.string(),
 });
 
-export type SurveyFormState = 
-  |{ 
-    errors?: string | null;
-    //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
-    message?: string;
-  
-  }
+export type SurveyFormState =
+  | {
+      errors?: string | null;
+      //message?: string | null; //message is optional (message?: string), which means it can be undefined or null or string.
+      message?: string;
+    }
   | undefined;
 
-  interface SubMilestone {
-    title: string;
-    description?: string;
-    status?: "Ready" | "Locked" | "Completed"; // Status for individual topics
-  }
+interface SubMilestone {
+  title: string;
+  description?: string;
+  status?: "Ready" | "Locked" | "Completed"; // Status for individual topics
+}
 
-  export interface Milestone {
-    title: string;
-    description: string;
-    //topics: string[];
-    topics: subMilestone[];
-    positionX?: number; //position along the SVG path using SVG markers
-    positionY?: number 
-  }
+export interface Milestone {
+  title: string;
+  description: string;
+  //topics: string[];
+  topics: subMilestone[];
+  activities: string[];
+  positionX?: number; //position along the SVG path using SVG markers
+  positionY?: number;
+}
 
+export interface stage {
+  title: string;
+  goals?: string;
+  focus?: string;
+  topics?: string[];
+  activities?: string[];
+}
+export interface AIContent {
+  title: string;
+  duration?: string;
+  daily_commitment?: string;
+  stages: stage[];
+}
 
-
-
+export type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+};
 //  export interface Milestone {
 //     year: number;
 //     title: string;
 //     description: string;
 //     positionX?: number; //position along the SVG path using SVG markers
-//     positionY?: number 
+//     positionY?: number
 //   }
-
-
-

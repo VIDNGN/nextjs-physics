@@ -1,14 +1,86 @@
 import React, { useEffect, useState } from "react";
-import { Milestone } from "@/app/lib/definitions";
+import { Milestone, AIContent } from "@/app/lib/definitions";
 import Link from "next/link";
 //import { fetchLearningPath } from "@/app/lib/data"
 
-function extractMilestones(content: string) {
+function parseContent(content: string) {
+  const patterns = {
+    title: /^###\s*(.*)$/m,
+    goal: /\*\*Goal\*\*:\s*(.*)/,
+    duration: /\*\*Duration\*\*:\s*(.*)/,
+    dailyCommitment: /\*\*Daily Commitment\*\*:\s*(.*)/,
+    stages: /###\s*\**(Stage\s*\d+):\s* (.*?)\s*\*{0,2}\n(.*?)---/gs, //stage[2]: title
+    //stages: /###\s*(\*{0,2})(Stage\s*\d+:(.*?))\1/g, // Stage\s*\d+: Matches "Stage 1", but it is not in a capturing group, so it’s not included in the result array.   (Stage\s*\d+): Captures the text "Stage 1".  \*{0,2}: Matches 0, 1, or 2 asterisks (*). (\*{0,2}): Captures the matched asterisks to use later in the regex (via \1) for consistency in closing. \1: Ensures the matched asterisks are closed with the same number of * that opened the section.
+
+    goals: /\*\*Goals\*\*:\s*(.*)/,
+    focus: /\*\*Focus\*\*:\s*(.*)/,
+    topics: /\*\*Topics\*\*:\s*\n([\s\S]*?)\n\n/,
+    activities: /\*\*Activities\*\*:\s*\n([\s\S]*?)\n\n/,
+  };
+
+  const result = {};
+  result.title =
+    content.match(patterns.title)?.[1] || "Personalized Learning Path";
+  result.goal = content.match(patterns.goal)?.[1] || null;
+  result.duration = content.match(patterns.duration)?.[1] || null;
+  result.dailyCommitment = content.match(patterns.dailyCommitment)?.[1] || null;
+
+  const stages = [...content.matchAll(patterns.stages)];
+  console.log(`type of stages: ${typeof stages}`);
+  console.log(`stages in parseContent: ${stages}`);
+
+  result.stages = stages.map((stage, stageIdx) => {
+    const stageContent = stage;
+    console.log("Stage content: ", stageContent);
+    //console.log("Goals in stages: ", stage.match(patterns.goals)?.[1])
+    //console.log("Focus in stages: ", stage.match(patterns.focus)?.[1] )
+
+    return {
+      title: stage?.[2] || "Untitled",
+      goals: stage.toString().match(patterns.goals)?.[1] || null,
+      focus: stage.toString().match(patterns.focus)?.[1] || null,
+      topics:
+        stage
+          .toString()
+          .match(patterns.topics)?.[1]
+          .split("\n")
+          .map((topic, topicIdx) => ({
+            title: topic.replace(/^- /, "").trim(),
+            status: topicIdx === 0 && stageIdx === 0 ? "Ready" : "Locked",
+          })) || [],
+      activities:
+        stage
+          .toString()
+          .match(patterns.activities)?.[1]
+          .split("\n")
+          .map((activity) => activity.replace(/^-/, "").trim()) || [],
+    };
+  });
+  console.log("result from parseContent: ", result);
+  return result;
+}
+
+function extractMilestones(parsedContent: AIContent) {
   const milestones: Milestone[] = [];
 
-  //Split the content into State using "---" separator
-  const stages = content.split("---");
+  const stages = parsedContent.stages;
+  console.log(`stages for milestones: ${stages}`);
 
+  stages.forEach((stage, index) => {
+    milestones.push({
+      title: stage.title,
+      description: stage.focus ? stage.focus : stage.goals,
+      topics: stage.topics,
+      activites: stage.activities,
+      positionX: index * 15 - 5,
+      positionY: 1,
+    });
+  });
+  /*
+
+  //Split the content into Stage using "---" separator
+  const stages = content.split("---");
+ 
   //process each stage to extract title, goals, and topics
   stages.forEach((stage, index) => {
     const tiltleMatch = stage.match(/### (Stage \d+: .+)/);
@@ -18,14 +90,14 @@ function extractMilestones(content: string) {
     console.log("topicsMatch: ", topicsMatch);
 
     if (tiltleMatch && goalsMatch && topicsMatch) {
-      console.log("titleMatch: ", tiltleMatch)
+      console.log("titleMatch: ", tiltleMatch);
       //Extract topis as an array
       const topics = topicsMatch[1]
         .split("\n") //split by newline
         .filter((line) => line.startsWith("- ")) //keep only lines that start with "- "
         .map((line, idx) => ({
           title: line.replace("- ", "").trim(), //remove '- ' and trim spaces
-          status: (idx === 0 && index===1) ? "Ready" : "Locked", // First topic is "Ready", others are "Locked" by default
+          status: idx === 0 && index === 1 ? "Ready" : "Locked", // First topic is "Ready", others are "Locked" by default
         }));
 
       milestones.push({
@@ -37,6 +109,8 @@ function extractMilestones(content: string) {
       });
     }
   });
+
+  */
 
   console.log("milestones: ", milestones);
   return milestones;
@@ -54,16 +128,19 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
   useEffect(() => {
     const fetchLearningPath = async () => {
       try {
+        console.log("useEffect triggered with survey_id:", survey_id);
         const response = await fetch(
           `/api/learningPath?survey_id=${survey_id}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch learning path in Timeline");
+          const errorData = await response.json()
+          throw new Error(`Failed to fetch learning path in Timeline with error: ${errorData.message || 'Unknown error'}`);
         }
         const data = await response.json();
         setLearningPath(data);
       } catch (err) {
         console.error("Error fetching learning path:", err);
+        throw err;
       } finally {
         setLoading(false);
       }
@@ -72,15 +149,20 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
     fetchLearningPath();
   }, [survey_id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!learningPath) return <p>No data available</p>;
+  if (loading) return (<div className="flex justify-center"><p className="text-2xl">Loading...</p></div>);
+  if (!learningPath) return <div className="flex justify-center"><p className="text-2xl">No data available</p></div>;
   //console.log("learningPath returned in timeline: ", learningPath)
 
-  const content = learningPath["generated_learning_path_response"]["content"];
-  console.log("Type of cotent: ", typeof content);
-  console.log("content returned from cache or API: ", content);
+  // const content = learningPath["generated_learning_path"]["content"];
+  const content = learningPath;
+  //console.log("Type of cotent: ", typeof content);
+  //console.log("content returned from cache or API: ", content);
 
-  const milestones = extractMilestones(content);
+  const parsedAIContent = parseContent(content);
+  const overall_goal = parsedAIContent.goal;
+  console.log(`overall goal for milestone: ${overall_goal}`);
+  //console.log(`Parsed AI Content: ${JSON.stringify(parsedAIContent)}`)
+  const milestones = extractMilestones(parsedAIContent);
 
   // Assume userProgress is fetched from a database or API
   const userProgress = {
@@ -88,10 +170,13 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
   };
 
   return (
-    <div className="flex justify-center items-center lg:p-2">
-      <div className="overflow-auto md:h-[90vh] h-[80vh] lg:w-[70%] mx-auto border border-gray-300 rounded p-2 ">
+    <div className="flex flex-col justify-center items-center lg:p-2">
+      <div>
+        <h3 className="text-2xl font-bold pb-8">{`Learning goal: ${overall_goal}`}</h3>
+      </div>
+      <div className="overflow-auto md:h-[90vh] h-[70vh] lg:w-[70%] mx-auto border border-gray-300 rounded p-2 ">
         <svg
-          viewBox="0 0 130 130" //define the coordinate system
+          viewBox="0 0 110 130" //define the coordinate system
           className="w-full h-full" // border-dashed border-2 border-indigo-600
           // preserveAspectRatio="xMidYMid meet" // Adjust scaling behavior
           preserveAspectRatio="none" //scale horizontally
@@ -177,7 +262,7 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
                   x="3"
                   y="1"
                   fill="#2A3663"
-                  fontSize="3"
+                  fontSize="2.5"
                   fontWeight="bold"
                   textAnchor="start"
                 >
@@ -185,7 +270,7 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
                 </text>
 
                 {/* Description */}
-                <text x="5" y="5" fill="black" fontSize="2.5">
+                <text x="5" y="5" fill="black" fontSize="2">
                   {milestone.description}
                 </text>
 
@@ -221,23 +306,42 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
 
                       {topic.status === "Ready" ? (
                         <Link
-                          href="/tutorials"
+                          href={`/lessons/current/${encodeURIComponent(
+                            topic.title
+                          )}`}
                           className=""
                         >
                           <text x="5" y="1" fill="#555" fontSize="2">
                             <tspan>{topic.title}</tspan>
-                            <tspan x={topic.title.length + 5} dy="0" fontSize="2.5" fill="#F28A21" className="underline underline-offset-4 hover:opacity-70 hover:focus:outline-none focus:opacity-80">
+                            <tspan
+                              x={topic.title.length + 8}
+                              dy="0"
+                              fontSize="2.5"
+                              fill="#F28A21"
+                              className="underline underline-offset-4 hover:opacity-70 hover:focus:outline-none focus:opacity-80"
+                            >
                               Start lesson
                             </tspan>
                           </text>
                         </Link>
                       ) : topic.status === "Locked" ? (
-                        <Link href="/Preview">
+                        <Link
+                          href={`/lessons/preview/${encodeURIComponent(
+                            topic.title
+                          )}?modal=true`}
+                        >
+                          {/* href={`/lessons/preview/${topic.slug}?modal=true` as=`lessons/preview/@modal/${topic.slug}`}> */}
                           <text x="5" y="1" fill="#555" fontSize="2">
                             <tspan>{topic.title}</tspan>
-                            <tspan x={topic.title.length +  10} dy="0" fontSize="2" fill="#3F72AF" className="underline underline-offset-4 hover:opacity-70 hover:focus:outline-none focus:opacity-80">
-                            Preview lesson
-                          </tspan>
+                            <tspan
+                              x={topic.title.length + 8}
+                              dy="0"
+                              fontSize="2"
+                              fill="#3F72AF"
+                              className="underline underline-offset-4 hover:opacity-70 hover:focus:outline-none focus:opacity-80"
+                            >
+                              Preview lesson
+                            </tspan>
                           </text>
                         </Link>
                       ) : (

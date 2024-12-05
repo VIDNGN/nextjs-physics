@@ -1,12 +1,13 @@
 import React, { ReactNode } from "react";
 import styles from "@/app/ui/home.module.css";
 import Button from "@/app/ui/button";
+import {ModalProps} from "@/app/lib/definitions";
 
-type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-};
+// type ModalProps = {
+//   isOpen: boolean;
+//   onClose: () => void;
+//   children: ReactNode;
+// };
 import {XMarkIcon} from "@heroicons/react/20/solid";
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {

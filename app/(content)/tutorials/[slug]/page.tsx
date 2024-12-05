@@ -1,7 +1,7 @@
 import {
-  fetchTutorialBySlug,
+  fetchLessonBySlug,
   fetchAllImagesFromBlob,
-  fetchImagesByTutorialSlug,
+  fetchImagesByLessonSlug,
 } from "@/app/lib/data";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -13,13 +13,16 @@ import Button from "@/app/ui/button";
 import { unstable_noStore as noStore } from "next/cache";
 import { motion, Variants } from "framer-motion";
 import ClientAnimatedImages from "@/app/ui/tutorials/clientAnimatedImages";
-import { ChatBubbleOvalLeftIcon, SpeakerWaveIcon } from "@heroicons/react/20/solid";
+import {
+  ChatBubbleOvalLeftIcon,
+  SpeakerWaveIcon,
+} from "@heroicons/react/20/solid";
 import AskQuestionClient from "@/app/ui/chat/ask-question-client";
 import { verifyAuth, getSessionData } from "@/app/lib/session";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Tutorials",
+  title: "Lesson",
 };
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -27,11 +30,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const tslug = params.slug;
   //console.log(tslug);
 
-  const tutorial = await fetchTutorialBySlug(tslug);
+  const tutorial = await fetchLessonBySlug(tslug);
   //const title = tutorial.title;
   //const images = await fetchAllImagesFromBlob();
 
-  const tutorial_images = await fetchImagesByTutorialSlug(tslug);
+  const tutorial_images = await fetchImagesByLessonSlug(tslug);
 
   const keyTerms = [
     "gravity",
@@ -67,13 +70,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <Breadcrumbs
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Tutorials", href: "/tutorials" },
+          { label: "Lessons", href: "/tutorials" },
           { label: `${tslug}`, href: `/tutorials/${tslug}`, active: true },
         ]}
       />
 
       <div className="mt-6 flex justify-end">
-        <AskQuestionClient isAuthenticated={!!userId} buttonName="Ask Questions"/>
+        <AskQuestionClient
+          isAuthenticated={!!userId}
+          buttonName="Ask Questions"
+        />
       </div>
 
       <div className="flex flex-col justify-left">
@@ -110,7 +116,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </div>
 
           <div className="text-justify leading-9 whitespace-pre-wrap bg-gray-100 p-6 rounded-lg shadow-md">
-            {tutorial.description
+            {tutorial.content
               .split(/\r\n|\r|\n/) //The default line ending varies depending on the platform (Unix, Windows, etc.). The line splitting provided in this example works on all platforms.
               .map((paragraph: string, idx: number, paragraphs: string[]) =>
                 idx < 3 ? (
