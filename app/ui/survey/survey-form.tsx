@@ -60,9 +60,9 @@ questions in state will look like:
 */
 
   // Debugging log to check `questions` and `currentQuestion`
-  console.log("Current Question Index:", currentQuestion);
-  console.log("Questions:", questions);
-  console.log("formData: ", formData);
+  //console.log("Current Question Index:", currentQuestion);
+  //console.log("Questions:", questions);
+  //console.log("formData: ", formData);
 
   if (questions === null) {
     return <div>Loading survey questions</div>;

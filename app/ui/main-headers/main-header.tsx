@@ -11,8 +11,8 @@ import HambugerIcon from "@/app/assets/hamburgerIcon.svg";
 import {useState } from 'react';
 
 export default function MainHeader() {
+  
   const [isMenuOpen, setIsMenuOopen] = useState<boolean>(false);
-
   const toggleMenu = () => {
     setIsMenuOopen(!isMenuOpen);
   };

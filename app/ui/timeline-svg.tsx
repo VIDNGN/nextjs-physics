@@ -170,7 +170,7 @@ const TimelineSVG: React.FC<{ survey_id: string }> = ({
   };
 
   return (
-    <div className="flex flex-col justify-center items-center lg:p-2">
+    <div className="flex flex-col justify-center items-center lg:p-2 dark:invert">
       <div>
         <h3 className="text-2xl font-bold pb-8">{`Learning goal: ${overall_goal}`}</h3>
       </div>

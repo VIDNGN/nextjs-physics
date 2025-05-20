@@ -1,0 +1,106 @@
+{
+  "title": "Learning Plan for Electromagnetism",
+  "duration": "4 Weeks",
+  "daily_commitment": "30 minutes",
+  "Goal": "Strengthen basic math skills to support understanding of mechanics while improving consistency in learning."
+  "stages": [
+    {
+      "title": "Stage 1: Introduction to Electromagnetism",
+      "goals": "Gain a foundational understanding of basic concepts.",
+      "focus": null,
+      "topics": ["Nature of electric fields", "Basics of magnetic fields", "Coulomb's Law"],
+      "activities": [
+        "Watch introductory videos on electric and magnetic fields.",
+        "Read a beginner-friendly textbook or online resource.",
+        "Practice simple problems related to Coulomb's Law."
+      ]
+    }
+  ]
+}
+
+
+result from parseContent:  
+{
+    "title": "Personalized Learning Plan for Math and Mechanics",
+    "goal": "Strengthen basic math skills to support understanding of mechanics while improving consistency in learning.",
+    "duration": null,
+    "dailyCommitment": null,
+    "stages": [
+        {
+            "title": "Foundational Learning (Weeks 1-2)",
+            "goals": null,
+            "focus": "Basic Arithmetic & Understanding Mechanics Concepts",
+            "topics": [
+                {
+                    "title": "Addition, subtraction, multiplication, division",
+                    "status": "Ready"
+                },
+                {
+                    "title": "Introduction to mechanics (concepts like force, motion)",
+                    "status": "Locked"
+                }
+            ],
+            "activities": [
+                "**Math (10 min)**: Use online resources or apps (like Khan Academy) to practice basic arithmetic problems. Aim for 5-10 practice problems each night.",
+                "**Science (10 min)**: Watch a short YouTube video (5-7 mins) explaining key mechanics concepts, then summarize what you learned in 3-5 sentences."
+            ]
+        },
+        {
+            "title": "Intermediate Skills (Weeks 3-4)",
+            "goals": null,
+            "focus": "Applying Math Skills to Mechanics",
+            "topics": [
+                {
+                    "title": "Unit conversions and basic geometry (area, perimeter)",
+                    "status": "Locked"
+                },
+                {
+                    "title": "Basic laws of mechanics (Newton's laws)",
+                    "status": "Locked"
+                }
+            ],
+            "activities": [
+                "**Math (10 min)**: Solve practical problems involving unit conversions and area calculations (e.g., calculating the area of a rectangle). Aim for 3-5 problems focused on real-world applications.",
+                "**Science (10 min)**: Conduct simple experiments (like measuring the drop of a ball) and document the results, connecting the experiment to Newton's laws."
+            ]
+        },
+        {
+            "title": "Application and Problem Solving (Weeks 5-6)",
+            "goals": null,
+            "focus": "Strengthening Concept Application in Real-World Scenarios",
+            "topics": [
+                {
+                    "title": "Algebra basics (solving for x)",
+                    "status": "Locked"
+                },
+                {
+                    "title": "Problem-solving with mechanics (calculating speed, distance, and time)",
+                    "status": "Locked"
+                }
+            ],
+            "activities": [
+                "**Math (10 min)**: Complete problems that involve setting up equations and solving for unknowns, with a focus on word problems.",
+                "**Science (10 min)**: Create a mini-project (like building a simple structure) to apply mechanics concepts. Document the process and the principles involved."
+            ]
+        },
+        {
+            "title": "Review and Deepening Knowledge (Weeks 7-8)",
+            "goals": null,
+            "focus": "Mastery through Revisiting Concepts and Advanced Applications",
+            "topics": [
+                {
+                    "title": "Review key math concepts (addition, subtraction, multiplying units)",
+                    "status": "Locked"
+                },
+                {
+                    "title": "Deeper exploration into forces and motion (e.g., friction, gravity)",
+                    "status": "Locked"
+                }
+            ],
+            "activities": [
+                "**Math (10 min)**: Take quizzes that cover all previously learned math concepts and mechanics applications.",
+                "**Science (10 min)**: Read a short article or chapter about advanced mechanics concepts and relate them to previous learnings. Write a brief reflection on how understanding these concepts can apply to everyday situations."
+            ]
+        }
+    ]
+}

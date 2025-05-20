@@ -34,6 +34,7 @@ function isNeonDbError(error: unknown): error is NeonDbError {
   );
 }
 
+//use during log-in (log-in form) to authenticate user against db.
 export async function authenticate(
   prevState: SignupFormState,
   formData: FormData
@@ -60,7 +61,7 @@ export async function authenticate(
 
     if (!user) {
       return {
-        message: "Invalid credentials",
+        message: "Invalid credentials. User Not Found.",
       };
     }
     const passwordsMatch = await bcrypt.compare(password, user.password);
